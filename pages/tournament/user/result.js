@@ -1,0 +1,107 @@
+import Index from '../../../components/Index.js';
+import ButtonJlc from '../../../components/parts/ButtonJlc.js';
+import SmallButton from '../../../components/parts/SmallButton.js';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import API from './../../../plugins/customAxios.js';
+import Link from 'next/link';
+
+export default function TournamentUser() {
+
+  const boardgameId = 1;
+  const router = useRouter();
+  const tournamentId = (router.query.TournamentId) ? router.query.TournamentId : '';
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  async function getUsers() {
+    await API.post('user/get_entry_users', {
+      "tournament_id": tournamentId,
+      "permit_flag": true
+    }).then(res => {
+      setUsers(res.data.users);
+    }).catch(err => {
+      // console.log(err);
+      router.push({ pathname: "/"});
+    });
+  }
+
+  async function resultSend() {
+      // パラメータ作成
+      const UserCount = users.length;
+      let results = [];
+      for (let UserIndex = 0; UserIndex < UserCount; UserIndex++) {
+        let userId = users[UserIndex].user.id;
+        let score = document.getElementById(userId);
+        let resultObject = {
+          "id": users[UserIndex].id,
+          "user_id": userId,
+          "score": score.value
+        }
+        results.push(resultObject);
+      }
+
+      // API
+      await API.post('user/save_tournament', {
+        "tournament_id": tournamentId,
+        "users": results
+      }).then(res => {
+        if ('OK' == res.data.result) {
+          router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, SponsorFlag: true}}, "/tournament/detail");
+        }
+      }).catch(err => {
+        // console.log(err);
+      });
+    }
+
+  async function returnPage() {
+    router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, SponsorFlag: true}}, "/tournament/detail");
+  }
+
+  return (
+    <Index title="">
+      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div class="font-semibold text-2xl py-5">
+          結果送信
+        </div>
+        <div class="pt-3 mx-8 border-y border-gray-500">
+          <table class="table-auto w-full mx-auto text-center">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.length ? users.map(user => (
+                <tr class="">
+                  <td class="w-1/3 h-16 text-s md:text-s mr-4">
+                    <p class="">{ user.user.name }</p>
+                  </td>
+                  <td class="w-2/3">
+                    <p class=""><input type="number" id={`${user.user.id}`} class="h-10 pl-2 rounded-md border-2 border-black" placeholder="100" /></p>
+                  </td>
+                </tr>
+              )) : (
+                <tr class="">
+                  <td class="h-16 text-s md:text-s mr-4">
+                    <p></p>
+                  </td>
+                  <td class="">
+                    <p class=""></p>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+          <div class="mt-4"><ButtonJlc func={ resultSend }>送信</ButtonJlc></div>
+        </div>
+        <div class="mt-4 pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
+      </div>
+    </Index>
+  )
+}

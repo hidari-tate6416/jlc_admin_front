@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    container_name: insider_front
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"
+    command: bash -c "npm run dev"
