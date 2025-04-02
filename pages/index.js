@@ -10,26 +10,15 @@ export default function Home() {
   const boardgameId = 1;
   const router = useRouter();
 
-  const [userName, setUserName] = useState("");
-  const [userGradeName, setUserGradeName] = useState("");
-  const [userGradeId, setUserGradeId] = useState(0);
-  const [userTypeId, setUserTypeId] = useState(0);
-
   useEffect(() => {
-    getUserData();
+    getAdminData();
   }, []);
 
-  async function getUserData() {
-    await API.post('user/profile', {
+  async function getAdminData() {
+    await API.post('admin/profile', {
       "boadgame_id": boardgameId
     }).then(res => {
-      if ('OK' == res.data.result) {
-        setUserName(res.data.user_name);
-        setUserGradeName(res.data.grade_name);
-        setUserGradeId(res.data.grade_id);
-        setUserTypeId(res.data.user_type_id);
-      }
-      else {
+      if ('OK' != res.data.result) {
         router.push({ pathname: "/login"});
       }
     }).catch(err => {
@@ -38,44 +27,35 @@ export default function Home() {
     });
   }
 
+  async function moveUserList() {
+    router.push({ pathname: "/user/"});
+  }
+  async function moveTournamentPermitedList() {
+    router.push({ pathname: "/tournament/", query: {PermitFlag: true}}, "/tournament/permit");
+  }
   async function moveTournamentList() {
     router.push({ pathname: "/tournament/"});
   }
-  async function moveEntriedList() {
-    router.push({ pathname: "/tournament/", query: {EntriedFlag: true}}, "/tournament/entried");
+  async function moveSendMainTournament() {
+    router.push({ pathname: "/tournament/tournament_send"});
   }
-  async function moveTopTournament() {
-    router.push({ pathname: "/tournament/", query: {MainFlag: true}}, "/tournament/top");
-  }
-  async function moveSponsorTournamentList() {
-    router.push({ pathname: "/tournament/", query: {SponsorFlag: true}}, "/tournament/sponsor");
-  }
-  async function moveSponsorTournament() {
-    router.push({ pathname: "/tournament/sponsor_send"});
+  async function moveMainList() {
+    router.push({ pathname: "/tournament/", query: {MainFlag: true}}, "/tournament/main");
   }
 
   return (
     <Index title="">
       <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="py-5">
-          <div class="text-xl">
-            現在の{ userName }さんの段は
-          </div>
-          <h2 class="text-4xl font-semibold py-5">
-            { userGradeName }
-          </h2>
+        <div class="font-semibold text-2xl py-5">
+          管理者メニュー
         </div>
 
         <div class="py-5">
-          <div><ButtonJlc func={ moveTournamentList } class="py-4">予選エントリー</ButtonJlc></div>
-          <div><ButtonJlc func={ moveEntriedList } class="py-4">エントリー確認</ButtonJlc></div>
-          { 2 <= userGradeId && (
-            <div><ButtonJlc func={ moveTopTournament } class="py-4">本戦エントリー</ButtonJlc></div>
-          )}
-          { 2 == userTypeId && (
-            <div><ButtonJlc func={ moveSponsorTournamentList } class="py-4">開催予選一覧</ButtonJlc></div>
-          )}
-          <div><ButtonJlc func={ moveSponsorTournament } class="py-4">予選開催</ButtonJlc></div>
+          <div><ButtonJlc func={ moveUserList } class="py-4">会員確認</ButtonJlc></div>
+          <div><ButtonJlc func={ moveTournamentPermitedList } class="py-4">予選一覧</ButtonJlc></div>
+          <div><ButtonJlc func={ moveTournamentList } class="py-4">予選申請確認</ButtonJlc></div>
+          <div><ButtonJlc func={ moveSendMainTournament } class="py-4">本戦登録</ButtonJlc></div>
+          <div><ButtonJlc func={ moveMainList } class="py-4">本戦確認</ButtonJlc></div>
         </div>
         <div class="pb-4"><Link href="/login" class="text-s text-blue">ログアウト</Link></div>
       </div>

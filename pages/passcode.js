@@ -9,7 +9,7 @@ export default function Passcode() {
 
   const router = useRouter();
   const email = (router.query.Email) ? router.query.Email : '';
-  const birthday = (router.query.Birthday) ? router.query.Birthday : '';
+  const name = (router.query.Name) ? router.query.Name : '';
   const [alertText, setAlertText] = useState("");
 
   // クエリなしでこの画面に来たら前の画面に戻る
@@ -18,13 +18,8 @@ export default function Passcode() {
   }, []);
 
   async function checkInput() {
-    if (!email) {
-      if (!birthday) {
-        router.push({ pathname: "/register_email"});
-      }
-      else {
-        router.push({ pathname: "/password_email"});
-      }
+    if (!email || !name) {
+      router.push({ pathname: "/password_email"});
       return;
     }
   }
@@ -38,27 +33,17 @@ export default function Passcode() {
       return;
     }
 
-    await API.post('user/auth_passcord', {
+    await API.post('admin/auth_passcord', {
       "email": email,
       "passcode": passcode.value
     }).then(res => {
       if ('OK' === res.data.result) {
-        if (!birthday) {
-          router.push({ pathname: "/register", query: {Email: email, Passcode: passcode.value}}, "register");
-        }
-        else {
-          router.push({ pathname: "/password", query: {Email: email, Birthday: birthday, Passcode: passcode.value}}, "password");
-        }
+        router.push({ pathname: "/password", query: {Email: email, Name: name, Passcode: passcode.value}}, "password");
       }
       else {
         let failtureCount = res.data.failure_count;
         if (5 == failtureCount) {
-          if (!birthday) {
-            router.push({ pathname: "/register_email"});
-          }
-          else {
-            router.push({ pathname: "/password_email"});
-          }
+          router.push({ pathname: "/password_email"});
         }
         let restCount = 5 - failtureCount;
         setAlertText("パスコードが間違っています。残り失敗回数：" + restCount + "回");
@@ -72,9 +57,9 @@ export default function Passcode() {
     <Index title="">
       <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
         <div class="font-semibold text-2xl py-5">
-          JLC登録
+          パスワード再発行
         </div>
-        <span class="text-xs pt-6">メールで送られたパスコードを入力して、<br/>認証ボタンを押下してください。
+        <span class="text-xs pt-6">メールに送られたパスコードを入力して、<br/>認証ボタンを押下してください。
         </span>
         <div class="flex justify-between pt-6 mb-6">
           <div class="w-1/3 my-auto md:mr-4">パスコード</div>

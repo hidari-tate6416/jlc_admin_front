@@ -10,12 +10,11 @@ export default function Tournament() {
 
   const boardgameId = 1;
   const router = useRouter();
-  const entriedFlag = (router.query.EntriedFlag) ? true : false;
-  const sponsorFlag = (router.query.SponsorFlag) ? true : false;
+  const permitFlag = (router.query.PermitFlag) ? true : false;
   const mainFlag = (router.query.MainFlag) ? true : false;
 
   const [tournaments, setTournamens] = useState([]);
-  const [title, setTitle] = useState('予選一覧');
+  const [title, setTitle] = useState('予選申請一覧');
 
   useEffect(() => {
     getTitle();
@@ -23,10 +22,8 @@ export default function Tournament() {
   }, []);
 
   function getTitle() {
-    if (entriedFlag) {
-      setTitle('参加済み予選一覧');
-    } else if (sponsorFlag) {
-      setTitle('開催予選一覧');
+    if (permitFlag) {
+      setTitle('予選一覧');
     } else if (mainFlag) {
       setTitle('本戦一覧');
     } else {
@@ -35,13 +32,17 @@ export default function Tournament() {
   }
 
   async function getTournaments() {
-    await API.post('user/get_list_tournament', {
+    await API.post('admin/get_list_tournament', {
       "boardgame_id": boardgameId,
-      "sponsor_flag": sponsorFlag,
-      "entried_flag": entriedFlag,
+      "permit_flag": permitFlag,
       "main_flag": mainFlag
     }).then(res => {
-      setTournamens(res.data.tournaments);
+      if ('OK' == res.data.result) {
+        setTournamens(res.data.tournaments);
+      }
+      else {
+        router.push({ pathname: "/"});
+      }
     }).catch(err => {
       // console.log(err);
       router.push({ pathname: "/"});
@@ -49,10 +50,8 @@ export default function Tournament() {
   }
 
   async function detailTournament(tournamentId) {
-    if (entriedFlag) {
-      router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, EntriedFlag: entriedFlag}}, "/tournament/detail");
-    } else if (sponsorFlag) {
-      router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, SponsorFlag: sponsorFlag}}, "/tournament/detail");
+    if (permitFlag) {
+      router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, PermitFlag: permitFlag}}, "/tournament/detail");
     } else if (mainFlag) {
       router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, MainFlag: mainFlag}}, "/tournament/detail");
     } else {
@@ -82,7 +81,6 @@ export default function Tournament() {
                     <p>{ tournament.place }</p>
                   </td>
                   <td class="max-h-2">
-                    <p class="text-xs">{ tournament.num_member }人/{ tournament.max_member }人</p>
                     <p class=""><SmallButton func={ () => detailTournament(tournament.id) }>詳細</SmallButton></p>
                   </td>
                 </tr>
@@ -90,7 +88,7 @@ export default function Tournament() {
             </tbody>
           </table>
         </div>
-        <div class="mt-4 pb-6"><Link href="/" class="text-s text-blue">＜ダッシュボードに戻る</Link></div>
+        <div class="mt-4 pb-6"><Link href="/" class="text-s text-blue">＜管理者メニューに戻る</Link></div>
       </div>
     </Index>
   )

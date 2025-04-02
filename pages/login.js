@@ -34,7 +34,7 @@ export default function Login() {
       return;
     }
 
-    await API.post('user/login', {
+    await API.post('admin/login', {
       "email": loginEmail.value,
       "password": password.value
     }).then(res => {
@@ -77,7 +77,6 @@ export default function Login() {
         </div>
         {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
         <Button func={ loginClick }>ログイン</Button>
-        <div class="">新規登録は<Link href="/register_email" class="text-s text-blue">こちら</Link></div>
         <div class="my-2 pb-4">パスワード忘れた方は<Link href="/password_email" class="text-s text-blue">こちら</Link></div>
       </div>
     </Index>

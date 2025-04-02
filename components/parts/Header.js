@@ -33,13 +33,13 @@ export default function Header() {
             <button onClick={ moveTop } class="bg-jlc-third">
               <Image src="/favicons/favicon_jlc.png" width={50} height={60} objectFit="contain" />
             </button>
-            <button onClick={ changeMenu } class="px-2 py-1 top-2 right-6 bg-jlc-sub">
+            {/* <button onClick={ changeMenu } class="px-2 py-1 top-2 right-6 bg-jlc-sub">
               <li id="bars" class="fa-solid fa-bars fa-2x text-jlc-third"></li>
-            </button>
+            </button> */}
           </div>
         </div>
 
-        <nav>
+        {/* <nav>
           <ul id="menu" Class="fixed top-0 left-0 w-full z-20 text-center bg-jlc-main text-white font-bold translate-x-full transition ease-linear">
             <button onClick={ changeMenu } class="fixed px-2 py-1 top-2 right-6">
               <li id="xmark" class="fa-solid fa-xmark fa-2x text-jlc-third hidden"></li>
@@ -48,7 +48,7 @@ export default function Header() {
             <li class="p-3"><a href="https://lexio-japan.com/" target="_blank">ABOUT Lexio</a></li>
             <li class="p-3"><a href="/about">ABOUT JapanLexioCup</a></li>
           </ul>
-        </nav>
+        </nav> */}
       </header>
     </div>
   )

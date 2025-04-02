@@ -12,8 +12,7 @@ export default function TournamentDetail() {
   const boardgameId = 1;
   const router = useRouter();
   const tournamentId = (router.query.TournamentId) ? router.query.TournamentId : '';
-  const entriedFlag = (router.query.EntriedFlag) ? true : false;
-  const sponsorFlag = (router.query.SponsorFlag) ? true : false;
+  const permitFlag = (router.query.PermitFlag) ? true : false;
   const mainFlag = (router.query.MainFlag) ? true : false;
 
   const [tournamentName, setTournamentName] = useState("");
@@ -25,9 +24,10 @@ export default function TournamentDetail() {
   const [tournamentMember, setTournamentMember] = useState(0);
   const [tournamentFee, setTournamentFee] = useState(0);
   const [tournamentMemo, setTournamentMemo] = useState("");
-  const [tournamentEntried, setTournamentEntried] = useState(false);
-  const [tournamentSponsorFrag, setTournamentSponsorFrag] = useState(false);
-  const [title, setTitle] = useState('予選詳細');
+  const [tournamentPermit, setTournamentPermit] = useState(false);
+  const [tournamentSponsorEmail, setTournamentSponsorEmail] = useState('');
+  const [tournamentSponsorTel, setTournamentSponsorTel] = useState('');
+  const [title, setTitle] = useState('予選申請詳細');
 
   useEffect(() => {
     getTitle();
@@ -35,7 +35,10 @@ export default function TournamentDetail() {
   }, []);
 
   function getTitle() {
-    if (mainFlag) {
+    if (permitFlag) {
+      setTitle('予選詳細');
+    }
+    else if (mainFlag) {
       setTitle('本戦詳細');
     } else {
       // そのまま
@@ -43,32 +46,22 @@ export default function TournamentDetail() {
   }
 
   async function getTournamentDetail() {
-    await API.post('user/get_detail_tournament', {
-      "tournament_id": tournamentId
-    }).then(res => {
-      setTournamentName(res.data.tournament.name);
-      setTournamentDate(res.data.tournament.start_day);
-      setTournamentHour(res.data.tournament.start_time);
-      setTournamentPlace(res.data.tournament.place);
-      setTournamentSponsor(res.data.sponsor.name);
-      setTournamentMax(res.data.tournament.max_member);
-      setTournamentMember(res.data.tournament.num_member);
-      setTournamentFee(res.data.tournament.fee);
-      setTournamentMemo(res.data.tournament.memo);
-      setTournamentEntried(res.data.entried_flag);
-      setTournamentSponsorFrag(res.data.sponsor_flag);
-    }).catch(err => {
-      console.log(err);
-      // router.push({ pathname: "/login"});
-    });
-  }
-
-  async function entryTournament() {
-    await API.post('user/entry', {
+    await API.post('admin/get_detail_tournament', {
       "tournament_id": tournamentId
     }).then(res => {
       if ('OK' == res.data.result) {
-        router.push({ pathname: "/tournament/entry_complete"});
+        setTournamentName(res.data.tournament.name);
+        setTournamentDate(res.data.tournament.start_day);
+        setTournamentHour(res.data.tournament.start_time);
+        setTournamentPlace(res.data.tournament.place);
+        setTournamentSponsor(res.data.sponsor.name);
+        setTournamentMax(res.data.tournament.max_member);
+        setTournamentMember(res.data.tournament.num_member);
+        setTournamentFee(res.data.tournament.fee);
+        setTournamentMemo(res.data.tournament.memo);
+        setTournamentPermit((res.data.tournament.permit) ? true : false);
+        setTournamentSponsorEmail((res.data.sponsor.email) ? res.data.sponsor.email : '');
+        setTournamentSponsorTel(res.data.tournament.tel);
       }
       else {
         router.push({ pathname: "/"});
@@ -79,29 +72,35 @@ export default function TournamentDetail() {
     });
   }
 
+  async function permitTournament() {
+    await API.post('admin/permit_tournament', {
+      "tournament_id": tournamentId,
+      "permit_flag": true
+    }).then(res => {
+      if ('OK' == res.data.result) {
+        router.push({ pathname: "/tournament/permit_complete"});
+      }
+      else {
+        router.push({ pathname: "/"});
+      }
+    }).catch(err => {
+      // console.log(err);
+      router.push({ pathname: "/login"});
+    });
+  }
+
+  async function resultTournament() {
+    router.push({ pathname: "/tournament/user/", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/");
+  }
+
   function returnPage() {
-    if (entriedFlag) {
-      router.push({ pathname: "/tournament/", query: {EntriedFlag: true}}, "/tournament/entried");
-    } else if (sponsorFlag) {
-      router.push({ pathname: "/tournament/", query: {SponsorFlag: true}}, "/tournament/sponsor");
+    if (permitFlag) {
+      router.push({ pathname: "/tournament/", query: {PermitFlag: true}}, "/tournament/permit");
     } else if (mainFlag) {
-      router.push({ pathname: "/tournament/", query: {MainFlag: true}}, "/tournament/top");
+      router.push({ pathname: "/tournament/", query: {MainFlag: true}}, "/tournament/main");
     } else {
       router.push({ pathname: "/tournament/"});
     }
-  }
-
-  async function entryUserList() {
-    router.push({ pathname: "/tournament/user/", query: {TournamentId: tournamentId}}, "/tournament/user/");
-  }
-  async function entryUserPermit() {
-    router.push({ pathname: "/tournament/user/permit", query: {TournamentId: tournamentId}}, "/tournament/user/permit");
-  }
-  async function entryUserShuffle() {
-    router.push({ pathname: "/tournament/user/shuffle", query: {TournamentId: tournamentId}}, "/tournament/user/shuffle");
-  }
-  async function entryResultSend() {
-    router.push({ pathname: "/tournament/user/result", query: {TournamentId: tournamentId}}, "/tournament/user/result");
   }
 
   return (
@@ -125,6 +124,12 @@ export default function TournamentDetail() {
             主催者：{ tournamentSponsor }
           </div>
           <div class="text-xl my-2">
+            主催者Email：{ tournamentSponsorEmail }
+          </div>
+          <div class="text-xl my-2">
+            主催者Tel：{ tournamentSponsorTel }
+          </div>
+          <div class="text-xl my-2">
             参加定員：{ tournamentMax }
           </div>
           <div class="text-xl my-2">
@@ -139,25 +144,18 @@ export default function TournamentDetail() {
         </div>
 
         <div class="py-5">
-          { tournamentEntried ? (
+          { tournamentPermit ? (
             <div>
-              <div><ButtonInactive class="py-4 bg-black">エントリー済み</ButtonInactive></div>
+              <div><ButtonInactive class="py-4 bg-black">承認済み</ButtonInactive></div>
             </div>
           ) : (
             <div>
-              <div><ButtonJlc func={ entryTournament } class="py-4">エントリー</ButtonJlc></div>
+              <div><ButtonJlc func={ permitTournament } class="py-4">予選承認</ButtonJlc></div>
             </div>
           )}
-          { tournamentSponsorFrag ? (
-            <div>
-              <div><ButtonJlc func={ entryUserList } class="py-4">エントリー一覧</ButtonJlc></div>
-              <div><ButtonJlc func={ entryUserPermit } class="py-4">エントリー管理</ButtonJlc></div>
-              <div><ButtonJlc func={ entryUserShuffle } class="py-4">席順シャッフル</ButtonJlc></div>
-              <div><ButtonJlc func={ entryResultSend } class="py-4">結果送信</ButtonJlc></div>
-            </div>
-          ) : (
-            <div></div>
-          )}
+          <div>
+            <div><ButtonJlc func={ resultTournament } class="py-4">結果確認</ButtonJlc></div>
+          </div>
         </div>
         <div class="pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜一覧に戻る</a></div>
       </div>

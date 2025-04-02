@@ -10,7 +10,7 @@ export default function Password() {
   const router = useRouter();
   const email = router.query.Email;
   const passcode = router.query.Passcode;
-  const birthday = router.query.Birthday;
+  const name = router.query.Name;
   const [alertText, setAlertText] = useState("");
 
   // クエリなしでこの画面に来たら前の画面に戻る
@@ -19,7 +19,7 @@ export default function Password() {
   }, []);
 
   async function checkInput() {
-    if (!email || !passcode || !birthday) {
+    if (!email || !passcode || !name) {
       router.push("/password_email");
       return;
     }
@@ -38,10 +38,10 @@ export default function Password() {
       return;
     }
 
-    await API.post('user/reset_password', {
+    await API.post('admin/reset_password', {
       "email": email,
       "passcode": passcode,
-      "birthday": birthday,
+      "name": name,
       "password": password.value,
     }).then(res => {
       if ('OK' === res.data.result) {
