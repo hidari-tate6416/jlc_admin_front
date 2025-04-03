@@ -19,6 +19,7 @@ export default function UserDetail() {
   const [userCreatedAt, setCreatedAt] = useState("");
   const [userBirthday, setBirthday] = useState("");
   const [userEmail, setEmail] = useState("");
+  const [userGradeId, setUserGradeId] = useState(0);
   const [alertText, setAlertText] = useState("");
 
   useEffect(() => {
@@ -36,10 +37,7 @@ export default function UserDetail() {
         setCreatedAt(res.data.user.created_at);
         setBirthday(res.data.user.birthday);
         setEmail(res.data.user.email);
-
-        const gradeId = res.data.user.user_grade.grade_id;
-        let gradeIdElmt = document.getElementById('gradeId');
-        gradeIdElmt.options[gradeId-1].selected = true;
+        setUserGradeId(res.data.user.user_grade.grade_id);
       }
       else {
         router.push({ pathname: "/login"});
@@ -111,10 +109,10 @@ export default function UserDetail() {
         </div>
         <div class="my-2 justify-between">
           <select id="gradeId" class="w-32 h-10 rounded-md border-2 border-black">
-            <option value="1">段なし</option>
-            <option value="2">１段</option>
-            <option value="3">２段</option>
-            <option value="4">３段</option>
+            <option value="1" selected={1 == `${userGradeId}`}>段なし</option>
+            <option value="2" selected={2 == `${userGradeId}`}>１段</option>
+            <option value="3" selected={3 == `${userGradeId}`}>２段</option>
+            <option value="4" selected={4 == `${userGradeId}`}>３段</option>
           </select>
         </div>
         <div>
