@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import API from './../../../plugins/customAxios.js';
 import Link from 'next/link';
 
-export default function TournamentUser() {
+export default function TournamentUserEntried() {
 
   const boardgameId = 1;
   const router = useRouter();
@@ -21,11 +21,16 @@ export default function TournamentUser() {
   }, []);
 
   async function getUsers() {
-    await API.post('user/get_entry_users', {
+    await API.post('admin/get_entry_users', {
       "tournament_id": tournamentId,
-      "permit_flag": false
+      "permit_flag": true
     }).then(res => {
-      setUsers(res.data.users);
+      if ('OK' == res.data.result) {
+        setUsers(res.data.users);
+      }
+      else {
+        router.push({ pathname: "/"});
+      }
     }).catch(err => {
       // console.log(err);
       router.push({ pathname: "/"});
@@ -40,14 +45,12 @@ export default function TournamentUser() {
     <Index title="">
       <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
         <div class="font-semibold text-2xl py-5">
-          席順シャッフル
+          エントリー一覧
         </div>
-        <div>開発中</div>
-        {/* <div class="py-3 mx-8 border-y border-gray-500">
+        <div class="py-3 mx-8 border-y border-gray-500">
           <table class="table-auto w-full mx-auto text-center">
             <thead>
               <tr>
-                <th></th>
                 <th></th>
                 <th></th>
               </tr>
@@ -61,9 +64,6 @@ export default function TournamentUser() {
                   <td class="">
                     <p class="">{ user.user.user_grade.grade.name }</p>
                   </td>
-                  <td class="">
-                    <SmallButton func={ () => permitUser(user.user.id) }>承認</SmallButton>
-                  </td>
                 </tr>
               )) : (
                 <tr class="">
@@ -73,14 +73,11 @@ export default function TournamentUser() {
                   <td class="">
                     <p class=""></p>
                   </td>
-                  <td class="">
-                    <p class=""></p>
-                  </td>
                 </tr>
               )}
             </tbody>
           </table>
-        </div> */}
+        </div>
         <div class="mt-4 pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
       </div>
     </Index>

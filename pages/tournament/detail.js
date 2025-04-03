@@ -27,6 +27,7 @@ export default function TournamentDetail() {
   const [tournamentPermit, setTournamentPermit] = useState(false);
   const [tournamentSponsorEmail, setTournamentSponsorEmail] = useState('');
   const [tournamentSponsorTel, setTournamentSponsorTel] = useState('');
+  const [tournamentSponsorFrag, setTournamentSponsorFrag] = useState(false);
   const [title, setTitle] = useState('予選申請詳細');
 
   useEffect(() => {
@@ -62,6 +63,7 @@ export default function TournamentDetail() {
         setTournamentPermit((res.data.tournament.permit) ? true : false);
         setTournamentSponsorEmail((res.data.sponsor.email) ? res.data.sponsor.email : '');
         setTournamentSponsorTel(res.data.tournament.tel);
+        setTournamentSponsorFrag(res.data.sponsor_flag);
       }
       else {
         router.push({ pathname: "/"});
@@ -101,6 +103,19 @@ export default function TournamentDetail() {
     } else {
       router.push({ pathname: "/tournament/"});
     }
+  }
+
+  async function entryUserEntried() {
+    router.push({ pathname: "/tournament/user/entried", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/entried");
+  }
+  async function entryUserPermit() {
+    router.push({ pathname: "/tournament/user/permit", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/permit");
+  }
+  async function entryUserShuffle() {
+    router.push({ pathname: "/tournament/user/shuffle", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/shuffle");
+  }
+  async function entryResultSend() {
+    router.push({ pathname: "/tournament/user/result", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/result");
   }
 
   return (
@@ -153,10 +168,26 @@ export default function TournamentDetail() {
               <div><ButtonJlc func={ permitTournament } class="py-4">予選承認</ButtonJlc></div>
             </div>
           )}
-          <div>
-            <div><ButtonJlc func={ resultTournament } class="py-4">結果確認</ButtonJlc></div>
-          </div>
+          { tournamentPermit ? (
+            <div>
+              <div><ButtonJlc func={ resultTournament } class="py-4">結果確認</ButtonJlc></div>
+            </div>
+          ) : (
+            <div>
+              <div><ButtonInactive class="py-4">結果確認</ButtonInactive></div>
+            </div>
+          )}
         </div>
+        { tournamentSponsorFrag ? (
+            <div>
+              <div><ButtonJlc func={ entryUserEntried } class="py-4">エントリー一覧</ButtonJlc></div>
+              <div><ButtonJlc func={ entryUserPermit } class="py-4">エントリー管理</ButtonJlc></div>
+              <div><ButtonJlc func={ entryUserShuffle } class="py-4">席順シャッフル</ButtonJlc></div>
+              <div><ButtonJlc func={ entryResultSend } class="py-4">結果送信</ButtonJlc></div>
+            </div>
+          ) : (
+            <div></div>
+          )}
         <div class="pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜一覧に戻る</a></div>
       </div>
     </Index>

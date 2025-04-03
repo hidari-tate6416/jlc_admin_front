@@ -11,6 +11,8 @@ export default function TournamentUser() {
   const boardgameId = 1;
   const router = useRouter();
   const tournamentId = (router.query.TournamentId) ? router.query.TournamentId : '';
+  const permitFlag = (router.query.PermitFlag) ? true : false;
+  const mainFlag = (router.query.MainFlag) ? true : false;
 
   const [users, setUsers] = useState([]);
 
@@ -19,24 +21,30 @@ export default function TournamentUser() {
   }, []);
 
   async function getUsers() {
-    await API.post('user/get_entry_users', {
+    await API.post('admin/get_entry_users', {
       "tournament_id": tournamentId,
       "permit_flag": false
     }).then(res => {
-      setUsers(res.data.users);
+      if ('OK' == res.data.result) {
+        setUsers(res.data.users);
+      }
+      else {
+        router.push({ pathname: "/"});
+      }
     }).catch(err => {
       // console.log(err);
-      router.push({ pathname: "/"});
+      router.push({ pathname: "/login"});
     });
   }
 
   async function permitUser(userId) {
-      await API.post('user/permit_entry', {
+      await API.post('admin/permit_entry', {
         "tournament_id": tournamentId,
         "user_id": userId,
         "permit_flag": true
       }).then(res => {
         if ('OK' == res.data.result) {
+          // alert
           getUsers();
         }
         else {
@@ -49,7 +57,7 @@ export default function TournamentUser() {
     }
 
   async function returnPage() {
-    router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, SponsorFlag: true}}, "/tournament/detail");
+    router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/detail");
   }
 
   return (
