@@ -40,7 +40,7 @@ export default function TournamentUserResult() {
   async function resultSend() {
       // パラメータ作成
       const UserCount = users.length;
-      let results = [];
+      let requestUsers = [];
       for (let UserIndex = 0; UserIndex < UserCount; UserIndex++) {
         let userId = users[UserIndex].user.id;
         let score = document.getElementById(userId);
@@ -49,13 +49,13 @@ export default function TournamentUserResult() {
           "user_id": userId,
           "score": score.value
         }
-        results.push(resultObject);
+        requestUsers.push(resultObject);
       }
 
       // API
       await API.post('admin/save_tournament', {
         "tournament_id": tournamentId,
-        "users": results
+        "users": requestUsers
       }).then(res => {
         if ('OK' == res.data.result) {
           router.push({ pathname: "/tournament/user/result_complete", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/result_complete");

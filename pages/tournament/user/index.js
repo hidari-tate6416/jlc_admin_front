@@ -38,23 +38,25 @@ export default function TournamentUser() {
   }
 
   async function saveUser() {
-    let gradeId = document.getElementById('gradeId');
-    if (!gradeId.value) {
-      setAlertText("指定外の値が選択されています。");
-      return;
+    // パラメータ作成
+    const UserCount = users.length;
+    let requestUsers = [];
+    for (let UserIndex = 0; UserIndex < UserCount; UserIndex++) {
+      let userId = users[UserIndex].user.id;
+      let gradeId = document.getElementById(userId);
+      let resultObject = {
+        "user_id": userId,
+        "grade_id": gradeId.value
+      }
+      requestUsers.push(resultObject);
     }
 
     await API.post('admin/save_user_grades', {
       "boardgame_id": boardgameId,
-      "users": [
-        {
-            "user_id": userId,
-            "grade_id": gradeId.value
-        }
-      ]
+      "users": requestUsers
     }).then(res => {
       if ('OK' == res.data.result) {
-        router.push({ pathname: "/user/complete"});
+        router.push({ pathname: "/tournament/user/grade_complete", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/grade_complete");
       }
       else {
         router.push({ pathname: "/"});
@@ -96,10 +98,10 @@ export default function TournamentUser() {
                   <td class="w-1/3">
                     <p class="">
                       <select id={`${user.user.id}`} class="w-32 h-10 rounded-md border-2 border-black">
-                        <option value="1">段なし</option>
-                        <option value="2">１段</option>
-                        <option value="3">２段</option>
-                        <option value="4">３段</option>
+                        <option value="1" selected={1 == `${user.user.user_grade.grade_id}`}>段なし</option>
+                        <option value="2" selected={2 == `${user.user.user_grade.grade_id}`}>１段</option>
+                        <option value="3" selected={3 == `${user.user.user_grade.grade_id}`}>２段</option>
+                        <option value="4" selected={4 == `${user.user.user_grade.grade_id}`}>３段</option>
                       </select>
                     </p>
                   </td>
