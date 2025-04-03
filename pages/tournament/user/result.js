@@ -6,11 +6,13 @@ import { useRouter } from "next/router";
 import API from './../../../plugins/customAxios.js';
 import Link from 'next/link';
 
-export default function TournamentUser() {
+export default function TournamentUserResult() {
 
   const boardgameId = 1;
   const router = useRouter();
   const tournamentId = (router.query.TournamentId) ? router.query.TournamentId : '';
+  const permitFlag = (router.query.PermitFlag) ? true : false;
+  const mainFlag = (router.query.MainFlag) ? true : false;
 
   const [users, setUsers] = useState([]);
 
@@ -19,14 +21,19 @@ export default function TournamentUser() {
   }, []);
 
   async function getUsers() {
-    await API.post('user/get_entry_users', {
+    await API.post('admin/get_entry_users', {
       "tournament_id": tournamentId,
       "permit_flag": true
     }).then(res => {
-      setUsers(res.data.users);
+      if ('OK' == res.data.result) {
+        setUsers(res.data.users);
+      }
+      else {
+        router.push({ pathname: "/"});
+      }
     }).catch(err => {
       // console.log(err);
-      router.push({ pathname: "/"});
+      router.push({ pathname: "/login"});
     });
   }
 
@@ -46,12 +53,12 @@ export default function TournamentUser() {
       }
 
       // API
-      await API.post('user/save_tournament', {
+      await API.post('admin/save_tournament', {
         "tournament_id": tournamentId,
         "users": results
       }).then(res => {
         if ('OK' == res.data.result) {
-          router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, SponsorFlag: true}}, "/tournament/detail");
+          router.push({ pathname: "/tournament/user/result_complete", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/result_complete");
         }
       }).catch(err => {
         // console.log(err);
@@ -59,7 +66,7 @@ export default function TournamentUser() {
     }
 
   async function returnPage() {
-    router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, SponsorFlag: true}}, "/tournament/detail");
+    router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/detail");
   }
 
   return (
@@ -82,7 +89,7 @@ export default function TournamentUser() {
                   <td class="w-1/3 h-16 text-s md:text-s mr-4">
                     <p class="">{ user.user.name }</p>
                   </td>
-                  <td class="w-2/3">
+                  <td class="w-1/3">
                     <p class=""><input type="number" id={`${user.user.id}`} class="h-10 pl-2 rounded-md border-2 border-black" placeholder="100" /></p>
                   </td>
                 </tr>

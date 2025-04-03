@@ -54,7 +54,7 @@ export default function Home() {
           <div><ButtonJlc func={ moveUserList } class="py-4">会員確認</ButtonJlc></div>
           <div><ButtonJlc func={ moveTournamentPermitedList } class="py-4">予選一覧</ButtonJlc></div>
           <div><ButtonJlc func={ moveTournamentList } class="py-4">予選申請確認</ButtonJlc></div>
-          <div><ButtonJlc func={ moveSendMainTournament } class="py-4">本戦登録</ButtonJlc></div>
+          <div><ButtonJlc func={ moveSendMainTournament } class="py-4">本戦・予選登録</ButtonJlc></div>
           <div><ButtonJlc func={ moveMainList } class="py-4">本戦確認</ButtonJlc></div>
         </div>
         <div class="pb-4"><Link href="/login" class="text-s text-blue">ログアウト</Link></div>
