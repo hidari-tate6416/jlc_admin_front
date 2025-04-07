@@ -13,12 +13,19 @@ export default function UserDetail() {
   const router = useRouter();
   const userId = (router.query.UserId) ? router.query.UserId : '';
 
+  const [userFamilyName, setUserFamilyName] = useState("");
+  const [userFamilyNameKana, setUserFamilyNameKana] = useState("");
+  const [userGivenName, setUserGivenName] = useState("");
+  const [userGivenNameKana, setUserGivenNameKana] = useState("");
   const [userName, setUserName] = useState("");
   const [userNameKana, setUserNameKana] = useState("");
   const [userLastLogin, setUserLastLogin] = useState("");
   const [userCreatedAt, setCreatedAt] = useState("");
   const [userBirthday, setBirthday] = useState("");
+  const [userSex, setUserSex] = useState("");
+  const [userArea, setUserArea] = useState("");
   const [userEmail, setEmail] = useState("");
+  const [userTel, setUserTel] = useState("");
   const [userGradeId, setUserGradeId] = useState(0);
   const [alertText, setAlertText] = useState("");
 
@@ -31,12 +38,19 @@ export default function UserDetail() {
       "user_id": userId
     }).then(res => {
       if ('OK' == res.data.result) {
+        setUserFamilyName(res.data.user.family_name);
+        setUserFamilyNameKana(res.data.user.family_name_kana);
+        setUserGivenName(res.data.user.given_name);
+        setUserGivenNameKana(res.data.user.given_name_kana);
         setUserName(res.data.user.name);
         setUserNameKana(res.data.user.name_kana);
         setUserLastLogin(res.data.user.last_login_at);
         setCreatedAt(res.data.user.created_at);
         setBirthday(res.data.user.birthday);
+        setUserSex(res.data.user.sex.name);
+        setUserArea(res.data.user.area.name);
         setEmail(res.data.user.email);
+        setUserTel(res.data.user.tel);
         setUserGradeId(res.data.user.user_grade.grade_id);
       }
       else {
@@ -88,17 +102,32 @@ export default function UserDetail() {
         </div>
 
         <div class="mx-8 py-5 border-y text-left">
-          <div class="text-xl my-2">
-            ユーザ名：{ userName }
+        <div class="text-xl my-2">
+            氏名：{ userFamilyName } {userGivenName}
           </div>
           <div class="text-xl my-2">
-            ユーザ名カナ：{ userNameKana }
+            氏名カナ：{ userFamilyNameKana } {userGivenNameKana}
+          </div>
+          <div class="text-xl my-2">
+            大会名：{ userName }
+          </div>
+          <div class="text-xl my-2">
+            大会名カナ：{ userNameKana }
           </div>
           <div class="text-xl my-2">
             生年月日：{ userBirthday }
           </div>
           <div class="text-xl my-2">
+            性別：{ userSex }
+          </div>
+          <div class="text-xl my-2">
+            居住地域：{ userArea }
+          </div>
+          <div class="text-xl my-2">
             Email：{ userEmail }
+          </div>
+          <div class="text-xl my-2">
+            電話番号：{ userTel }
           </div>
           <div class="text-xl my-2">
             登録日：{ userCreatedAt }

@@ -7,7 +7,7 @@ export default function Footer() {
       <footer>
         <div class="flex justify-between mx-3 text-black">
           <div>
-            <span class="text-xs">Japan Lexio Cup会員サイト</span>
+            <span class="text-xs">Japan Lexio Championship会員サイト</span>
           </div>
           <div class="">
             <Link href="/about" class="mr-3 text-xs">
