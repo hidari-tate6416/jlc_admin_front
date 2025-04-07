@@ -19,6 +19,7 @@ export default function TournamentSend() {
     let startTime = document.getElementById('startTime');
     let place = document.getElementById('place');
     let maxMember = document.getElementById('maxMember');
+    let email = document.getElementById('email');
     let tel = document.getElementById('tel');
     let fee = document.getElementById('fee');
     let grade = document.getElementById('grade');
@@ -56,12 +57,20 @@ export default function TournamentSend() {
       setAlertText("定員を入力してください。");
       return;
     }
-    if (maxMember.value < 5) {
-      setAlertText("定員は5名以上です。");
+    if (maxMember.value < 3) {
+      setAlertText("定員は3名以上です。");
       return;
     }
     if (!maxMember.value.match(/^[0-9]*$/)) {
       setAlertText("定員は半角数字で入力してください。");
+      return;
+    }
+    if (!email.value) {
+      setAlertText("参加者連絡先Emailを入力してください。");
+      return;
+    }
+    if (!email.value.match(/^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/)) {
+      setAlertText("参加者連絡先Emailはメールアドレスの形式で入力してください。");
       return;
     }
     if (!tel.value) {
@@ -100,6 +109,7 @@ export default function TournamentSend() {
       "start_time": startTime.value,
       "place": place.value,
       "max_member": maxMember.value,
+      "email": email.value,
       "tel": tel.value,
       "fee": fee.value,
       "memo": memo.value,
@@ -144,6 +154,10 @@ export default function TournamentSend() {
         <div class="flex justify-between pt-6 mb-6">
           <div class="w-1/3 my-auto md:mr-4 text-s">定員</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="maxMember" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="15" /><span class="my-auto">名</span></div></div>
+        </div>
+        <div class="flex justify-between pt-6 mb-6">
+          <div class="w-1/3 my-auto md:mr-4 text-s">参加者連絡先Email</div>
+          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="email" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="test@gmail.com" /></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
           <div class="w-1/3 my-auto md:mr-4 text-s">電話番号</div>

@@ -46,7 +46,7 @@ export default function Header() {
             </button>
             <li class="p-3"><a href="/">TOP</a></li>
             <li class="p-3"><a href="https://lexio-japan.com/" target="_blank">ABOUT Lexio</a></li>
-            <li class="p-3"><a href="/about">ABOUT JapanLexioCup</a></li>
+            <li class="p-3"><a href="/about">ABOUT JapanLexioChampionship</a></li>
           </ul>
         </nav> */}
       </header>
