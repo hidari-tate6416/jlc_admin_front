@@ -126,34 +126,34 @@ export default function TournamentDetail() {
         </div>
 
         <div class="mx-8 py-5 border-y text-left">
-          <div class="text-xl my-2">
+          <div class="text-l my-2">
             予選名：{ tournamentName }
           </div>
-          <div class="text-xl my-2">
+          <div class="text-l my-2">
             日時：{ tournamentDate } { tournamentHour }時〜
           </div>
-          <div class="text-xl my-2">
+          <div class="text-l my-2">
             場所：{ tournamentPlace }
           </div>
-          <div class="text-xl my-2">
+          <div class="text-l my-2">
             主催者：{ tournamentSponsor }
           </div>
-          <div class="text-xl my-2">
+          <div class="text-l my-2">
             主催者Email：{ tournamentSponsorEmail }
           </div>
-          <div class="text-xl my-2">
+          <div class="text-l my-2">
             主催者Tel：{ tournamentSponsorTel }
           </div>
-          <div class="text-xl my-2">
+          <div class="text-l my-2">
             参加定員：{ tournamentMax }
           </div>
-          <div class="text-xl my-2">
+          <div class="text-l my-2">
             現在の参加数：{ tournamentMember }
           </div>
-          <div class="text-xl my-2">
+          <div class="text-l my-2">
             参加費：{ tournamentFee }円
           </div>
-          <div class="text-xl my-2">
+          <div class="text-l my-2">
             備考：{ tournamentMemo }
           </div>
         </div>
