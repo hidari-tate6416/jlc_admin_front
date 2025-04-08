@@ -29,12 +29,21 @@ export default function Password() {
     setAlertText("");
 
     let password = document.getElementById('password');
+    let passwordRemind = document.getElementById('passwordRemind');
     if (!password.value) {
       setAlertText("パスワードが入力されていません。");
       return;
     }
-    if (password.value.length > 16 || password.value.length < 8 || !/^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,16}$/.test(password.value)) {
-      setAlertText("パスワードは半角英数8桁以上16桁以下で入力してください。");
+    if (!/^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,16}$/.test(password.value)) {
+      setAlertText("パスワードは半角英と半角数字を含めて8桁以上16桁以下で入力してください。");
+      return;
+    }
+    if (!passwordRemind.value) {
+      setAlertText("パスワード再確認を入力してください。");
+      return;
+    }
+    if (password.value !== passwordRemind.value) {
+      setAlertText("同一のパスワードを入力してください。");
       return;
     }
 
@@ -62,8 +71,12 @@ export default function Password() {
         <span class="text-xs pt-6">新たなパスワードを入力して<br/>登録ボタンを押下してください。
         </span>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">パスワード<br/>(半角英数8桁以上16桁以下)</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s">パスワード<br/>(半角英と半角数字を含め8桁以上16桁以下)</div>
           <div class="w-2/3 my-auto"><input type="password" id="password" class="w-2/3 py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div>
+        </div>
+        <div class="flex justify-between pt-6 mb-6">
+          <div class="w-1/3 my-auto md:mr-4 text-s">パスワード<br/>再確認</div>
+          <div class="w-2/3 my-auto"><input type="password" id="passwordRemind" class="w-2/3 py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div>
         </div>
 
         {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
