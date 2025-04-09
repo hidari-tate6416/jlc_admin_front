@@ -21,6 +21,12 @@ export default function TournamentUserResult() {
   }, []);
 
   async function getUsers() {
+    // 戻るボタン対策
+    if (!tournamentId) {
+      router.push("/");
+      return;
+    }
+
     await API.post('admin/get_entry_users', {
       "tournament_id": tournamentId,
       "permit_flag": true
@@ -38,32 +44,36 @@ export default function TournamentUserResult() {
   }
 
   async function resultSend() {
-      // パラメータ作成
-      const UserCount = users.length;
-      let requestUsers = [];
-      for (let UserIndex = 0; UserIndex < UserCount; UserIndex++) {
-        let userId = users[UserIndex].user.id;
-        let score = document.getElementById(userId);
-        let resultObject = {
-          "id": users[UserIndex].id,
-          "user_id": userId,
-          "score": score.value
-        }
-        requestUsers.push(resultObject);
-      }
-
-      // API
-      await API.post('admin/save_tournament', {
-        "tournament_id": tournamentId,
-        "users": requestUsers
-      }).then(res => {
-        if ('OK' == res.data.result) {
-          router.push({ pathname: "/tournament/user/result_complete", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/result_complete");
-        }
-      }).catch(err => {
-        // console.log(err);
-      });
+    // 登録確認ダイアログ
+    if(!window.confirm("送信内容は後から変更できません。\r\n送信してよろしいですか？")){
+      return;
     }
+    // パラメータ作成
+    const UserCount = users.length;
+    let requestUsers = [];
+    for (let UserIndex = 0; UserIndex < UserCount; UserIndex++) {
+      let userId = users[UserIndex].user.id;
+      let score = document.getElementById(userId);
+      let resultObject = {
+        "id": users[UserIndex].id,
+        "user_id": userId,
+        "score": score.value
+      }
+      requestUsers.push(resultObject);
+    }
+
+    // API
+    await API.post('admin/save_tournament', {
+      "tournament_id": tournamentId,
+      "users": requestUsers
+    }).then(res => {
+      if ('OK' == res.data.result) {
+        router.push({ pathname: "/tournament/user/result_complete", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/result_complete");
+      }
+    }).catch(err => {
+      // console.log(err);
+    });
+  }
 
   async function returnPage() {
     router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/detail");

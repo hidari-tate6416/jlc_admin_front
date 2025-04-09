@@ -11,17 +11,11 @@ export default function Login() {
   const [alertText, setAlertText] = useState("");
 
   useEffect(() => {
-      resetBearer();
-    }, []);
+    resetBearer();
+  }, []);
 
   async function resetBearer() {
-    // API.interceptors.request.use(
-    //   async config => {
-    //     config.headers = {
-    //       'Authorization': `Bearer abc`,
-    //     }
-    //     return config;
-    // });
+    localStorage.setItem("token", null);
   }
 
   async function loginClick() {
@@ -39,13 +33,7 @@ export default function Login() {
       "password": password.value
     }).then(res => {
       if ('OK' === res.data.result) {
-        API.interceptors.request.use(
-          async config => {
-            config.headers = {
-              'Authorization': `Bearer ` + res.data.token,
-            }
-            return config;
-        });
+        localStorage.setItem("token", res.data.token);
         router.push({ pathname: "/" });
       }
       else {

@@ -21,6 +21,12 @@ export default function TournamentUserEntried() {
   }, []);
 
   async function getUsers() {
+    // 戻るボタン対策
+    if (!tournamentId) {
+      router.push("/");
+      return;
+    }
+
     await API.post('admin/get_entry_users', {
       "tournament_id": tournamentId,
       "permit_flag": true

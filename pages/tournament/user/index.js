@@ -22,6 +22,12 @@ export default function TournamentUser() {
   }, []);
 
   async function getUsers() {
+    // 戻るボタン対策
+    if (!tournamentId) {
+      router.push("/");
+      return;
+    }
+
     await API.post('admin/get_tournament_result', {
       "tournament_id": tournamentId
     }).then(res => {
@@ -38,6 +44,11 @@ export default function TournamentUser() {
   }
 
   async function saveUser() {
+    // 登録確認ダイアログ
+    if(!window.confirm("会員の階級を変更します。よろしいですか？")){
+      return;
+    }
+
     // パラメータ作成
     const UserCount = users.length;
     let requestUsers = [];

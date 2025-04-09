@@ -36,6 +36,12 @@ export default function TournamentDetail() {
   }, []);
 
   function getTitle() {
+    // 戻るボタン対策
+    if (!tournamentId) {
+      router.push("/");
+      return;
+    }
+
     if (permitFlag) {
       setTitle('予選詳細');
     }
@@ -61,7 +67,7 @@ export default function TournamentDetail() {
         setTournamentFee(res.data.tournament.fee);
         setTournamentMemo(res.data.tournament.memo);
         setTournamentPermit((res.data.tournament.permit) ? true : false);
-        setTournamentSponsorEmail((res.data.sponsor.email) ? res.data.sponsor.email : '');
+        setTournamentSponsorEmail((res.data.tournament.email) ? res.data.tournament.email : '');
         setTournamentSponsorTel(res.data.tournament.tel);
         setTournamentSponsorFrag(res.data.sponsor_flag);
       }
@@ -75,6 +81,11 @@ export default function TournamentDetail() {
   }
 
   async function permitTournament() {
+    // 登録確認ダイアログ
+    if(!window.confirm("予選を承認します。よろしいですか？")){
+      return;
+    }
+
     await API.post('admin/permit_tournament', {
       "tournament_id": tournamentId,
       "permit_flag": true

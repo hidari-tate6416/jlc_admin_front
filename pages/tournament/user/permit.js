@@ -21,6 +21,12 @@ export default function TournamentUser() {
   }, []);
 
   async function getUsers() {
+    // 戻るボタン対策
+    if (!tournamentId) {
+      router.push("/");
+      return;
+    }
+
     await API.post('admin/get_entry_users', {
       "tournament_id": tournamentId,
       "permit_flag": false
@@ -38,23 +44,27 @@ export default function TournamentUser() {
   }
 
   async function permitUser(userId) {
-      await API.post('admin/permit_entry', {
-        "tournament_id": tournamentId,
-        "user_id": userId,
-        "permit_flag": true
-      }).then(res => {
-        if ('OK' == res.data.result) {
-          // alert
-          getUsers();
-        }
-        else {
-          router.push({ pathname: "/"});
-        }
-      }).catch(err => {
-        // console.log(err);
-        router.push({ pathname: "/login"});
-      });
+    // 登録確認ダイアログ
+    if(!window.confirm("後から承認を取り消すことはできません。承認してよろしいですか？")){
+      return;
     }
+    await API.post('admin/permit_entry', {
+      "tournament_id": tournamentId,
+      "user_id": userId,
+      "permit_flag": true
+    }).then(res => {
+      if ('OK' == res.data.result) {
+        // alert
+        getUsers();
+      }
+      else {
+        router.push({ pathname: "/"});
+      }
+    }).catch(err => {
+      // console.log(err);
+      router.push({ pathname: "/login"});
+    });
+  }
 
   async function returnPage() {
     router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/detail");
