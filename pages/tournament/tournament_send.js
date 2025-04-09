@@ -102,6 +102,11 @@ export default function TournamentSend() {
       return;
     }
 
+    // 登録確認ダイアログ
+    if(!window.confirm("大会の内容は変更できません。\r\n入力した内容で登録してよろしいですか？")){
+      return;
+    }
+
     await API.post('admin/send_tournament', {
       "name": name.value,
       "boardgame_id": boardgameId,

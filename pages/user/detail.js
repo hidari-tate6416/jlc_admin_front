@@ -34,6 +34,12 @@ export default function UserDetail() {
   }, []);
 
   async function getUserDetail() {
+    // 戻るボタン対策
+    if (!userId) {
+      router.push("/");
+      return;
+    }
+
     await API.post('admin/get_detail_user', {
       "user_id": userId
     }).then(res => {
@@ -66,6 +72,11 @@ export default function UserDetail() {
     let gradeId = document.getElementById('gradeId');
     if (!gradeId.value) {
       setAlertText("指定外の値が選択されています。");
+      return;
+    }
+
+    // 登録確認ダイアログ
+    if(!window.confirm("会員の階級を変更します。よろしいですか？")){
       return;
     }
 

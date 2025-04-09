@@ -25,7 +25,7 @@ export default function TournamentUserGradeComplete() {
         </div>
         <span class="text-s pt-6 px-4">
           会員更新が完了しました。<br/>
-          <a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">管理者メニューに戻る</a>
+          <a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">会員一覧に戻る</a>
         </span>
       </div>
     </Index>
