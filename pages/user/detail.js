@@ -1,10 +1,10 @@
-import Index from '../../components/Index.js';
-import ButtonJlc from '../../components/parts/ButtonJlc.js';
-import ButtonInactive from '../../components/parts/ButtonInactive.js';
-import SmallButton from '../../components/parts/SmallButton.js';
+import Index from '/components/Index.js';
+import ButtonJlc from '/components/parts/ButtonJlc.js';
+import ButtonJlcInactive from '/components/parts/ButtonJlcInactive.js';
+import SmallButton from '/components/parts/SmallButton.js';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import API from './../../plugins/customAxios.js';
+import API from '/plugins/customAxios.js';
 import Link from 'next/link';
 
 export default function UserDetail() {
@@ -28,6 +28,7 @@ export default function UserDetail() {
   const [userTel, setUserTel] = useState("");
   const [userGradeId, setUserGradeId] = useState(0);
   const [alertText, setAlertText] = useState("");
+  const [buttonActive, setButtonActive] = useState(true);
 
   useEffect(() => {
     getUserDetail();
@@ -74,9 +75,11 @@ export default function UserDetail() {
       setAlertText("指定外の値が選択されています。");
       return;
     }
+    setButtonActive(false);
 
     // 登録確認ダイアログ
     if(!window.confirm("会員の階級を変更します。よろしいですか？")){
+      setButtonActive(true);
       return;
     }
 
@@ -157,7 +160,15 @@ export default function UserDetail() {
         </div>
         <div>
           {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
-          <div><ButtonJlc func={ saveUser } class="py-4">登録</ButtonJlc></div>
+          { buttonActive ? (
+            <div>
+              <ButtonJlc func={ saveUser } class="py-4">登録</ButtonJlc>
+            </div>
+          ) : (
+            <div>
+              <ButtonJlcInactive class="py-4">登録</ButtonJlcInactive>
+            </div>
+          )}
         </div>
 
         <div class="pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜会員一覧に戻る</a></div>

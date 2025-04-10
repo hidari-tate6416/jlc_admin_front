@@ -1,14 +1,16 @@
-import Index from '../components/Index.js';
-import Button from '../components/parts/Button.js';
+import Index from '/components/Index.js';
+import Button from '/components/parts/Button.js';
+import ButtonInactive from '/components/parts/ButtonInactive.js';
 import { useState } from "react";
 import { useRouter } from "next/router";
-import API from './../plugins/customAxios.js';
+import API from '/plugins/customAxios.js';
 import Link from 'next/link';
 
 export default function PasswordEmail() {
 
   const router = useRouter();
   const [alertText, setAlertText] = useState("");
+  const [buttonActive, setButtonActive] = useState(true);
 
   async function sendPasscode() {
     setAlertText("");
@@ -27,6 +29,7 @@ export default function PasswordEmail() {
       setAlertText("名前を入力してください。");
       return;
     }
+    setButtonActive(false);
 
     await API.post('admin/send_passcode', {
       "email": email.value,
@@ -61,7 +64,15 @@ export default function PasswordEmail() {
         </div>
 
         {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
-        <Button func={ sendPasscode }>メール送信</Button>
+        { buttonActive ? (
+          <div>
+            <Button func={ sendPasscode }>メール送信</Button>
+          </div>
+        ) : (
+          <div>
+            <ButtonInactive>メール送信</ButtonInactive>
+          </div>
+        )}
       </div>
     </Index>
   )

@@ -1,8 +1,8 @@
-import Index from '../components/Index.js';
-import Button from '../components/parts/Button.js';
+import Index from '/components/Index.js';
+import Button from '/components/parts/Button.js';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import API from './../plugins/customAxios.js';
+import API from '/plugins/customAxios.js';
 import Link from 'next/link';
 
 export default function Login() {

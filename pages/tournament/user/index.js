@@ -1,9 +1,10 @@
-import Index from '../../../components/Index.js';
-import ButtonJlc from '../../../components/parts/ButtonJlc.js';
-import SmallButton from '../../../components/parts/SmallButton.js';
+import Index from '/components/Index.js';
+import ButtonJlc from '/components/parts/ButtonJlc.js';
+import ButtonJlcInactive from '/components/parts/ButtonJlcInactive.js';
+import SmallButton from '/components/parts/SmallButton.js';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import API from './../../../plugins/customAxios.js';
+import API from '/plugins/customAxios.js';
 import Link from 'next/link';
 
 export default function TournamentUser() {
@@ -11,11 +12,12 @@ export default function TournamentUser() {
   const boardgameId = 1;
   const router = useRouter();
   const tournamentId = (router.query.TournamentId) ? router.query.TournamentId : '';
-  const permitFlag = (router.query.PermitFlag) ? true : false;
-  const mainFlag = (router.query.MainFlag) ? true : false;
+  const permitFlag = ('true' == router.query.PermitFlag) ? true : false;
+  const mainFlag = ('true' == router.query.MainFlag) ? true : false;
 
   const [users, setUsers] = useState([]);
   const [alertText, setAlertText] = useState("");
+  const [buttonActive, setButtonActive] = useState(true);
 
   useEffect(() => {
     getUsers();
@@ -44,8 +46,10 @@ export default function TournamentUser() {
   }
 
   async function saveUser() {
+    setButtonActive(false);
     // 登録確認ダイアログ
     if(!window.confirm("会員の階級を変更します。よろしいですか？")){
+      setButtonActive(true);
       return;
     }
 
@@ -135,7 +139,15 @@ export default function TournamentUser() {
         </div>
         <div class="mt-4">
             {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
-            <div><ButtonJlc func={ saveUser } class="py-4">登録</ButtonJlc></div>
+            { buttonActive ? (
+              <div>
+                <ButtonJlc func={ saveUser } class="py-4">登録</ButtonJlc>
+              </div>
+            ) : (
+              <div>
+                <ButtonJlcInactive class="py-4">登録</ButtonJlcInactive>
+              </div>
+            )}
           </div>
         <div class="pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
       </div>

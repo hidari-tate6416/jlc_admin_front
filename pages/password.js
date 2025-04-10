@@ -1,8 +1,9 @@
-import Index from '../components/Index.js';
-import Button from '../components/parts/Button.js';
+import Index from '/components/Index.js';
+import Button from '/components/parts/Button.js';
+import ButtonInactive from '/components/parts/ButtonInactive.js';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import API from './../plugins/customAxios.js';
+import API from '/plugins/customAxios.js';
 import Link from 'next/link';
 
 export default function Password() {
@@ -12,6 +13,7 @@ export default function Password() {
   const passcode = router.query.Passcode;
   const name = router.query.Name;
   const [alertText, setAlertText] = useState("");
+  const [buttonActive, setButtonActive] = useState(true);
 
   // クエリなしでこの画面に来たら前の画面に戻る
   useEffect(() => {
@@ -46,6 +48,7 @@ export default function Password() {
       setAlertText("同一のパスワードを入力してください。");
       return;
     }
+    setButtonActive(false);
 
     await API.post('admin/reset_password', {
       "email": email,
@@ -80,7 +83,15 @@ export default function Password() {
         </div>
 
         {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
-        <Button func={ passwordReset }>リセット</Button>
+        { buttonActive ? (
+          <div>
+            <Button func={ passwordReset }>リセット</Button>
+          </div>
+        ) : (
+          <div>
+            <ButtonInactive>リセット</ButtonInactive>
+          </div>
+        )}
 
       </div>
     </Index>

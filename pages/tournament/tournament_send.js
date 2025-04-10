@@ -1,8 +1,9 @@
-import Index from '../../components/Index.js';
-import Button from '../../components/parts/Button.js';
+import Index from '/components/Index.js';
+import Button from '/components/parts/Button.js';
+import ButtonInactive from '/components/parts/ButtonInactive.js';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import API from './../../plugins/customAxios.js';
+import API from '/plugins/customAxios.js';
 import Link from 'next/link';
 
 export default function TournamentSend() {
@@ -10,6 +11,7 @@ export default function TournamentSend() {
   const boardgameId = 1;
   const router = useRouter();
   const [alertText, setAlertText] = useState("");
+  const [buttonActive, setButtonActive] = useState(true);
 
   async function sendInput() {
     setAlertText("");
@@ -101,9 +103,11 @@ export default function TournamentSend() {
       setAlertText("備考を入力してください。");
       return;
     }
+    setButtonActive(false);
 
     // 登録確認ダイアログ
     if(!window.confirm("大会の内容は変更できません。\r\n入力した内容で登録してよろしいですか？")){
+      setButtonActive(true);
       return;
     }
 
@@ -194,7 +198,15 @@ export default function TournamentSend() {
         </div>
 
         {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
-        <Button func={ sendInput }>登録</Button>
+        { buttonActive ? (
+          <div>
+            <Button func={ sendInput }>登録</Button>
+          </div>
+        ) : (
+          <div>
+            <ButtonInactive>登録</ButtonInactive>
+          </div>
+        )}
         <div class="mt-2 pb-6"><Link href="/" class="text-s text-blue">＜管理者メニューに戻る</Link></div>
       </div>
     </Index>

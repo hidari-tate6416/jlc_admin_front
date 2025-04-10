@@ -1,9 +1,9 @@
-import Index from '../../../components/Index.js';
-import ButtonJlc from '../../../components/parts/ButtonJlc.js';
-import SmallButton from '../../../components/parts/SmallButton.js';
+import Index from '/components/Index.js';
+import ButtonJlc from '/components/parts/ButtonJlc.js';
+import SmallButton from '/components/parts/SmallButton.js';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import API from './../../../plugins/customAxios.js';
+import API from '/plugins/customAxios.js';
 import Link from 'next/link';
 
 export default function TournamentUserEntried() {
@@ -11,8 +11,8 @@ export default function TournamentUserEntried() {
   const boardgameId = 1;
   const router = useRouter();
   const tournamentId = (router.query.TournamentId) ? router.query.TournamentId : '';
-  const permitFlag = (router.query.PermitFlag) ? true : false;
-  const mainFlag = (router.query.MainFlag) ? true : false;
+  const permitFlag = ('true' == router.query.PermitFlag) ? true : false;
+  const mainFlag = ('true' == router.query.MainFlag) ? true : false;
 
   const [users, setUsers] = useState([]);
 

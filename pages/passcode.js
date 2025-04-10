@@ -1,8 +1,9 @@
-import Index from '../components/Index.js';
-import Button from '../components/parts/Button.js';
+import Index from '/components/Index.js';
+import Button from '/components/parts/Button.js';
+import ButtonInactive from '/components/parts/ButtonInactive.js';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import API from './../plugins/customAxios.js';
+import API from '/plugins/customAxios.js';
 import Link from 'next/link';
 
 export default function Passcode() {
@@ -11,6 +12,7 @@ export default function Passcode() {
   const email = (router.query.Email) ? router.query.Email : '';
   const name = (router.query.Name) ? router.query.Name : '';
   const [alertText, setAlertText] = useState("");
+  const [buttonActive, setButtonActive] = useState(true);
 
   // クエリなしでこの画面に来たら前の画面に戻る
   useEffect(() => {
@@ -32,6 +34,7 @@ export default function Passcode() {
       setAlertText("パスコードが入力されていません。");
       return;
     }
+    setButtonActive(false);
 
     await API.post('admin/auth_passcord', {
       "email": email,
@@ -47,6 +50,23 @@ export default function Passcode() {
         }
         let restCount = 5 - failtureCount;
         setAlertText("パスコードが間違っています。残り失敗回数：" + restCount + "回");
+        setButtonActive(true);
+      }
+    }).catch(err => {
+      setAlertText("サーバエラーが起きました。しばらく時間をおいてもう一度お試しください。");
+    });
+  }
+
+  async function sendPasscode() {
+    await API.post('admin/send_passcode', {
+      "email": email,
+      "name": name
+    }).then(res => {
+      if ('OK' === res.data.result) {
+        alert('パスコードを再送信しました。');
+      }
+      else {
+        setAlertText("不正アクセスを検知。");
       }
     }).catch(err => {
       setAlertText("サーバエラーが起きました。しばらく時間をおいてもう一度お試しください。");
@@ -65,9 +85,18 @@ export default function Passcode() {
           <div class="w-1/3 my-auto md:mr-4">パスコード</div>
           <div class="w-2/3 my-auto"><input type="text" id="passcode" class="w-2/3 py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div>
         </div>
+        <div class="mt-2 mb-6"><a onClick={() =>sendPasscode()} class="cursor-pointer text-s text-blue">パスコードを再送信</a></div>
 
         {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
-        <Button func={ authPasscode }>認証</Button>
+        { buttonActive ? (
+          <div>
+            <Button func={ authPasscode }>認証</Button>
+          </div>
+        ) : (
+          <div>
+            <ButtonInactive>認証</ButtonInactive>
+          </div>
+        )}
       </div>
     </Index>
   )
