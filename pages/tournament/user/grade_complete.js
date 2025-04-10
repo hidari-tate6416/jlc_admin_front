@@ -1,8 +1,8 @@
-import Index from '../../../components/Index.js';
-import Button from '../../../components/parts/Button.js';
+import Index from '/components/Index.js';
+import Button from '/components/parts/Button.js';
 import { useState } from "react";
 import { useRouter } from "next/router";
-import API from './../../../plugins/customAxios.js';
+import API from '/plugins/customAxios.js';
 import Link from 'next/link';
 
 export default function TournamentUserGradeComplete() {
@@ -10,8 +10,8 @@ export default function TournamentUserGradeComplete() {
   const router = useRouter();
   const [alertText, setAlertText] = useState("");
   const tournamentId = (router.query.TournamentId) ? router.query.TournamentId : '';
-  const permitFlag = (router.query.PermitFlag) ? true : false;
-  const mainFlag = (router.query.MainFlag) ? true : false;
+  const permitFlag = ('true' == router.query.PermitFlag) ? true : false;
+  const mainFlag = ('true' == router.query.MainFlag) ? true : false;
 
   async function returnPage() {
     router.push({ pathname: "/tournament/user/", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/");

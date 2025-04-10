@@ -1,9 +1,9 @@
-import Index from '../../components/Index.js';
-import ButtonJlc from '../../components/parts/ButtonJlc.js';
-import SmallButton from '../../components/parts/SmallButton.js';
+import Index from '/components/Index.js';
+import ButtonJlc from '/components/parts/ButtonJlc.js';
+import SmallButton from '/components/parts/SmallButton.js';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import API from './../../plugins/customAxios.js';
+import API from '/plugins/customAxios.js';
 import Link from 'next/link';
 
 export default function User() {

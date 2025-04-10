@@ -1,8 +1,8 @@
-import Index from '../components/Index.js';
-import ButtonJlc from '../components/parts/ButtonJlc.js';
+import Index from '/components/Index.js';
+import ButtonJlc from '/components/parts/ButtonJlc.js';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import API from './../plugins/customAxios.js';
+import API from '/plugins/customAxios.js';
 import Link from 'next/link';
 
 export default function Home() {
@@ -36,11 +36,11 @@ export default function Home() {
   async function moveTournamentList() {
     router.push({ pathname: "/tournament/"});
   }
-  async function moveSendMainTournament() {
-    router.push({ pathname: "/tournament/tournament_send"});
-  }
   async function moveMainList() {
     router.push({ pathname: "/tournament/", query: {MainFlag: true}}, "/tournament/main");
+  }
+  async function moveSendMainTournament() {
+    router.push({ pathname: "/tournament/tournament_send"});
   }
 
   return (
@@ -54,8 +54,8 @@ export default function Home() {
           <div><ButtonJlc func={ moveUserList } class="py-4">会員確認</ButtonJlc></div>
           <div><ButtonJlc func={ moveTournamentPermitedList } class="py-4">予選一覧</ButtonJlc></div>
           <div><ButtonJlc func={ moveTournamentList } class="py-4">予選申請確認</ButtonJlc></div>
+          <div><ButtonJlc func={ moveMainList } class="py-4">本戦一覧</ButtonJlc></div>
           <div><ButtonJlc func={ moveSendMainTournament } class="py-4">本戦・予選登録</ButtonJlc></div>
-          <div><ButtonJlc func={ moveMainList } class="py-4">本戦確認</ButtonJlc></div>
         </div>
         <div class="pb-4"><Link href="/login" class="text-s text-blue">ログアウト</Link></div>
       </div>
