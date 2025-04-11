@@ -47,7 +47,7 @@ export default function Login() {
   }
 
   return (
-    <Index title="">
+    <Index title="" loadingFlag={false}>
       <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
         <div class="font-semibold text-2xl py-5">
           サインイン
