@@ -61,7 +61,7 @@ export default function TournamentDetail() {
         setTournamentDate(res.data.tournament.start_day);
         setTournamentHour(res.data.tournament.start_time);
         setTournamentPlace(res.data.tournament.place);
-        setTournamentSponsor(res.data.sponsor.name);
+        setTournamentSponsor(res.data.sponsor.family_name + ' ' + res.data.sponsor.given_name);
         setTournamentMax(res.data.tournament.max_member);
         setTournamentMember(res.data.tournament.num_member);
         setTournamentFee(res.data.tournament.fee);
