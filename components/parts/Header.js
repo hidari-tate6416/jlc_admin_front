@@ -30,8 +30,11 @@ export default function Header() {
       <header>
         <div class="fixed w-full bg-jlc-sub">
           <div class="flex justify-between px-6 border-b-4 border-jlc-third">
-            <button onClick={ moveTop } class="bg-jlc-third">
+            {/* <button onClick={ moveTop } class="bg-jlc-third">
               <Image src="/favicons/favicon_jlc.png" width={50} height={60} objectFit="contain" />
+            </button> */}
+            <button onClick={ moveTop } class="italic">
+              <span>JLC会員サイト</span>
             </button>
             {/* <button onClick={ changeMenu } class="px-2 py-1 top-2 right-6 bg-jlc-sub">
               <li id="bars" class="fa-solid fa-bars fa-2x text-jlc-third"></li>
