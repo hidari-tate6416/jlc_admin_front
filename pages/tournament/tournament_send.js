@@ -12,6 +12,7 @@ export default function TournamentSend() {
   const router = useRouter();
   const [alertText, setAlertText] = useState("");
   const [buttonActive, setButtonActive] = useState(true);
+  const [otherDispFlag, setOtherDispFlag] = useState(false);
 
   async function sendInput() {
     setAlertText("");
@@ -20,11 +21,16 @@ export default function TournamentSend() {
     let startDay = document.getElementById('startDay');
     let startTime = document.getElementById('startTime');
     let place = document.getElementById('place');
+    let adress = document.getElementById('adress');
     let maxMember = document.getElementById('maxMember');
     let email = document.getElementById('email');
     let tel = document.getElementById('tel');
     let fee = document.getElementById('fee');
     let grade = document.getElementById('grade');
+    let groupTypeId = document.getElementById('groupTypeId');
+    let groupOther = document.getElementById('groupOther');
+    let snsUrl = (document.getElementById('snsUrl')) ?? document.getElementById('snsUrl');
+
     let memo = document.getElementById('memo');
 
     if (!name.value) {
@@ -52,7 +58,11 @@ export default function TournamentSend() {
       return;
     }
     if (!place.value) {
-      setAlertText("場所を入力してください。");
+      setAlertText("会場名を入力してください。");
+      return;
+    }
+    if (!adress.value) {
+      setAlertText("会場住所を入力してください。");
       return;
     }
     if (!maxMember.value) {
@@ -68,19 +78,19 @@ export default function TournamentSend() {
       return;
     }
     if (!email.value) {
-      setAlertText("参加者連絡先Emailを入力してください。");
+      setAlertText("主催者連絡先Emailを入力してください。");
       return;
     }
     if (!email.value.match(/^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/)) {
-      setAlertText("参加者連絡先Emailはメールアドレスの形式で入力してください。");
+      setAlertText("主催者連絡先Emailはメールアドレスの形式で入力してください。");
       return;
     }
     if (!tel.value) {
-      setAlertText("電話番号を入力してください。");
+      setAlertText("主催者電話番号を入力してください。");
       return;
     }
     if (!tel.value.match(/^[0-9]*$/)) {
-      setAlertText("電話番号は半角数字で入力してください。");
+      setAlertText("主催者電話番号は半角数字で入力してください。");
       return;
     }
     if (!fee.value) {
@@ -97,6 +107,18 @@ export default function TournamentSend() {
     }
     if (!grade.value) {
       setAlertText("指定外の値が選択されています。");
+      return;
+    }
+    if (0 == groupTypeId.value) {
+      setAlertText("団体区分を選択してください。");
+      return;
+    }
+    if (!groupTypeId.value.match(/^[1-6]*$/)) {
+      setAlertText("団体区分を選択してください。");
+      return;
+    }
+    if (5 == groupTypeId.value && !groupOther.value) {
+      setAlertText("団体区分その他を入力してください。");
       return;
     }
     if (!memo.value) {
@@ -117,10 +139,14 @@ export default function TournamentSend() {
       "start_day": startDay.value,
       "start_time": startTime.value,
       "place": place.value,
+      "adress": adress.value,
       "max_member": maxMember.value,
       "email": email.value,
       "tel": tel.value,
       "fee": fee.value,
+      "group_type_id": groupTypeId.value,
+      "group_other": (5 == groupTypeId.value) ? groupOther.value : '',
+      "sns_url": 'https://x.com/Lexio_Japan',
       "memo": memo.value,
       "min_grade": grade.value
     }).then(res => {
@@ -134,6 +160,16 @@ export default function TournamentSend() {
       // console.log(err);
       router.push({ pathname: "/login"});
     });
+  }
+
+  async function GroupChange() {
+    let groupTypeId = document.getElementById('groupTypeId');
+    if (5 == groupTypeId.value) {
+      setOtherDispFlag(true);
+    }
+    else {
+      setOtherDispFlag(false)
+    }
   }
 
   return (
@@ -157,19 +193,23 @@ export default function TournamentSend() {
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="startTime" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="15" /><span class="my-auto">時</span></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">場所</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="place" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="新宿区1-1-1" /></div></div>
+          <div class="w-1/3 my-auto md:mr-4 text-s">会場名</div>
+          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="place" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="東京ビックサイト" /></div></div>
+        </div>
+        <div class="flex justify-between pt-6 mb-6">
+          <div class="w-1/3 my-auto md:mr-4 text-s">会場住所</div>
+          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="adress" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="新宿区1-1-1" /></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
           <div class="w-1/3 my-auto md:mr-4 text-s">定員</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="maxMember" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="15" /><span class="my-auto">名</span></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">参加者連絡先Email</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s">主催者連絡先Email</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="email" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="test@gmail.com" /></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">電話番号</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s">主催者電話番号</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="number" id="tel" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="09012345678" /></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
@@ -189,6 +229,26 @@ export default function TournamentSend() {
             </div>
           </div>
         </div>
+        <div class="flex justify-between pt-6 mb-6">
+          <div class="w-1/3 my-auto md:mr-4 text-s">団体区分</div>
+          <div class ="w-2/3 my-auto">
+            <select id="groupTypeId" onChange={ () => GroupChange() } class="w-2/3 pl-2 h-10 rounded-md border-2 border-black" required>
+              <option value="" class="text-gray-600" checked>選択してください</option>
+              <option value="6">レキシオ・ジャパン本部</option>
+              <option value="1">カフェなどの店舗</option>
+              <option value="2">一般サークル</option>
+              <option value="3">学校サークル</option>
+              <option value="4">企業サークル</option>
+              <option value="5">その他</option>
+            </select>
+          </div>
+        </div>
+        {(otherDispFlag) &&
+          <div class="flex justify-between pt-6 mb-6">
+            <div class="w-1/3 my-auto md:mr-4 text-s">団体区分その他</div>
+            <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="text" id="groupOther" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div></div>
+          </div>
+        }
         <div class="flex pt-6 mb-6">
           <div class="w-1/3 my-auto md:mr-4 text-s">備考</div>
           <div class="w-2/3 my-auto md:mr-4 text-s"></div>

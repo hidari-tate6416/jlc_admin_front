@@ -19,7 +19,7 @@ export default function UserDetail() {
   const [userGivenNameKana, setUserGivenNameKana] = useState("");
   const [userName, setUserName] = useState("");
   const [userNameKana, setUserNameKana] = useState("");
-  const [userLastLogin, setUserLastLogin] = useState("");
+  // const [userLastLogin, setUserLastLogin] = useState("");
   const [userCreatedAt, setCreatedAt] = useState("");
   const [userBirthday, setBirthday] = useState("");
   const [userSex, setUserSex] = useState("");
@@ -51,7 +51,7 @@ export default function UserDetail() {
         setUserGivenNameKana(res.data.user.given_name_kana);
         setUserName(res.data.user.name);
         setUserNameKana(res.data.user.name_kana);
-        setUserLastLogin(res.data.user.last_login_at);
+        // setUserLastLogin(res.data.user.last_login_at);
         setCreatedAt(res.data.user.created_at);
         setBirthday(res.data.user.birthday);
         setUserSex(res.data.user.sex.name);
@@ -146,9 +146,9 @@ export default function UserDetail() {
           <div class="text-xl my-2">
             登録日：{ userCreatedAt }
           </div>
-          <div class="text-xl my-2">
+          {/* <div class="text-xl my-2">
             最終ログイン日時：{ userLastLogin }
-          </div>
+          </div> */}
         </div>
         <div class="my-2 justify-between">
           <select id="gradeId" class="w-32 h-10 rounded-md border-2 border-black">
