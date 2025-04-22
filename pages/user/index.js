@@ -18,7 +18,11 @@ export default function User() {
   }, []);
 
   async function getUsers() {
+    let name = document.getElementById('name');
+    let email = document.getElementById('email');
     await API.post('admin/get_list_user', {
+      "name": name.value,
+      "email": email.value
     }).then(res => {
       if ('OK' == res.data.result) {
         setUsers(res.data.users);
@@ -52,16 +56,16 @@ export default function User() {
             <div class="w-1/3 my-auto md:mr-4 text-s">Email</div>
             <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="email" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="tanaka@test.com" /></div></div>
           </div>
-          <p class="w-1/3 mx-auto mb-4"><SmallButton func={ () => getUsers() }>検索</SmallButton></p>
+          <p class="w-1/3 mx-auto my-4"><SmallButton func={ () => getUsers() }>検索</SmallButton></p>
         </div>
         <div class="py-3 mx-8">
           <table class="table-auto w-full mx-auto text-center">
             <thead>
               <tr>
-                <th>id</th>
-                <th><p>氏名</p><p>大会名</p></th>
-                <th>段</th>
-                <th></th>
+                <th class="w-1/4">会員ID</th>
+                <th class="w-1/4"><p>氏名</p><p>大会名</p></th>
+                <th class="w-1/4">段</th>
+                <th class="w-1/4"></th>
               </tr>
             </thead>
             <tbody>
