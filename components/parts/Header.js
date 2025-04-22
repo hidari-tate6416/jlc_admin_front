@@ -29,7 +29,7 @@ export default function Header() {
       </Head>
       <header>
         <div class="fixed w-full bg-jlc-sub">
-          <div class="flex justify-between px-6 border-b-4 border-jlc-third">
+          <div class="flex justify-between h-12 px-6 border-b-4 border-jlc-third">
             {/* <button onClick={ moveTop } class="bg-jlc-third">
               <Image src="/favicons/favicon_jlc.png" width={50} height={60} objectFit="contain" />
             </button> */}

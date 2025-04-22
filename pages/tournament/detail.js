@@ -19,10 +19,14 @@ export default function TournamentDetail() {
   const [tournamentDate, setTournamentDate] = useState("");
   const [tournamentHour, setTournamentHour] = useState(0);
   const [tournamentPlace, setTournamentPlace] = useState("");
+  const [tournamentAdress, setTournamentAdress] = useState("");
   const [tournamentSponsor, setTournamentSponsor] = useState("");
   const [tournamentMax, setTournamentMax] = useState(0);
   const [tournamentMember, setTournamentMember] = useState(0);
   const [tournamentFee, setTournamentFee] = useState(0);
+  const [tournamentGroupType, setTournamentGroupType] = useState("");
+  const [tournamentGroupOther, setTournamentGroupOther] = useState("");
+  const [tournamentSnsUrl, setTournamentSnsUrl] = useState("");
   const [tournamentMemo, setTournamentMemo] = useState("");
   const [tournamentPermit, setTournamentPermit] = useState(false);
   const [tournamentSponsorEmail, setTournamentSponsorEmail] = useState('');
@@ -61,11 +65,15 @@ export default function TournamentDetail() {
         setTournamentDate(res.data.tournament.start_day);
         setTournamentHour(res.data.tournament.start_time);
         setTournamentPlace(res.data.tournament.place);
+        setTournamentAdress(res.data.tournament.adress);
         setTournamentSponsor(res.data.sponsor.family_name + ' ' + res.data.sponsor.given_name);
         setTournamentMax(res.data.tournament.max_member);
         setTournamentMember(res.data.tournament.num_member);
         setTournamentFee(res.data.tournament.fee);
         setTournamentMemo(res.data.tournament.memo);
+        setTournamentGroupType(res.data.tournament.group_type.name);
+        setTournamentGroupOther(res.data.tournament.group_other);
+        setTournamentSnsUrl(res.data.tournament.sns_url);
         setTournamentPermit((res.data.tournament.permit) ? true : false);
         setTournamentSponsorEmail((res.data.tournament.email) ? res.data.tournament.email : '');
         setTournamentSponsorTel(res.data.tournament.tel);
@@ -144,7 +152,10 @@ export default function TournamentDetail() {
             日時：{ tournamentDate } { tournamentHour }時〜
           </div>
           <div class="text-l my-2">
-            場所：{ tournamentPlace }
+            会場名：{ tournamentPlace }
+          </div>
+          <div class="text-l my-2">
+            会場住所：{ tournamentAdress }
           </div>
           <div class="text-l my-2">
             主催者：{ tournamentSponsor }
@@ -163,6 +174,12 @@ export default function TournamentDetail() {
           </div>
           <div class="text-l my-2">
             参加費：{ tournamentFee }円
+          </div>
+          <div class="text-l my-2">
+            団体区分：{ tournamentGroupType }　{ tournamentGroupOther }
+          </div>
+          <div class="text-l my-2">
+            SNS：<a href={`${tournamentSnsUrl}`} class="cursor-pointer text-s text-blue" target="_blank">{ tournamentSnsUrl }</a><i class="fas fa-external-link-alt ml-2"></i>
           </div>
           <div class="text-l my-2">
             備考：{ tournamentMemo }
