@@ -27,6 +27,7 @@ export default function TournamentDetail() {
   const [tournamentGroupType, setTournamentGroupType] = useState("");
   const [tournamentGroupOther, setTournamentGroupOther] = useState("");
   const [tournamentSnsUrl, setTournamentSnsUrl] = useState("");
+  const [tournamentBuyCount, setTournamentBuyCount] = useState(0);
   const [tournamentMemo, setTournamentMemo] = useState("");
   const [tournamentPermit, setTournamentPermit] = useState(false);
   const [tournamentSponsorEmail, setTournamentSponsorEmail] = useState('');
@@ -74,6 +75,7 @@ export default function TournamentDetail() {
         setTournamentGroupType(res.data.tournament.group_type.name);
         setTournamentGroupOther(res.data.tournament.group_other);
         setTournamentSnsUrl(res.data.tournament.sns_url);
+        setTournamentBuyCount(res.data.tournament.buy_count);
         setTournamentPermit((res.data.tournament.permit) ? true : false);
         setTournamentSponsorEmail((res.data.tournament.email) ? res.data.tournament.email : '');
         setTournamentSponsorTel(res.data.tournament.tel);
@@ -180,6 +182,9 @@ export default function TournamentDetail() {
           </div>
           <div class="text-l my-2">
             SNS：<a href={`${tournamentSnsUrl}`} class="cursor-pointer text-s text-blue" target="_blank">{ tournamentSnsUrl }</a><i class="fas fa-external-link-alt ml-2"></i>
+          </div>
+          <div class="text-l my-2">
+            LEXIO購入希望数：{ tournamentBuyCount }個
           </div>
           <div class="text-l my-2">
             備考：{ tournamentMemo }
