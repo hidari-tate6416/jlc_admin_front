@@ -29,6 +29,7 @@ export default function TournamentDetail() {
   const [tournamentSnsUrl, setTournamentSnsUrl] = useState("");
   const [tournamentBuyCount, setTournamentBuyCount] = useState(0);
   const [tournamentMemo, setTournamentMemo] = useState("");
+  const [tournamentQuestion, setTournamentQuestion] = useState("");
   const [tournamentPermit, setTournamentPermit] = useState(false);
   const [tournamentSponsorEmail, setTournamentSponsorEmail] = useState('');
   const [tournamentSponsorTel, setTournamentSponsorTel] = useState('');
@@ -72,6 +73,7 @@ export default function TournamentDetail() {
         setTournamentMember(res.data.tournament.num_member);
         setTournamentFee(res.data.tournament.fee);
         setTournamentMemo(res.data.tournament.memo);
+        setTournamentQuestion(res.data.tournament.question);
         setTournamentGroupType(res.data.tournament.group_type.name);
         setTournamentGroupOther(res.data.tournament.group_other);
         setTournamentSnsUrl(res.data.tournament.sns_url);
@@ -187,7 +189,10 @@ export default function TournamentDetail() {
             LEXIO購入希望数：{ tournamentBuyCount }個
           </div>
           <div class="text-l my-2">
-            備考：{ tournamentMemo }
+            備考：<br/>{ tournamentMemo }
+          </div>
+          <div class="text-l my-2">
+            ご意見・ご質問：<br/>{ tournamentQuestion }
           </div>
         </div>
 
