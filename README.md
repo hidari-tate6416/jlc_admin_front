@@ -6,6 +6,10 @@ First, run the development server:
 
 初期起動
 $ npm install
+
+env/.env.developを作成して以下のテキストを入力する
+NEXT_PUBLIC_API_BASE_URL="https://prev-api.lexio-japan.com/api/"
+
 ローカルサイト起動
 $ npm run dev
 
