@@ -20,6 +20,7 @@ export default function TournamentSend() {
     let name = document.getElementById('name');
     let startDay = document.getElementById('startDay');
     let startTime = document.getElementById('startTime');
+    let endTime = document.getElementById('endTime');
     let place = document.getElementById('place');
     let adress = document.getElementById('adress');
     let maxMember = document.getElementById('maxMember');
@@ -29,6 +30,7 @@ export default function TournamentSend() {
     let grade = document.getElementById('grade');
     let groupTypeId = document.getElementById('groupTypeId');
     let groupOther = document.getElementById('groupOther');
+    let hpUrl = (document.getElementById('hpUrl')) ?? document.getElementById('hpUrl');
     let snsUrl = (document.getElementById('snsUrl')) ?? document.getElementById('snsUrl');
 
     let memo = document.getElementById('memo');
@@ -55,6 +57,22 @@ export default function TournamentSend() {
     }
     if (startTime.value < 0 || 24 < startTime.value) {
       setAlertText("開始時間は0から24の間で入力してください。");
+      return;
+    }
+    if (!endTime.value) {
+      setAlertText("終了予定時間を入力してください。");
+      return;
+    }
+    if (!endTime.value.match(/^[0-9]{2}$/)) {
+      setAlertText("終了予定時間は半角数字2桁で入力してください。");
+      return;
+    }
+    if (endTime.value < 0 || 24 < startTime.value) {
+      setAlertText("終了予定時間は0から24の間で入力してください。");
+      return;
+    }
+    if (startTime.value >= endTime.value) {
+      setAlertText("終了予定時間は開始時間より遅い時間を入力してください。");
       return;
     }
     if (!place.value) {
@@ -138,6 +156,7 @@ export default function TournamentSend() {
       "boardgame_id": boardgameId,
       "start_day": startDay.value,
       "start_time": startTime.value,
+      "end_time": endTime.value,
       "place": place.value,
       "adress": adress.value,
       "max_member": maxMember.value,
@@ -146,6 +165,7 @@ export default function TournamentSend() {
       "fee": fee.value,
       "group_type_id": groupTypeId.value,
       "group_other": (5 == groupTypeId.value) ? groupOther.value : '',
+      "hp_url": (hpUrl.value) ? hpUrl.value : '',
       "sns_url": 'https://x.com/Lexio_Japan',
       "memo": memo.value,
       "min_grade": grade.value
@@ -178,46 +198,50 @@ export default function TournamentSend() {
         <div class="font-semibold text-2xl py-5">
           予選・本戦開催
         </div>
-        <span class="text-xs pt-6">以下情報を入力して<br/>登録ボタンを押下してください。
-        </span>
+        <div><span class="text-xs pt-6">以下情報を入力して<br/>申請ボタンを押下してください。</span></div>
+        <div><span class="text-xs"><span class="text-red">*</span>は入力必須項目</span></div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">大会名</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>大会名</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="name" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="東京新宿予選1" /></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">日程</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>日程</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="startDay" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="19900101" /></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">開始時間</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>開始時間</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="startTime" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="15" /><span class="my-auto">時</span></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">会場名</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>終了予定時間</div>
+          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="endTime" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="18" /><span class="my-auto">時</span></div></div>
+        </div>
+        <div class="flex justify-between pt-6 mb-6">
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>会場名</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="place" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="東京ビックサイト" /></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">会場住所</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>会場住所</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="adress" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="新宿区1-1-1" /></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">定員</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>定員</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="maxMember" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="15" /><span class="my-auto">名</span></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">主催者連絡先Email</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>主催者連絡先Email</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="email" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="test@gmail.com" /></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">主催者電話番号</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>主催者電話番号</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="number" id="tel" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="09012345678" /></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">参加料</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>参加料</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="fee" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="3000" /><span class="my-auto">円</span></div></div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">参加最低段数</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>参加最低段数</div>
           <div class="w-2/3 my-auto">
             <div class="w-2/3 mx-auto flex">
               <select id="grade" class="w-32 h-10 rounded-md border-2 border-black">
@@ -230,7 +254,7 @@ export default function TournamentSend() {
           </div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">団体区分</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>団体区分</div>
           <div class ="w-2/3 my-auto">
             <select id="groupTypeId" onChange={ () => GroupChange() } class="w-2/3 pl-2 h-10 rounded-md border-2 border-black" required>
               <option value="" class="text-gray-600" checked>選択してください</option>
@@ -245,16 +269,23 @@ export default function TournamentSend() {
         </div>
         {(otherDispFlag) &&
           <div class="flex justify-between pt-6 mb-6">
-            <div class="w-1/3 my-auto md:mr-4 text-s">団体区分その他</div>
+            <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>団体区分その他</div>
             <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="text" id="groupOther" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div></div>
           </div>
         }
+         <div class="flex justify-between pt-6 mb-6">
+          <div class="w-1/3 my-auto md:mr-4 text-s">HP等のURL</div>
+          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="text" id="hpUrl" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="https://x.com/Lexio_Japan" /></div></div>
+        </div>
         <div class="flex pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">備考</div>
+          <div class="w-1/3 my-auto md:mr-4 text-s">その他詳細事項</div>
           <div class="w-2/3 my-auto md:mr-4 text-s"></div>
         </div>
         <div class="flex w-4/5 mx-auto mb-6">
-          <textarea type="textarea" id="memo" class="w-full h-40 pl-2 rounded-md border-2 border-black">成績が上位10%には2段を授与、成績が上位2名には3段と韓国での世界大会出場権を授与</textarea>
+          <textarea type="textarea" id="memo" class="w-full h-40 pl-2 rounded-md border-2 border-black">
+            成績が上位10%には2段を授与
+            成績が上位2名には3段と韓国での世界大会出場権を授与
+          </textarea>
         </div>
 
         {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
