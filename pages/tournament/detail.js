@@ -18,6 +18,7 @@ export default function TournamentDetail() {
   const [tournamentName, setTournamentName] = useState("");
   const [tournamentDate, setTournamentDate] = useState("");
   const [tournamentHour, setTournamentHour] = useState(0);
+  const [tournamentEndHour, setTournamentEndHour] = useState(0);
   const [tournamentPlace, setTournamentPlace] = useState("");
   const [tournamentAdress, setTournamentAdress] = useState("");
   const [tournamentSponsor, setTournamentSponsor] = useState("");
@@ -26,6 +27,7 @@ export default function TournamentDetail() {
   const [tournamentFee, setTournamentFee] = useState(0);
   const [tournamentGroupType, setTournamentGroupType] = useState("");
   const [tournamentGroupOther, setTournamentGroupOther] = useState("");
+  const [tournamentHpUrl, setTournamentHpUrl] = useState("");
   const [tournamentSnsUrl, setTournamentSnsUrl] = useState("");
   const [tournamentBuyCount, setTournamentBuyCount] = useState(0);
   const [tournamentMemo, setTournamentMemo] = useState("");
@@ -66,16 +68,18 @@ export default function TournamentDetail() {
         setTournamentName(res.data.tournament.name);
         setTournamentDate(res.data.tournament.start_day);
         setTournamentHour(res.data.tournament.start_time);
+        setTournamentEndHour(res.data.tournament.end_time);
         setTournamentPlace(res.data.tournament.place);
         setTournamentAdress(res.data.tournament.adress);
-        setTournamentSponsor(res.data.sponsor.family_name + ' ' + res.data.sponsor.given_name);
+        setTournamentSponsor(res.data.sponsor.name);
         setTournamentMax(res.data.tournament.max_member);
         setTournamentMember(res.data.tournament.num_member);
         setTournamentFee(res.data.tournament.fee);
-        setTournamentMemo(res.data.tournament.memo);
+        setTournamentMemo(res.data.tournament.memo.replace(" ", "\n"));
         setTournamentQuestion(res.data.tournament.question);
         setTournamentGroupType(res.data.tournament.group_type.name);
         setTournamentGroupOther(res.data.tournament.group_other);
+        setTournamentHpUrl(res.data.tournament.hp_url);
         setTournamentSnsUrl(res.data.tournament.sns_url);
         setTournamentBuyCount(res.data.tournament.buy_count);
         setTournamentPermit((res.data.tournament.permit) ? true : false);
@@ -153,7 +157,7 @@ export default function TournamentDetail() {
             予選名：{ tournamentName }
           </div>
           <div class="text-l my-2">
-            日時：{ tournamentDate } { tournamentHour }時〜
+            日時：{ tournamentDate } { tournamentHour }時〜{ tournamentEndHour }時
           </div>
           <div class="text-l my-2">
             会場名：{ tournamentPlace }
@@ -183,13 +187,16 @@ export default function TournamentDetail() {
             団体区分：{ tournamentGroupType }　{ tournamentGroupOther }
           </div>
           <div class="text-l my-2">
+            HP：<a href={`${tournamentHpUrl}`} class="cursor-pointer text-s text-blue" target="_blank">{ tournamentHpUrl }</a><i class="fas fa-external-link-alt ml-2"></i>
+          </div>
+          <div class="text-l my-2">
             SNS：<a href={`${tournamentSnsUrl}`} class="cursor-pointer text-s text-blue" target="_blank">{ tournamentSnsUrl }</a><i class="fas fa-external-link-alt ml-2"></i>
           </div>
           <div class="text-l my-2">
             LEXIO購入希望数：{ tournamentBuyCount }個
           </div>
-          <div class="text-l my-2">
-            備考：<br/>{ tournamentMemo }
+          <div class="text-l my-2 whitespace-pre-wrap">
+            その他詳細事項：<br/>{ tournamentMemo }
           </div>
           <div class="text-l my-2">
             ご意見・ご質問：<br/>{ tournamentQuestion }
