@@ -2,6 +2,7 @@ import Index from '/components/Index.js';
 import ButtonJlc from '/components/parts/ButtonJlc.js';
 import ButtonJlcInactive from '/components/parts/ButtonJlcInactive.js';
 import SmallButton from '/components/parts/SmallButton.js';
+import ButtonDelete from '/components/parts/ButtonDelete.js';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import API from '/plugins/customAxios.js';
@@ -118,6 +119,27 @@ export default function TournamentDetail() {
     });
   }
 
+  async function deleteTournament() {
+      // 登録確認ダイアログ
+      if(!window.confirm("大会を削除します。よろしいですか？")){
+        return;
+      }
+
+      await API.post('admin/delete_tournament', {
+        "tournament_id": tournamentId
+      }).then(res => {
+        if ('OK' === res.data.result) {
+          router.push({ pathname: "/tournament/delete_complete"});
+        }
+        else {
+          setAlertText("不正アクセスを検知");
+        }
+      }).catch(err => {
+        // console.log(err);
+        setAlertText("サーバエラーが起きました。しばらく時間をおいてもう一度お試しください。");
+      });
+    }
+
   async function resultTournament() {
     router.push({ pathname: "/tournament/user/", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/");
   }
@@ -140,6 +162,9 @@ export default function TournamentDetail() {
   }
   async function entryUserShuffle() {
     router.push({ pathname: "/tournament/user/shuffle", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/shuffle");
+  }
+  async function editTournament() {
+    router.push({ pathname: "/tournament/edit", query: {TournamentId: tournamentId}}, "/tournament/edit");
   }
   async function entryResultSend() {
     router.push({ pathname: "/tournament/user/result", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/result");
@@ -227,12 +252,16 @@ export default function TournamentDetail() {
             <div>
               <div><ButtonJlc func={ entryUserEntried } class="py-4">エントリー一覧</ButtonJlc></div>
               <div><ButtonJlc func={ entryUserPermit } class="py-4">エントリー管理</ButtonJlc></div>
+              <div><ButtonJlc func={ editTournament } class="py-4">大会情報編集</ButtonJlc></div>
               <div><ButtonJlc func={ entryUserShuffle } class="py-4">席順シャッフル</ButtonJlc></div>
               <div><ButtonJlc func={ entryResultSend } class="py-4">結果送信</ButtonJlc></div>
             </div>
           ) : (
             <div></div>
           )}
+        <div>
+          <div><ButtonDelete func={ deleteTournament } class="py-4 bg-red text-black">大会削除</ButtonDelete></div>
+        </div>
         <div class="pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜一覧に戻る</a></div>
       </div>
     </Index>

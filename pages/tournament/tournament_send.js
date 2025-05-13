@@ -146,7 +146,7 @@ export default function TournamentSend() {
     setButtonActive(false);
 
     // 登録確認ダイアログ
-    if(!window.confirm("大会の内容は変更できません。\r\n入力した内容で登録してよろしいですか？")){
+    if(!window.confirm("入力した内容で再登録してよろしいですか？")){
       setButtonActive(true);
       return;
     }
