@@ -104,6 +104,10 @@ export default function UserDetail() {
     });
   }
 
+  async function editUser() {
+    router.push({ pathname: "/user/edit", query: {userId: userId}}, "/user/edit");
+  }
+
   async function returnPage() {
     router.push({ pathname: "/user/"});
   }
@@ -162,13 +166,16 @@ export default function UserDetail() {
           {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
           { buttonActive ? (
             <div>
-              <ButtonJlc func={ saveUser } class="py-4">登録</ButtonJlc>
+              <ButtonJlc func={ saveUser } class="py-4">段位登録</ButtonJlc>
             </div>
           ) : (
             <div>
-              <ButtonJlcInactive class="py-4">登録</ButtonJlcInactive>
+              <ButtonJlcInactive class="py-4">段位登録</ButtonJlcInactive>
             </div>
           )}
+          <div>
+            <ButtonJlc func={ editUser } class="py-4">会員情報編集</ButtonJlc>
+          </div>
         </div>
 
         <div class="pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜会員一覧に戻る</a></div>
