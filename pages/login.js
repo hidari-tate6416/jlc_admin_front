@@ -65,7 +65,8 @@ export default function Login() {
         </div>
         {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
         <Button func={ loginClick }>ログイン</Button>
-        <div class="my-2 pb-4">パスワード忘れた方は<Link href="/password_email" class="text-s text-blue">こちら</Link></div>
+        <div class="my-2">パスワード忘れた方は<Link href="/password_email" class="text-s text-blue">こちら</Link></div>
+        <div class="pb-4"><Link href="/history" class="text-s text-blue">バージョン履歴</Link></div>
       </div>
     </Index>
   )
