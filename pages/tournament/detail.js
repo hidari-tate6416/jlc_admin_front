@@ -228,7 +228,7 @@ export default function TournamentDetail() {
           </div>
         </div>
 
-        <div class="py-5">
+        <div class="pt-5">
           { tournamentPermit ? (
             <div>
               <div><ButtonJlcInactive class="py-4 bg-black">承認済み</ButtonJlcInactive></div>
@@ -248,9 +248,11 @@ export default function TournamentDetail() {
             </div>
           )}
         </div>
+        <div>
+          <div><ButtonJlc func={ entryUserEntried } class="py-4">参加者一覧</ButtonJlc></div>
+        </div>
         { tournamentSponsorFrag ? (
             <div>
-              <div><ButtonJlc func={ entryUserEntried } class="py-4">エントリー一覧</ButtonJlc></div>
               <div><ButtonJlc func={ entryUserPermit } class="py-4">エントリー管理</ButtonJlc></div>
               <div><ButtonJlc func={ editTournament } class="py-4">大会情報編集</ButtonJlc></div>
               <div><ButtonJlc func={ entryUserShuffle } class="py-4">席順シャッフル</ButtonJlc></div>
