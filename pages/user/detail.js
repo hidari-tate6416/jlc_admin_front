@@ -108,6 +108,10 @@ export default function UserDetail() {
     router.push({ pathname: "/user/edit", query: {userId: userId}}, "/user/edit");
   }
 
+  async function moveEntryTournament() {
+    router.push({ pathname: "/user/entry_tournament", query: {userId: userId}}, "/user/edit");
+  }
+
   async function returnPage() {
     router.push({ pathname: "/user/"});
   }
@@ -175,6 +179,9 @@ export default function UserDetail() {
           )}
           <div>
             <ButtonJlc func={ editUser } class="py-4">会員情報編集</ButtonJlc>
+          </div>
+          <div>
+            <ButtonJlc func={ moveEntryTournament } class="py-4">参加大会一覧</ButtonJlc>
           </div>
         </div>
 
