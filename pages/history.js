@@ -29,7 +29,7 @@ export default function History() {
           <div>version 1.3.0（2025/06/06）</div>
           <div>会員を削除できるように</div>
           <div>大会に地域データを持たせるように</div>
-          <div>主催した大会のエントリー一覧からExcelでダウンロードできるように</div>
+          <div>各大会のエントリー一覧からExcelでダウンロードできるように</div>
         </div>
       </div>
     </Index>
