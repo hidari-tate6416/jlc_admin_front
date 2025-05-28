@@ -14,6 +14,26 @@ export default function TournamentSend() {
   const [buttonActive, setButtonActive] = useState(true);
   const [otherDispFlag, setOtherDispFlag] = useState(false);
 
+  const [areas, setAreas] = useState([]);
+
+  useEffect(() => {
+    getAreas();
+  }, []);
+
+  async function getAreas() {
+    await API.get('menu/area').then(res => {
+      if ('OK' == res.data.result) {
+        setAreas(res.data.menu);
+      }
+      else {
+        router.push({ pathname: "/"});
+      }
+    }).catch(err => {
+      // console.log(err);
+      router.push({ pathname: "/login"});
+    });
+  }
+
   async function sendInput() {
     setAlertText("");
 
@@ -23,6 +43,7 @@ export default function TournamentSend() {
     let endTime = document.getElementById('endTime');
     let place = document.getElementById('place');
     let adress = document.getElementById('adress');
+    let areaId = document.getElementById('areaId');
     let maxMember = document.getElementById('maxMember');
     let email = document.getElementById('email');
     let tel = document.getElementById('tel');
@@ -81,6 +102,10 @@ export default function TournamentSend() {
     }
     if (!adress.value) {
       setAlertText("会場住所を入力してください。");
+      return;
+    }
+    if (!areaId.value) {
+      setAlertText("選択してください。");
       return;
     }
     if (!maxMember.value) {
@@ -159,6 +184,7 @@ export default function TournamentSend() {
       "end_time": endTime.value,
       "place": place.value,
       "adress": adress.value,
+      "area_id": areaId.value,
       "max_member": maxMember.value,
       "email": email.value,
       "tel": tel.value,
@@ -223,6 +249,16 @@ export default function TournamentSend() {
         <div class="flex justify-between pt-6 mb-6">
           <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>会場住所</div>
           <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="adress" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="新宿区1-1-1" /></div></div>
+        </div>
+        <div class="flex justify-between pt-6 mb-6">
+          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>居住地域</div>
+          <div class ="w-2/3 my-auto">
+            <select id="areaId" class="w-2/3 pl-2 h-10 rounded-md border-2 border-black">
+              {areas.map(area => (
+                <option value={`${area.id}`} selected={(area.id == 1)? true: false}>{ area.name }</option>
+              ))}
+            </select>
+          </div>
         </div>
         <div class="flex justify-between pt-6 mb-6">
           <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>定員</div>

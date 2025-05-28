@@ -71,14 +71,17 @@ export default function Tournament() {
               <tr>
                 <th></th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               {tournaments.map(tournament => (
                 <tr class="border-y border-gray-500">
-                  <td class="h-20 text-s md:text-s mr-4">
-                    <p>{ tournament.start_day } { tournament.start_time }時〜</p>
-                    <p>{ tournament.place }</p>
+                  <td class="w-1/4 h-20 text-s md:text-s mr-4">
+                    <p>{ tournament.start_day }<br/>{ tournament.start_time }〜{ tournament.end_time }時</p>
+                  </td>
+                  <td class="w-1/2 h-20 text-s md:text-s mr-4">
+                    <p>{ tournament.area.name }<br/>{ tournament.place }</p>
                   </td>
                   <td class="max-h-2">
                     <p class=""><SmallButton func={ () => detailTournament(tournament.id) }>詳細</SmallButton></p>

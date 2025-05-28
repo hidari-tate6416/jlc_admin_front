@@ -2,6 +2,7 @@ import Index from '/components/Index.js';
 import ButtonJlc from '/components/parts/ButtonJlc.js';
 import ButtonJlcInactive from '/components/parts/ButtonJlcInactive.js';
 import SmallButton from '/components/parts/SmallButton.js';
+import ButtonDelete from '/components/parts/ButtonDelete.js';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import API from '/plugins/customAxios.js';
@@ -104,6 +105,27 @@ export default function UserDetail() {
     });
   }
 
+  async function deleteUser() {
+      // 登録確認ダイアログ
+      if(!window.confirm("会員を削除します。よろしいですか？")){
+        return;
+      }
+
+      await API.post('admin/delete_user', {
+        "user_id": userId
+      }).then(res => {
+        if ('OK' === res.data.result) {
+          router.push({ pathname: "/user/delete_complete"});
+        }
+        else {
+          setAlertText("不正アクセスを検知");
+        }
+      }).catch(err => {
+        // console.log(err);
+        setAlertText("サーバエラーが起きました。しばらく時間をおいてもう一度お試しください。");
+      });
+    }
+
   async function editUser() {
     router.push({ pathname: "/user/edit", query: {userId: userId}}, "/user/edit");
   }
@@ -182,6 +204,9 @@ export default function UserDetail() {
           </div>
           <div>
             <ButtonJlc func={ moveEntryTournament } class="py-4">参加大会一覧</ButtonJlc>
+          </div>
+          <div>
+            <ButtonDelete func={ deleteUser } class="py-4 bg-red text-black">会員削除</ButtonDelete>
           </div>
         </div>
 
