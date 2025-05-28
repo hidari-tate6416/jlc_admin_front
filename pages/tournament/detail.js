@@ -22,6 +22,7 @@ export default function TournamentDetail() {
   const [tournamentEndHour, setTournamentEndHour] = useState(0);
   const [tournamentPlace, setTournamentPlace] = useState("");
   const [tournamentAdress, setTournamentAdress] = useState("");
+  const [tournamentArea, setTournamentArea] = useState("");
   const [tournamentSponsor, setTournamentSponsor] = useState("");
   const [tournamentMax, setTournamentMax] = useState(0);
   const [tournamentMember, setTournamentMember] = useState(0);
@@ -72,6 +73,7 @@ export default function TournamentDetail() {
         setTournamentEndHour(res.data.tournament.end_time);
         setTournamentPlace(res.data.tournament.place);
         setTournamentAdress(res.data.tournament.adress);
+        setTournamentArea(res.data.tournament.area.name);
         setTournamentSponsor(res.data.sponsor.name);
         setTournamentMax(res.data.tournament.max_member);
         setTournamentMember(res.data.tournament.num_member);
@@ -120,25 +122,25 @@ export default function TournamentDetail() {
   }
 
   async function deleteTournament() {
-      // 登録確認ダイアログ
-      if(!window.confirm("大会を削除します。よろしいですか？")){
-        return;
-      }
-
-      await API.post('admin/delete_tournament', {
-        "tournament_id": tournamentId
-      }).then(res => {
-        if ('OK' === res.data.result) {
-          router.push({ pathname: "/tournament/delete_complete"});
-        }
-        else {
-          setAlertText("不正アクセスを検知");
-        }
-      }).catch(err => {
-        // console.log(err);
-        setAlertText("サーバエラーが起きました。しばらく時間をおいてもう一度お試しください。");
-      });
+    // 登録確認ダイアログ
+    if(!window.confirm("大会を削除します。よろしいですか？")){
+      return;
     }
+
+    await API.post('admin/delete_tournament', {
+      "tournament_id": tournamentId
+    }).then(res => {
+      if ('OK' === res.data.result) {
+        router.push({ pathname: "/tournament/delete_complete"});
+      }
+      else {
+        setAlertText("不正アクセスを検知");
+      }
+    }).catch(err => {
+      // console.log(err);
+      setAlertText("サーバエラーが起きました。しばらく時間をおいてもう一度お試しください。");
+    });
+  }
 
   async function resultTournament() {
     router.push({ pathname: "/tournament/user/", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/user/");
@@ -188,7 +190,7 @@ export default function TournamentDetail() {
             会場名：{ tournamentPlace }
           </div>
           <div class="text-l my-2">
-            会場住所：{ tournamentAdress }
+            会場住所：{ tournamentArea }{ tournamentAdress }
           </div>
           <div class="text-l my-2">
             主催者：{ tournamentSponsor }
