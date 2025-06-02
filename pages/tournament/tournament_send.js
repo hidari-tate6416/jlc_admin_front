@@ -319,8 +319,7 @@ export default function TournamentSend() {
         </div>
         <div class="flex w-4/5 mx-auto mb-6">
           <textarea type="textarea" id="memo" class="w-full h-40 pl-2 rounded-md border-2 border-black">
-            成績が上位10%には2段を授与
-            成績が上位2名には3段と韓国での世界大会出場権を授与
+            必ずJLC詳細（https://lexio-japan.com/jlc/）をご確認の上、エントリーお願いします。
           </textarea>
         </div>
 
