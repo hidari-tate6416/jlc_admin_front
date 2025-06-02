@@ -13,8 +13,10 @@ export default function TournamentUserEntried() {
   const tournamentId = (router.query.TournamentId) ? router.query.TournamentId : '';
   const permitFlag = ('true' == router.query.PermitFlag) ? true : false;
   const mainFlag = ('true' == router.query.MainFlag) ? true : false;
+  const dlUrl = process.env.NEXT_PUBLIC_API_BASE_URL.replace('api/', '');
 
   const [users, setUsers] = useState([]);
+  const [token, setToken] = useState('');
 
   useEffect(() => {
     getUsers();
@@ -41,6 +43,9 @@ export default function TournamentUserEntried() {
       // console.log(err);
       router.push({ pathname: "/"});
     });
+
+    // tokenをセット
+    setToken(localStorage.getItem("token"));
   }
 
   async function returnPage() {
@@ -83,6 +88,9 @@ export default function TournamentUserEntried() {
               )}
             </tbody>
           </table>
+        </div>
+        <div class="mt-4">
+          <a href={`${dlUrl + 'user/download_entry_users?token=' + token + '&tournament_id=' + tournamentId}`} target="_blank"><ButtonJlc>Excelダウンロード</ButtonJlc></a>
         </div>
         <div class="mt-4 pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
       </div>

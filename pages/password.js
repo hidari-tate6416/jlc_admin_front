@@ -36,7 +36,7 @@ export default function Password() {
       setAlertText("パスワードが入力されていません。");
       return;
     }
-    if (!/^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,16}$/.test(password.value)) {
+    if (!/^(?=.*?[a-zA-Z])(?=.*?\d)[a-zA-Z\d]{8,16}$/.test(password.value)) {
       setAlertText("パスワードは半角英と半角数字を含めて8桁以上16桁以下で入力してください。");
       return;
     }

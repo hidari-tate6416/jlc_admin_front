@@ -25,6 +25,14 @@ export default function History() {
           <div>管理者は全ての大会の参加者を確認できるように改修</div>
           <div>本画面のバージョン履歴画面の実装</div>
         </div>
+        <div class="mt-5 mb-3 mx-full">
+          <div>version 1.3.0（2025/06/02）</div>
+          <div>会員を削除できるように</div>
+          <div>大会に地域データを持たせるように</div>
+          <div>各大会のエントリー一覧からExcelでダウンロードできるように</div>
+          <div>パスワード設定時の不具合を修正</div>
+          <div>特典登録画面を修正</div>
+        </div>
       </div>
     </Index>
   )

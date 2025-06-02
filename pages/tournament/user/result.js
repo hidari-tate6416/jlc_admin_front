@@ -104,7 +104,7 @@ export default function TournamentUserResult() {
                     <p class="">{ user.user.name }</p>
                   </td>
                   <td class="w-1/3">
-                    <p class=""><input type="number" id={`${user.user.id}`} class="h-10 pl-2 rounded-md border-2 border-black" defaultValue={`${user.score}`} placeholder="100" /></p>
+                    <p class=""><input type="number" id={`${user.user.id}`} class="w-3/4 h-10 pl-2 rounded-md border-2 border-black" defaultValue={`${user.score}`} placeholder="100" /></p>
                   </td>
                 </tr>
               )) : (

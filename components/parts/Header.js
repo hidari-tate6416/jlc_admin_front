@@ -34,7 +34,7 @@ export default function Header() {
               <Image src="/favicons/favicon_jlc.png" width={50} height={60} objectFit="contain" />
             </button> */}
             <button onClick={ moveTop } class="italic">
-              <span>JLC会員サイト</span>
+              <span>JLC会員サイト 管理画面</span>
             </button>
             {/* <button onClick={ changeMenu } class="px-2 py-1 top-2 right-6 bg-jlc-sub">
               <li id="bars" class="fa-solid fa-bars fa-2x text-jlc-third"></li>
