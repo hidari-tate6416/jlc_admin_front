@@ -2,6 +2,7 @@ import Index from '/components/Index.js';
 import ButtonJlc from '/components/parts/ButtonJlc.js';
 import SmallButton from '/components/parts/SmallButton.js';
 import { useState, useEffect } from "react";
+import Image from 'next/image'
 import { useRouter } from "next/router";
 import API from '/plugins/customAxios.js';
 import Link from 'next/link';
@@ -83,8 +84,18 @@ export default function Tournament() {
                   <td class="w-1/2 h-20 text-s md:text-s mr-4">
                     <p>{ tournament.area.name }<br/>{ tournament.place }</p>
                   </td>
-                  <td class="max-h-2">
-                    <p class=""><SmallButton func={ () => detailTournament(tournament.id) }>詳細</SmallButton></p>
+                  <td class="w-1/4 max-h-2 justify-items-center relative">
+                    { tournament.end_flag ? (
+                      <div class="absolute -inset-x-6 inset-y-5 w-1/2">
+                        <div><Image src="/logos/entry_end.png" width={60} height={30} /></div>
+                      </div>
+                    ) : (
+                      <div class="absolute -inset-x-6 inset-y-5 w-1/2">
+                        <div><Image src="/logos/entry_now.png" width={60} height={30} /></div>
+                      </div>
+                    )}
+                    <p class="text-xs">定員{ tournament.max_member }人<br/>残り{ tournament.max_member - tournament.num_member }人</p>
+                    <p class="w-28"><SmallButton func={ () => detailTournament(tournament.id) }>詳細</SmallButton></p>
                   </td>
                 </tr>
               ))}
