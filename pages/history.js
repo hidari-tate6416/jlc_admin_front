@@ -34,7 +34,7 @@ export default function History() {
           <div>特典登録画面を修正</div>
         </div>
         <div class="mt-5 mb-3 mx-full">
-          <div>version 1.4.0（2025/06/18）</div>
+          <div>version 1.4.0（2025/06/19）</div>
           <div>終了した大会も表示されるように</div>
           <div>大会の表示順を開催日の降順になるように</div>
           <div>募集中・募集終了の大会がアイコンで判別できるように</div>
