@@ -264,7 +264,7 @@ export default function TournamentDetail() {
             <div></div>
           )}
         <div>
-          <div><ButtonDelete func={ deleteTournament } class="py-4 bg-red text-black">大会削除</ButtonDelete></div>
+          <div class="mx-auto mb-6 md:w-1/2 w-2/3"><ButtonDelete func={ deleteTournament } class="py-4 bg-red text-black">大会削除</ButtonDelete></div>
         </div>
         <div class="pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜一覧に戻る</a></div>
       </div>

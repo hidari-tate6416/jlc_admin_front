@@ -1,6 +1,7 @@
 import Index from '/components/Index.js';
 import ButtonJlc from '/components/parts/ButtonJlc.js';
 import SmallButton from '/components/parts/SmallButton.js';
+import ButtonDelete from '/components/parts/ButtonDelete.js';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import API from '/plugins/customAxios.js';
@@ -66,6 +67,28 @@ export default function TournamentUser() {
     });
   }
 
+  async function deleteUser(userId) {
+      // 登録確認ダイアログ
+      if(!window.confirm("参加を取り消します。よろしいですか？")){
+        return;
+      }
+
+      await API.post('admin/delete_entry_user', {
+        "tournament_id": tournamentId,
+        "user_id": userId
+      }).then(res => {
+        if ('OK' === res.data.result) {
+          getUsers();
+        }
+        else {
+          setAlertText("不正アクセスを検知");
+        }
+      }).catch(err => {
+        // console.log(err);
+        setAlertText("サーバエラーが起きました。しばらく時間をおいてもう一度お試しください。");
+      });
+    }
+
   async function returnPage() {
     router.push({ pathname: "/tournament/detail", query: {TournamentId: tournamentId, PermitFlag: permitFlag, MainFlag: mainFlag}}, "/tournament/detail");
   }
@@ -83,19 +106,23 @@ export default function TournamentUser() {
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               {users.length ? users.map(user => (
                 <tr class="">
-                  <td class="h-10 text-s md:text-s mr-4">
+                  <td class="w-1/4 h-10 text-s md:text-s mr-4">
                     <p>{ user.user.name }</p>
                   </td>
-                  <td class="">
+                  <td class="w-1/4">
                     <p class="">{ user.user.user_grade.grade.name }</p>
                   </td>
-                  <td class="">
+                  <td class="w-1/4">
                     <SmallButton func={ () => permitUser(user.user.id) }>承認</SmallButton>
+                  </td>
+                  <td class="w-1/4">
+                    <ButtonDelete func={ () => deleteUser(user.user.id) }>拒否</ButtonDelete>
                   </td>
                 </tr>
               )) : (

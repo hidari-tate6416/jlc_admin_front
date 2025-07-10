@@ -40,6 +40,10 @@ export default function History() {
           <div>募集中・募集終了の大会がアイコンで判別できるように</div>
           <div>募集終了した大会にエントリーできないように</div>
         </div>
+        <div class="mt-5 mb-3 mx-full">
+          <div>version 1.5.0（2025/07/10）</div>
+          <div>主催者が参加者の取り消しやエントリーの拒否ができるように</div>
+        </div>
       </div>
     </Index>
   )

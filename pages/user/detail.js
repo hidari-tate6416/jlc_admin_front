@@ -205,7 +205,7 @@ export default function UserDetail() {
           <div>
             <ButtonJlc func={ moveEntryTournament } class="py-4">参加大会一覧</ButtonJlc>
           </div>
-          <div>
+          <div class="mx-auto mb-6 md:w-1/2 w-2/3">
             <ButtonDelete func={ deleteUser } class="py-4 bg-red text-black">会員削除</ButtonDelete>
           </div>
         </div>
