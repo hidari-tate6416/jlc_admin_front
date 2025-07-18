@@ -44,6 +44,10 @@ export default function History() {
           <div>version 1.5.0（2025/07/10）</div>
           <div>主催者が参加者の取り消しやエントリーの拒否ができるように</div>
         </div>
+        <div class="mt-5 mb-3 mx-full">
+          <div>version 1.6.0（2025/07/19）</div>
+          <div>ローディングアイコンを修正し、画面表示時の拡大を抑えるように</div>
+        </div>
       </div>
     </Index>
   )
