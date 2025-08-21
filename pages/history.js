@@ -48,6 +48,10 @@ export default function History() {
           <div>version 1.6.0（2025/07/19）</div>
           <div>ローディングアイコンを修正し、画面表示時の拡大を抑えるように</div>
         </div>
+        <div className="mt-5 mb-3 mx-full">
+          <div>version 1.7.0（2025/08/21）</div>
+          <div>ユーザ情報に職業とLEXIOをどこで知ったかの項目を追加</div>
+        </div>
       </div>
     </Index>
   )
