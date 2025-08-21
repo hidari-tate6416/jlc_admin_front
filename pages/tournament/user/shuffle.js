@@ -38,13 +38,13 @@ export default function TournamentUser() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           席順シャッフル
         </div>
         <div>開発中</div>
-        {/* <div class="py-3 mx-8 border-y border-gray-500">
-          <table class="table-auto w-full mx-auto text-center">
+        {/* <div className="py-3 mx-8 border-y border-gray-500">
+          <table className="table-auto w-full mx-auto text-center">
             <thead>
               <tr>
                 <th></th>
@@ -54,34 +54,34 @@ export default function TournamentUser() {
             </thead>
             <tbody>
               {users.length ? users.map(user => (
-                <tr class="">
-                  <td class="h-10 text-s md:text-s mr-4">
+                <tr className="">
+                  <td className="h-10 text-s md:text-s mr-4">
                     <p>{ user.user.name }</p>
                   </td>
-                  <td class="">
-                    <p class="">{ user.user.user_grade.grade.name }</p>
+                  <td className="">
+                    <p className="">{ user.user.user_grade.grade.name }</p>
                   </td>
-                  <td class="">
+                  <td className="">
                     <SmallButton func={ () => permitUser(user.user.id) }>承認</SmallButton>
                   </td>
                 </tr>
               )) : (
-                <tr class="">
-                  <td class="h-10 text-s md:text-s mr-4">
+                <tr className="">
+                  <td className="h-10 text-s md:text-s mr-4">
                     <p></p>
                   </td>
-                  <td class="">
-                    <p class=""></p>
+                  <td className="">
+                    <p className=""></p>
                   </td>
-                  <td class="">
-                    <p class=""></p>
+                  <td className="">
+                    <p className=""></p>
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
         </div> */}
-        <div class="mt-4 pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
+        <div className="mt-4 pb-6"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
       </div>
     </Index>
   )

@@ -28,10 +28,10 @@ function CustomModal({children, modalShow, closeModalFunc}) {
       onRequestClose={ closeModalFunc }
       style={ modalStyle }
     >
-      <div class="float-right text-4xl">
+      <div className="float-right text-4xl">
         <button onClick={ closeModalFunc }>×</button>
       </div>
-      <div class="">
+      <div className="">
         { children }
       </div>
     </Modal>

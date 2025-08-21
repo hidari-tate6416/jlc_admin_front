@@ -252,60 +252,60 @@ export default function TournamentEdit() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           予選編集
         </div>
-        <div><span class="text-xs pt-6">以下情報を編集して<br/>再申請ボタンを押下してください。</span></div>
-        <div><span class="text-xs"><span class="text-red">*</span>は入力必須項目</span></div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>予選名</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="name" class="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentName}`} placeholder="東京新宿予選1" /></div></div>
+        <div><span className="text-xs pt-6">以下情報を編集して<br/>再申請ボタンを押下してください。</span></div>
+        <div><span className="text-xs"><span className="text-red">*</span>は入力必須項目</span></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>予選名</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="name" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentName}`} placeholder="東京新宿予選1" /></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>日程</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="startDay" class="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentDate}`} placeholder="20250501" /></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>日程</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="startDay" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentDate}`} placeholder="20250501" /></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>開始時間</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="startTime" class="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentHour}`} placeholder="15" /><span class="my-auto">時</span></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>開始時間</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="number" id="startTime" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentHour}`} placeholder="15" /><span className="my-auto">時</span></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>終了予定時間</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="endTime" class="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentEndHour}`} placeholder="18" /><span class="my-auto">時</span></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>終了予定時間</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="number" id="endTime" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentEndHour}`} placeholder="18" /><span className="my-auto">時</span></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>会場名</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="place" class="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentPlace}`} placeholder="東京ビックサイト" /></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>会場名</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="place" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentPlace}`} placeholder="東京ビックサイト" /></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>会場住所</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="adress" class="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentAdress}`} placeholder="新宿区1-1-1" /></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>会場住所</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="adress" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentAdress}`} placeholder="新宿区1-1-1" /></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>定員</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="maxMember" class="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentMax}`} placeholder="15" /><span class="my-auto">名</span></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>定員</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="number" id="maxMember" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentMax}`} placeholder="15" /><span className="my-auto">名</span></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>主催者連絡先Email</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="email" class="w-full py-2 pl-2 rounded-md border-2 border-black"defaultValue={`${tournamentEmail}`} placeholder="test@gmail.com" /></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>主催者連絡先Email</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="email" className="w-full py-2 pl-2 rounded-md border-2 border-black"defaultValue={`${tournamentEmail}`} placeholder="test@gmail.com" /></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>主催者連絡先電話</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="number" id="tel" class="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentTel}`} placeholder="09012345678" /></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>主催者連絡先電話</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="number" id="tel" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentTel}`} placeholder="09012345678" /></div></div>
         </div>
         <div>
-          <span class="text-xs pt-6">主催者連絡先Emailと主催者連絡先電話はエントリー承認したユーザにのみ公開されます。</span>
+          <span className="text-xs pt-6">主催者連絡先Emailと主催者連絡先電話はエントリー承認したユーザにのみ公開されます。</span>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>参加料</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="fee" class="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentFee}`} placeholder="3000" /><span class="my-auto">円</span></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>参加料</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="number" id="fee" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentFee}`} placeholder="3000" /><span className="my-auto">円</span></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>参加最低段数</div>
-          <div class="w-2/3 my-auto">
-            <div class="w-2/3 mx-auto flex">
-              <select id="grade" class="w-32 h-10 rounded-md border-2 border-black">
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>参加最低段数</div>
+          <div className="w-2/3 my-auto">
+            <div className="w-2/3 mx-auto flex">
+              <select id="grade" className="w-32 h-10 rounded-md border-2 border-black">
                 <option value="0" selected={(0 == tournamentMinGrade)? true: false}>段なし</option>
                 <option value="1" selected={(1 == tournamentMinGrade)? true: false}>１段</option>
                 <option value="2" selected={(2 == tournamentMinGrade)? true: false}>２段</option>
@@ -314,11 +314,11 @@ export default function TournamentEdit() {
             </div>
           </div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>団体区分</div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>団体区分</div>
           <div class ="w-2/3 my-auto">
-            <select id="groupTypeId" onChange={ () => GroupChange() } class="w-2/3 pl-2 h-10 rounded-md border-2 border-black" required>
-              <option value="" class="text-gray-600">選択してください</option>
+            <select id="groupTypeId" onChange={ () => GroupChange() } className="w-2/3 pl-2 h-10 rounded-md border-2 border-black" required>
+              <option value="" className="text-gray-600">選択してください</option>
               <option value="6" selected={(6 == tournamentGroupTypeId) ? true : false}>レキシオ・ジャパン本部</option>
               <option value="1" selected={(1 == tournamentGroupTypeId) ? true : false}>カフェなどの店舗</option>
               <option value="2" selected={(2 == tournamentGroupTypeId) ? true : false}>一般サークル</option>
@@ -329,29 +329,29 @@ export default function TournamentEdit() {
           </div>
         </div>
         {(otherDispFlag) &&
-          <div class="flex justify-between pt-6 mb-6">
-            <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>団体区分その他</div>
-            <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="text" id="groupOther" class="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentGroupOther}`} placeholder="" /></div></div>
+          <div className="flex justify-between pt-6 mb-6">
+            <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>団体区分その他</div>
+            <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="text" id="groupOther" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentGroupOther}`} placeholder="" /></div></div>
           </div>
         }
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">HP等のURL</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="text" id="hpUrl" class="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentHpUrl}`} placeholder="https://x.com/Lexio_Japan" /></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s">HP等のURL</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="text" id="hpUrl" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentHpUrl}`} placeholder="https://x.com/Lexio_Japan" /></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">SNSアカウント<br/>URL</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="text" id="snsUrl" class="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentSnsUrl}`} placeholder="https://x.com/Lexio_Japan" /></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s">SNSアカウント<br/>URL</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="text" id="snsUrl" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentSnsUrl}`} placeholder="https://x.com/Lexio_Japan" /></div></div>
         </div>
-        <div class="flex pt-6 mb-6">
-          <div class="w-2/5 my-auto md:mr-4 text-s">その他詳細事項</div>
-          <div class="w-3/5 my-auto md:mr-4 text-s"></div>
+        <div className="flex pt-6 mb-6">
+          <div className="w-2/5 my-auto md:mr-4 text-s">その他詳細事項</div>
+          <div className="w-3/5 my-auto md:mr-4 text-s"></div>
         </div>
-        <div class="flex w-4/5 mx-auto mb-4">
-          <textarea type="textarea" id="memo" class="w-full h-40 pl-2 rounded-md border-2 border-black whitespace-pre-wrap" defaultValue={`${tournamentMemo}`}>
+        <div className="flex w-4/5 mx-auto mb-4">
+          <textarea type="textarea" id="memo" className="w-full h-40 pl-2 rounded-md border-2 border-black whitespace-pre-wrap" defaultValue={`${tournamentMemo}`}>
           </textarea>
         </div>
 
-        {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
+        {(alertText) && <div className="text-s text-red pb-6">{ alertText }</div>}
         { buttonActive ? (
           <div>
             <Button func={ sendInput }>再登録</Button>
@@ -361,7 +361,7 @@ export default function TournamentEdit() {
             <ButtonInactive>再登録</ButtonInactive>
           </div>
         )}
-        <div class="mt-2 pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
+        <div className="mt-2 pb-6"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
       </div>
     </Index>
   )

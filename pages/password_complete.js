@@ -12,13 +12,13 @@ export default function PasswordComplete() {
 
   return (
     <Index title="">
-      <div class="my-20 pb-6 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 pb-6 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           パスワード再設定完了
         </div>
-        <span class="text-s pt-6">
+        <span className="text-s pt-6">
           パスワードの再設定が完了しました。<br/>
-          <Link href="/login" class="text-s text-blue">こちら</Link>からログインしてください。
+          <Link href="/login" className="text-s text-blue">こちら</Link>からログインしてください。
         </span>
       </div>
     </Index>

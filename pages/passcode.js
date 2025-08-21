@@ -75,19 +75,19 @@ export default function Passcode() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           パスワード再発行
         </div>
-        <span class="text-xs pt-6">メールに送られたパスコードを入力して、<br/>認証ボタンを押下してください。
+        <span className="text-xs pt-6">メールに送られたパスコードを入力して、<br/>認証ボタンを押下してください。
         </span>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4">パスコード</div>
-          <div class="w-2/3 my-auto"><input type="text" id="passcode" class="w-2/3 py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4">パスコード</div>
+          <div className="w-2/3 my-auto"><input type="text" id="passcode" className="w-2/3 py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div>
         </div>
-        <div class="mt-2 mb-6"><a onClick={() =>sendPasscode()} class="cursor-pointer text-s text-blue">パスコードを再送信</a></div>
+        <div className="mt-2 mb-6"><a onClick={() =>sendPasscode()} className="cursor-pointer text-s text-blue">パスコードを再送信</a></div>
 
-        {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
+        {(alertText) && <div className="text-s text-red pb-6">{ alertText }</div>}
         { buttonActive ? (
           <div>
             <Button func={ authPasscode }>認証</Button>

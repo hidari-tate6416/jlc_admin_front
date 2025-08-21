@@ -16,6 +16,8 @@ export default function UserEdit() {
 
   const [sexes, setSexes] = useState([]);
   const [areas, setAreas] = useState([]);
+  const [occupations, setOccupations] = useState([]);
+  const [acquisitionSources, setAcquisitionSources] = useState([]);
 
   const [userFamilyName, setUserFamilyName] = useState("");
   const [userFamilyNameKana, setUserFamilyNameKana] = useState("");
@@ -26,6 +28,8 @@ export default function UserEdit() {
   const [userBirthday, setBirthday] = useState("");
   const [userSex, setUserSex] = useState("");
   const [userArea, setUserArea] = useState("");
+  const [userOccupationId, setUserOccupationId] = useState("");
+  const [userAcquisitionSourceId, setUserAcquisitionSourceId] = useState("");
   const [userTel, setUserTel] = useState("");
 
   // クエリなしでこの画面に来たら前の画面に戻る
@@ -33,6 +37,8 @@ export default function UserEdit() {
     getUserDetail();
     getSexes();
     getAreas();
+    getOccupations();
+    getAcquisitionSources();
   }, []);
 
   async function getUserDetail() {
@@ -56,6 +62,8 @@ export default function UserEdit() {
         setBirthday(res.data.user.birthday);
         setUserSex(res.data.user.sex.id);
         setUserArea(res.data.user.area.id);
+        setUserOccupationId(res.data.user.occupation.id);
+        setUserAcquisitionSourceId(res.data.user.acquisition_source.id);
         setUserTel(res.data.user.tel);
       }
       else {
@@ -95,6 +103,34 @@ export default function UserEdit() {
     });
   }
 
+  async function getOccupations() {
+    await API.get('menu/occupation').then(res => {
+      if ('OK' == res.data.result) {
+        setOccupations(res.data.menu);
+      }
+      else {
+        router.push({ pathname: "/"});
+      }
+    }).catch(err => {
+      // console.log(err);
+      router.push({ pathname: "/login"});
+    });
+  }
+
+  async function getAcquisitionSources() {
+    await API.get('menu/acquisition_source').then(res => {
+      if ('OK' == res.data.result) {
+        setAcquisitionSources(res.data.menu);
+      }
+      else {
+        router.push({ pathname: "/"});
+      }
+    }).catch(err => {
+      // console.log(err);
+      router.push({ pathname: "/login"});
+    });
+  }
+
   async function edit() {
 
     setAlertText("");
@@ -109,6 +145,8 @@ export default function UserEdit() {
     let birthday = document.getElementById('birthday');
     let SexId = document.getElementById('SexId');
     let areaId = document.getElementById('areaId');
+    let occupationId = document.getElementById('occupationId');
+    let acquisitionSourceId = document.getElementById('acquisitionSourceId');
     let tel = document.getElementById('tel');
 
     if (!familyName.value || !givenName.value) {
@@ -155,6 +193,14 @@ export default function UserEdit() {
       setAlertText("選択してください。");
       return;
     }
+    if (!occupationId.value) {
+      setAlertText("選択してください。");
+      return;
+    }
+    if (!acquisitionSourceId.value) {
+      setAlertText("選択してください。");
+      return;
+    }
     if (!tel.value.match(/^[0-9]*$/)) {
       setAlertText("電話番号は半角数字のみで入力してください。");
       return;
@@ -178,6 +224,8 @@ export default function UserEdit() {
       "birthday": birthday.value,
       "sex_id": SexId.value,
       "area_id": areaId.value,
+      "occupation_id": occupationId.value,
+      "acquisition_source_id": acquisitionSourceId.value,
       "tel": tel.value
     }).then(res => {
       if ('OK' === res.data.result) {
@@ -198,64 +246,88 @@ export default function UserEdit() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           JLC登録
         </div>
-        <div><span class="text-xs pt-6">以下会員情報を入力して<br/>登録ボタンを押下してください。</span></div>
-        <div><span class="text-xs"><span class="text-red">*</span>は入力必須項目</span></div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>氏名</div>
-          <div class="w-2/3 my-auto">
-            <input type="text" id="familyName" class="w-1/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userFamilyName}`} placeholder="佐藤" />
-            <input type="text" id="givenName" class="w-1/3 ml-2 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userGivenName}`} placeholder="太郎" />
+        <div><span className="text-xs pt-6">以下会員情報を入力して<br/>登録ボタンを押下してください。</span></div>
+        <div><span className="text-xs"><span className="text-red">*</span>は入力必須項目</span></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>氏名</div>
+          <div className="w-2/3 my-auto">
+            <input type="text" id="familyName" className="w-1/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userFamilyName}`} placeholder="佐藤" />
+            <input type="text" id="givenName" className="w-1/3 ml-2 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userGivenName}`} placeholder="太郎" />
           </div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>氏名(カナ)</div>
-          <div class="w-2/3 my-auto">
-            <input type="text" id="familyNameKana" class="w-1/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userFamilyNameKana}`} placeholder="サトウ" />
-            <input type="text" id="givenNameKana" class="w-1/3 ml-2 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userGivenNameKana}`} placeholder="タロウ" />
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>氏名(カナ)</div>
+          <div className="w-2/3 my-auto">
+            <input type="text" id="familyNameKana" className="w-1/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userFamilyNameKana}`} placeholder="サトウ" />
+            <input type="text" id="givenNameKana" className="w-1/3 ml-2 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userGivenNameKana}`} placeholder="タロウ" />
           </div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>大会選手名</div>
-          <div class="w-2/3 my-auto"><input type="text" id="name" class="w-2/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userName}`} placeholder="太郎" /></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>大会選手名</div>
+          <div className="w-2/3 my-auto"><input type="text" id="name" className="w-2/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userName}`} placeholder="太郎" /></div>
         </div>
-        <div class="flex justify-between pt-6 mb-2">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>大会選手名(カナ)</div>
-          <div class="w-2/3 my-auto"><input type="text" id="nameKana" class="w-2/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userNameKana}`} placeholder="タロウ"  autocomplete="off" /></div>
+        <div className="flex justify-between pt-6 mb-2">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>大会選手名(カナ)</div>
+          <div className="w-2/3 my-auto"><input type="text" id="nameKana" className="w-2/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userNameKana}`} placeholder="タロウ"  autocomplete="off" /></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>生年月日<br/>(ハイフンなし)</div>
-          <div class="w-2/3 my-auto"><input type="text" id="birthday" class="w-2/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userBirthday}`} placeholder="19900130" /></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>生年月日<br/>(ハイフンなし)</div>
+          <div className="w-2/3 my-auto"><input type="text" id="birthday" className="w-2/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userBirthday}`} placeholder="19900130" /></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>性別</div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>性別</div>
           <div class ="w-2/3 my-auto">
-            <select id="SexId" class="w-2/3 pl-2 h-10 rounded-md border-2 border-black">
+            <select id="SexId" className="w-2/3 pl-2 h-10 rounded-md border-2 border-black">
               {sexes.map(sex => (
                 <option value={`${sex.id}`} selected={(sex.id == userSex)? true: false}>{ sex.name }</option>
               ))}
             </select>
           </div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>居住地域</div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>居住地域</div>
           <div class ="w-2/3 my-auto">
-            <select id="areaId" class="w-2/3 pl-2 h-10 rounded-md border-2 border-black">
+            <select id="areaId" className="w-2/3 pl-2 h-10 rounded-md border-2 border-black">
               {areas.map(area => (
                 <option value={`${area.id}`} selected={(area.id == userArea)? true: false}>{ area.name }</option>
               ))}
             </select>
           </div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>電話番号<br/>(ハイフンなし)</div>
-          <div class="w-2/3 my-auto"><input type="text" id="tel" class="w-2/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userTel}`} placeholder="09012345678" /></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>職業</div>
+          <div class ="w-2/3 my-auto">
+            <select id="occupationId"
+              className="w-2/3 pl-2 h-10 rounded-md border-2 transition-all duration-300">
+                <option value='' selected={(!userOccupationId)? true: false}>選択してください</option>
+              {occupations.map(occupation => (
+                <option value={`${occupation.id}`} selected={(occupation.id == userOccupationId)? true: false}>{ occupation.name }</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>LEXIOを何で知ったか</div>
+          <div class ="w-2/3 my-auto">
+            <select id="acquisitionSourceId"
+              className="w-2/3 pl-2 h-10 rounded-md border-2 transition-all duration-300">
+                <option value='' selected={(!userAcquisitionSourceId)? true: false}>選択してください</option>
+              {acquisitionSources.map(acquisitionSource => (
+                <option value={`${acquisitionSource.id}`} selected={(acquisitionSource.id == userAcquisitionSourceId)? true: false}>{ acquisitionSource.name }</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>電話番号<br/>(ハイフンなし)</div>
+          <div className="w-2/3 my-auto"><input type="text" id="tel" className="w-2/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userTel}`} placeholder="09012345678" /></div>
         </div>
 
-        {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
+        {(alertText) && <div className="text-s text-red pb-6">{ alertText }</div>}
         { buttonActive ? (
           <div>
              <Button func={ edit }>更新</Button>
@@ -265,7 +337,7 @@ export default function UserEdit() {
             <ButtonInactive>更新</ButtonInactive>
           </div>
         )}
-        <div class="pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜会員詳細に戻る</a></div>
+        <div className="pb-6"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜会員詳細に戻る</a></div>
       </div>
     </Index>
   )
