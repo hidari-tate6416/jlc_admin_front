@@ -220,67 +220,67 @@ export default function TournamentSend() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           予選・本戦開催
         </div>
-        <div><span class="text-xs pt-6">以下情報を入力して<br/>申請ボタンを押下してください。</span></div>
-        <div><span class="text-xs"><span class="text-red">*</span>は入力必須項目</span></div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>大会名</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="name" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="東京新宿予選1" /></div></div>
+        <div><span className="text-xs pt-6">以下情報を入力して<br/>申請ボタンを押下してください。</span></div>
+        <div><span className="text-xs"><span className="text-red">*</span>は入力必須項目</span></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>大会名</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="name" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="東京新宿予選1" /></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>日程</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="startDay" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="19900101" /></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>日程</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="startDay" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="19900101" /></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>開始時間</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="startTime" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="15" /><span class="my-auto">時</span></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>開始時間</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="number" id="startTime" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="15" /><span className="my-auto">時</span></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>終了予定時間</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="endTime" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="18" /><span class="my-auto">時</span></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>終了予定時間</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="number" id="endTime" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="18" /><span className="my-auto">時</span></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>会場名</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="place" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="東京ビックサイト" /></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>会場名</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="place" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="東京ビックサイト" /></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>会場住所</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="adress" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="新宿区1-1-1" /></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>会場住所</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="adress" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="新宿区1-1-1" /></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>居住地域</div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>居住地域</div>
           <div class ="w-2/3 my-auto">
-            <select id="areaId" class="w-2/3 pl-2 h-10 rounded-md border-2 border-black">
+            <select id="areaId" className="w-2/3 pl-2 h-10 rounded-md border-2 border-black">
               {areas.map(area => (
                 <option value={`${area.id}`} selected={(area.id == 1)? true: false}>{ area.name }</option>
               ))}
             </select>
           </div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>定員</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="maxMember" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="15" /><span class="my-auto">名</span></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>定員</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="number" id="maxMember" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="15" /><span className="my-auto">名</span></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>主催者連絡先Email</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="text" id="email" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="test@gmail.com" /></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>主催者連絡先Email</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="email" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="test@gmail.com" /></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>主催者電話番号</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto"><input type="number" id="tel" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="09012345678" /></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>主催者電話番号</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="number" id="tel" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="09012345678" /></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>参加料</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="number" id="fee" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="3000" /><span class="my-auto">円</span></div></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>参加料</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="number" id="fee" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="3000" /><span className="my-auto">円</span></div></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>参加最低段数</div>
-          <div class="w-2/3 my-auto">
-            <div class="w-2/3 mx-auto flex">
-              <select id="grade" class="w-32 h-10 rounded-md border-2 border-black">
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>参加最低段数</div>
+          <div className="w-2/3 my-auto">
+            <div className="w-2/3 mx-auto flex">
+              <select id="grade" className="w-32 h-10 rounded-md border-2 border-black">
                 <option value="0">段なし</option>
                 <option value="1">１段</option>
                 <option value="2">２段</option>
@@ -289,11 +289,11 @@ export default function TournamentSend() {
             </div>
           </div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>団体区分</div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>団体区分</div>
           <div class ="w-2/3 my-auto">
-            <select id="groupTypeId" onChange={ () => GroupChange() } class="w-2/3 pl-2 h-10 rounded-md border-2 border-black" required>
-              <option value="" class="text-gray-600" checked>選択してください</option>
+            <select id="groupTypeId" onChange={ () => GroupChange() } className="w-2/3 pl-2 h-10 rounded-md border-2 border-black" required>
+              <option value="" className="text-gray-600" checked>選択してください</option>
               <option value="6">レキシオ・ジャパン本部</option>
               <option value="1">カフェなどの店舗</option>
               <option value="2">一般サークル</option>
@@ -304,26 +304,26 @@ export default function TournamentSend() {
           </div>
         </div>
         {(otherDispFlag) &&
-          <div class="flex justify-between pt-6 mb-6">
-            <div class="w-1/3 my-auto md:mr-4 text-s"><span class="text-red">*</span>団体区分その他</div>
-            <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="text" id="groupOther" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div></div>
+          <div className="flex justify-between pt-6 mb-6">
+            <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>団体区分その他</div>
+            <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="text" id="groupOther" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div></div>
           </div>
         }
-         <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">HP等のURL</div>
-          <div class="w-2/3 my-auto"><div class="w-2/3 mx-auto flex"><input type="text" id="hpUrl" class="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="https://x.com/Lexio_Japan" /></div></div>
+         <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s">HP等のURL</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="text" id="hpUrl" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="https://x.com/Lexio_Japan" /></div></div>
         </div>
-        <div class="flex pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">その他詳細事項</div>
-          <div class="w-2/3 my-auto md:mr-4 text-s"></div>
+        <div className="flex pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s">その他詳細事項</div>
+          <div className="w-2/3 my-auto md:mr-4 text-s"></div>
         </div>
-        <div class="flex w-4/5 mx-auto mb-6">
-          <textarea type="textarea" id="memo" class="w-full h-40 pl-2 rounded-md border-2 border-black">
+        <div className="flex w-4/5 mx-auto mb-6">
+          <textarea type="textarea" id="memo" className="w-full h-40 pl-2 rounded-md border-2 border-black">
             必ずJLC詳細（https://lexio-japan.com/jlc/）をご確認の上、エントリーお願いします。
           </textarea>
         </div>
 
-        {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
+        {(alertText) && <div className="text-s text-red pb-6">{ alertText }</div>}
         { buttonActive ? (
           <div>
             <Button func={ sendInput }>登録</Button>
@@ -333,7 +333,7 @@ export default function TournamentSend() {
             <ButtonInactive>登録</ButtonInactive>
           </div>
         )}
-        <div class="mt-2 pb-6"><Link href="/" class="text-s text-blue">＜管理者メニューに戻る</Link></div>
+        <div className="mt-2 pb-6"><Link href="/" className="text-s text-blue">＜管理者メニューに戻る</Link></div>
       </div>
     </Index>
   )

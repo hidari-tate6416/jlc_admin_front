@@ -13,12 +13,12 @@ export default function Index({title, loadingFlag = true, children}) {
   }, []);
 
   return (
-    <div class="bg-jlc-main mx-auto w-full">
+    <div className="bg-jlc-main mx-auto w-full">
       {(loadingOn) && <Loading />}
-      <div class="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen">
         <Header />
 
-        <div class="flex-grow mt-10">
+        <div className="flex-grow mt-10">
           <div>
             { title }
           </div>

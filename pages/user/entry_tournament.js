@@ -50,12 +50,12 @@ export default function UserEntryTournament() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           参加大会一覧
         </div>
-        <div class="py-3 mx-8">
-          <table class="table-auto w-full mx-auto text-center">
+        <div className="py-3 mx-8">
+          <table className="table-auto w-full mx-auto text-center">
             <thead>
               <tr>
                 <th></th>
@@ -65,27 +65,27 @@ export default function UserEntryTournament() {
             </thead>
             <tbody>
               {tournaments.map(entryTournament => (
-                <tr class="w-1/3 border-y border-gray-500">
-                  <td class="h-20 text-s md:text-s mr-4">
+                <tr className="w-1/3 border-y border-gray-500">
+                  <td className="h-20 text-s md:text-s mr-4">
                     <p>{ entryTournament.tournament.start_day }</p>
                     <p>{ entryTournament.tournament.place }</p>
                   </td>
-                  <td class="w-1/3 ">
+                  <td className="w-1/3 ">
                     { entryTournament.permit == 0 ? (
-                        <p class="">承認待ち</p>
+                        <p className="">承認待ち</p>
                     ) : (
-                        <p class=""></p>
+                        <p className=""></p>
                     )}
                   </td>
-                  <td class="w-1/3 max-h-2">
-                    <p class=""><SmallButton func={ () => detailTournament(entryTournament.tournament.id) }>詳細</SmallButton></p>
+                  <td className="w-1/3 max-h-2">
+                    <p className=""><SmallButton func={ () => detailTournament(entryTournament.tournament.id) }>詳細</SmallButton></p>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <div class="mt-4 pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜会員詳細に戻る</a></div>
+        <div className="mt-4 pb-6"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜会員詳細に戻る</a></div>
       </div>
     </Index>
   )

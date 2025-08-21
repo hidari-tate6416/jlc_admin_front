@@ -15,7 +15,6 @@ export default function TournamentUserEntried() {
   const tournamentId = (router.query.TournamentId) ? router.query.TournamentId : '';
   const permitFlag = ('true' == router.query.PermitFlag) ? true : false;
   const mainFlag = ('true' == router.query.MainFlag) ? true : false;
-  const dlUrl = process.env.NEXT_PUBLIC_API_BASE_URL.replace('api/', '');
 
   const [users, setUsers] = useState([]);
   const [token, setToken] = useState('');
@@ -50,6 +49,50 @@ export default function TournamentUserEntried() {
     setToken(localStorage.getItem("token"));
   }
 
+  async function downloadEntryUser() {
+
+    const fileName = 'entry_users.csv';
+
+    await API.get('admin/download_entry_users?tournament_id=' + tournamentId, {
+      responseType: 'blob'
+    }).then(response => {
+      if (!response.data) {
+        console.log('認証エラー');
+        return false;
+      }
+      // 1. レスポンスからファイル名を取得
+      const disposition = response.headers.get('content-disposition');
+      if (disposition && disposition.indexOf('attachment') !== -1) {
+        const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+        const matches = filenameRegex.exec(disposition);
+        if (matches != null && matches[1]) {
+          fileName = matches[1].replace(/['"]/g, '');
+        }
+      }
+
+      // 2. レスポンスのボディをBlobオブジェクトに変換
+      const blob =  response.data;
+
+      // 3. BlobへのURLを生成
+      const url = window.URL.createObjectURL(blob);
+
+      // 4. ダウンロード用の<a>タグを生成してクリック
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName; // ダウンロード時のファイル名を指定
+      document.body.appendChild(a); // DOMに追加
+      a.click(); // プログラムでクリックイベントを発火
+      a.remove(); // 不要になった<a>タグを削除
+
+      // 5. 後片付け
+      window.URL.revokeObjectURL(url);
+
+    }).catch(err => {
+      console.error('ダウンロード処理中にエラーが発生しました:', err);
+      alert('ファイルのダウンロードに失敗しました。');
+    });
+  }
+
   async function deleteUser(userId) {
     // 登録確認ダイアログ
     if(!window.confirm("参加を取り消します。よろしいですか？")){
@@ -78,12 +121,12 @@ export default function TournamentUserEntried() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           エントリー一覧
         </div>
-        <div class="py-3 mx-8 border-y border-gray-500">
-          <table class="table-auto w-full mx-auto text-center">
+        <div className="py-3 mx-8 border-y border-gray-500">
+          <table className="table-auto w-full mx-auto text-center">
             <thead>
               <tr>
                 <th></th>
@@ -93,37 +136,37 @@ export default function TournamentUserEntried() {
             </thead>
             <tbody>
               {users.length ? users.map(user => (
-                <tr class="">
-                  <td class="h-10 text-s md:text-s mr-4">
+                <tr className="">
+                  <td className="h-10 text-s md:text-s mr-4">
                     <p>{ user.user.name }</p>
                   </td>
-                  <td class="">
-                    <p class="">{ user.user.user_grade.grade.name }</p>
+                  <td className="">
+                    <p className="">{ user.user.user_grade.grade.name }</p>
                   </td>
-                  <td class="w-1/3">
-                    <ButtonDelete func={ () => deleteUser(user.user.id) } class="bg-red text-black">参加取消</ButtonDelete>
+                  <td className="w-1/3">
+                    <ButtonDelete func={ () => deleteUser(user.user.id) } className="bg-red text-black">参加取消</ButtonDelete>
                   </td>
                 </tr>
               )) : (
-                <tr class="">
-                  <td class="w-1/3 h-10 text-s md:text-s mr-4">
+                <tr className="">
+                  <td className="w-1/3 h-10 text-s md:text-s mr-4">
                     <p></p>
                   </td>
-                  <td class="w-1/3">
-                    <p class=""></p>
+                  <td className="w-1/3">
+                    <p className=""></p>
                   </td>
-                  <td class="">
-                    <p class=""></p>
+                  <td className="">
+                    <p className=""></p>
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
-        <div class="mt-4">
-          <a href={`${dlUrl + 'user/download_entry_users?token=' + token + '&tournament_id=' + tournamentId}`} target="_blank"><Button>Excelダウンロード</Button></a>
+        <div className="mt-4">
+          <Button func={ () => downloadEntryUser() }>Excelダウンロード</Button>
         </div>
-        <div class="mt-4 pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
+        <div className="mt-4 pb-6"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
       </div>
     </Index>
   )

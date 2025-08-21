@@ -85,12 +85,12 @@ export default function TournamentUserResult() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           結果送信
         </div>
-        <div class="pt-3 mx-8 border-y border-gray-500">
-          <table class="table-auto w-full mx-auto text-center">
+        <div className="pt-3 mx-8 border-y border-gray-500">
+          <table className="table-auto w-full mx-auto text-center">
             <thead>
               <tr>
                 <th></th>
@@ -99,21 +99,21 @@ export default function TournamentUserResult() {
             </thead>
             <tbody>
               {users.length ? users.map(user => (
-                <tr class="">
-                  <td class="w-1/3 h-16 text-s md:text-s mr-4">
-                    <p class="">{ user.user.name }</p>
+                <tr className="">
+                  <td className="w-1/3 h-16 text-s md:text-s mr-4">
+                    <p className="">{ user.user.name }</p>
                   </td>
-                  <td class="w-1/3">
-                    <p class=""><input type="number" id={`${user.user.id}`} class="w-3/4 h-10 pl-2 rounded-md border-2 border-black" defaultValue={`${user.score}`} placeholder="100" /></p>
+                  <td className="w-1/3">
+                    <p className=""><input type="number" id={`${user.user.id}`} className="w-3/4 h-10 pl-2 rounded-md border-2 border-black" defaultValue={`${user.score}`} placeholder="100" /></p>
                   </td>
                 </tr>
               )) : (
-                <tr class="">
-                  <td class="h-16 text-s md:text-s mr-4">
+                <tr className="">
+                  <td className="h-16 text-s md:text-s mr-4">
                     <p></p>
                   </td>
-                  <td class="">
-                    <p class=""></p>
+                  <td className="">
+                    <p className=""></p>
                   </td>
                 </tr>
               )}
@@ -121,17 +121,17 @@ export default function TournamentUserResult() {
           </table>
           { buttonActive && users.length ? (
             <div>
-              <div class="mt-4">
+              <div className="mt-4">
                 <ButtonJlc func={ resultSend }>送信</ButtonJlc>
               </div>
             </div>
           ) : (
-            <div class="mt-4">
+            <div className="mt-4">
               <ButtonJlcInactive>送信</ButtonJlcInactive>
             </div>
           )}
         </div>
-        <div class="mt-4 pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
+        <div className="mt-4 pb-6"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
       </div>
     </Index>
   )

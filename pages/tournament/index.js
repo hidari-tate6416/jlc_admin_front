@@ -62,12 +62,12 @@ export default function Tournament() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           { title }
         </div>
-        <div class="py-3 mx-8">
-          <table class="table-auto w-full mx-auto text-center">
+        <div className="py-3 mx-8">
+          <table className="table-auto w-full mx-auto text-center">
             <thead>
               <tr>
                 <th></th>
@@ -77,32 +77,32 @@ export default function Tournament() {
             </thead>
             <tbody>
               {tournaments.map(tournament => (
-                <tr class="border-y border-gray-500">
-                  <td class="w-1/4 h-20 text-s md:text-s mr-4">
+                <tr className="border-y border-gray-500">
+                  <td className="w-1/4 h-20 text-s md:text-s mr-4">
                     <p>{ tournament.start_day }<br/>{ tournament.start_time }〜{ tournament.end_time }時</p>
                   </td>
-                  <td class="w-1/2 h-20 text-s md:text-s mr-4">
+                  <td className="w-1/2 h-20 text-s md:text-s mr-4">
                     <p>{ tournament.area.name }<br/>{ tournament.place }</p>
                   </td>
-                  <td class="w-1/4 max-h-2 justify-items-center relative">
+                  <td className="w-1/4 max-h-2 justify-items-center relative">
                     { tournament.end_flag ? (
-                      <div class="absolute -inset-x-6 inset-y-5 w-1/2">
+                      <div className="absolute -inset-x-6 inset-y-5 w-1/2">
                         <div><Image src="/logos/entry_end.png" width={60} height={30} /></div>
                       </div>
                     ) : (
-                      <div class="absolute -inset-x-6 inset-y-5 w-1/2">
+                      <div className="absolute -inset-x-6 inset-y-5 w-1/2">
                         <div><Image src="/logos/entry_now.png" width={60} height={30} /></div>
                       </div>
                     )}
-                    <p class="text-xs">定員{ tournament.max_member }人<br/>残り{ tournament.max_member - tournament.num_member }人</p>
-                    <p class="w-28"><SmallButton func={ () => detailTournament(tournament.id) }>詳細</SmallButton></p>
+                    <p className="text-xs">定員{ tournament.max_member }人<br/>残り{ tournament.max_member - tournament.num_member }人</p>
+                    <p className="w-28"><SmallButton func={ () => detailTournament(tournament.id) }>詳細</SmallButton></p>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <div class="mt-4 pb-6"><Link href="/" class="text-s text-blue">＜管理者メニューに戻る</Link></div>
+        <div className="mt-4 pb-6"><Link href="/" className="text-s text-blue">＜管理者メニューに戻る</Link></div>
       </div>
     </Index>
   )

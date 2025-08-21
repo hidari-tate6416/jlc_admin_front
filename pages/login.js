@@ -48,25 +48,25 @@ export default function Login() {
 
   return (
     <Index title="" loadingFlag={false}>
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           サインイン
         </div>
-        <span class="text-xs">ログインEmailとパスワードを入力してログインボタンを押してください</span>
-        <div class="mt-5 mb-3 mx-full text-center">
-          <div class="mb-5 mx-auto">
-            <div class="text-xl">ログインEmail</div>
-            <input type="text" id="loginEmail" class="w-3/4 mt-3 py-2 pl-2 rounded-md border-2 border-black" placeholder="taro@example.com" />
+        <span className="text-xs">ログインEmailとパスワードを入力してログインボタンを押してください</span>
+        <div className="mt-5 mb-3 mx-full text-center">
+          <div className="mb-5 mx-auto">
+            <div className="text-xl">ログインEmail</div>
+            <input type="text" id="loginEmail" className="w-3/4 mt-3 py-2 pl-2 rounded-md border-2 border-black" placeholder="taro@example.com" />
           </div>
-          <div class="mb-10 mx-auto">
-            <div class="text-xl">password</div>
-            <input type="password" id="password" class="w-3/4 mt-3 py-2 pl-2 rounded-md border-2 border-black" placeholder="パスワード" />
+          <div className="mb-10 mx-auto">
+            <div className="text-xl">password</div>
+            <input type="password" id="password" className="w-3/4 mt-3 py-2 pl-2 rounded-md border-2 border-black" placeholder="パスワード" />
           </div>
         </div>
-        {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
+        {(alertText) && <div className="text-s text-red pb-6">{ alertText }</div>}
         <Button func={ loginClick }>ログイン</Button>
-        <div class="my-2">パスワード忘れた方は<Link href="/password_email" class="text-s text-blue">こちら</Link></div>
-        <div class="pb-4"><Link href="/history" class="text-s text-blue">バージョン履歴</Link></div>
+        <div className="my-2">パスワード忘れた方は<Link href="/password_email" className="text-s text-blue">こちら</Link></div>
+        <div className="pb-4"><Link href="/history" className="text-s text-blue">バージョン履歴</Link></div>
       </div>
     </Index>
   )

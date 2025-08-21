@@ -174,99 +174,99 @@ export default function TournamentDetail() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           { title }
         </div>
 
-        <div class="mx-8 py-5 border-y text-left">
-          <div class="text-l my-2">
+        <div className="mx-8 py-5 border-y text-left">
+          <div className="text-l my-2">
             予選名：{ tournamentName }
           </div>
-          <div class="text-l my-2">
+          <div className="text-l my-2">
             日時：{ tournamentDate } { tournamentHour }時〜{ tournamentEndHour }時
           </div>
-          <div class="text-l my-2">
+          <div className="text-l my-2">
             会場名：{ tournamentPlace }
           </div>
-          <div class="text-l my-2">
+          <div className="text-l my-2">
             会場住所：{ tournamentArea }{ tournamentAdress }
           </div>
-          <div class="text-l my-2">
+          <div className="text-l my-2">
             主催者：{ tournamentSponsor }
           </div>
-          <div class="text-l my-2">
+          <div className="text-l my-2">
             主催者Email：{ tournamentSponsorEmail }
           </div>
-          <div class="text-l my-2">
+          <div className="text-l my-2">
             主催者Tel：{ tournamentSponsorTel }
           </div>
-          <div class="text-l my-2">
+          <div className="text-l my-2">
             参加定員：{ tournamentMax }
           </div>
-          <div class="text-l my-2">
+          <div className="text-l my-2">
             現在の参加数：{ tournamentMember }
           </div>
-          <div class="text-l my-2">
+          <div className="text-l my-2">
             参加費：{ tournamentFee }円
           </div>
-          <div class="text-l my-2">
+          <div className="text-l my-2">
             団体区分：{ tournamentGroupType }　{ tournamentGroupOther }
           </div>
-          <div class="text-l my-2">
-            HP：<a href={`${tournamentHpUrl}`} class="cursor-pointer text-s text-blue" target="_blank">{ tournamentHpUrl }</a><i class="fas fa-external-link-alt ml-2"></i>
+          <div className="text-l my-2">
+            HP：<a href={`${tournamentHpUrl}`} className="cursor-pointer text-s text-blue" target="_blank">{ tournamentHpUrl }</a><i className="fas fa-external-link-alt ml-2"></i>
           </div>
-          <div class="text-l my-2">
-            SNS：<a href={`${tournamentSnsUrl}`} class="cursor-pointer text-s text-blue" target="_blank">{ tournamentSnsUrl }</a><i class="fas fa-external-link-alt ml-2"></i>
+          <div className="text-l my-2">
+            SNS：<a href={`${tournamentSnsUrl}`} className="cursor-pointer text-s text-blue" target="_blank">{ tournamentSnsUrl }</a><i className="fas fa-external-link-alt ml-2"></i>
           </div>
-          <div class="text-l my-2">
+          <div className="text-l my-2">
             LEXIO購入希望数：{ tournamentBuyCount }個
           </div>
-          <div class="text-l my-2 whitespace-pre-wrap">
+          <div className="text-l my-2 whitespace-pre-wrap">
             その他詳細事項：<br/>{ tournamentMemo }
           </div>
-          <div class="text-l my-2">
+          <div className="text-l my-2">
             ご意見・ご質問：<br/>{ tournamentQuestion }
           </div>
         </div>
 
-        <div class="pt-5">
+        <div className="pt-5">
           { tournamentPermit ? (
             <div>
-              <div><ButtonJlcInactive class="py-4 bg-black">承認済み</ButtonJlcInactive></div>
+              <div><ButtonJlcInactive className="py-4 bg-black">承認済み</ButtonJlcInactive></div>
             </div>
           ) : (
             <div>
-              <div><ButtonJlc func={ permitTournament } class="py-4">予選承認</ButtonJlc></div>
+              <div><ButtonJlc func={ permitTournament } className="py-4">予選承認</ButtonJlc></div>
             </div>
           )}
           { tournamentPermit ? (
             <div>
-              <div><ButtonJlc func={ resultTournament } class="py-4">結果確認</ButtonJlc></div>
+              <div><ButtonJlc func={ resultTournament } className="py-4">結果確認</ButtonJlc></div>
             </div>
           ) : (
             <div>
-              <div><ButtonJlcInactive class="py-4">結果確認</ButtonJlcInactive></div>
+              <div><ButtonJlcInactive className="py-4">結果確認</ButtonJlcInactive></div>
             </div>
           )}
         </div>
         <div>
-          <div><ButtonJlc func={ entryUserEntried } class="py-4">参加者一覧</ButtonJlc></div>
+          <div><ButtonJlc func={ entryUserEntried } className="py-4">参加者一覧</ButtonJlc></div>
         </div>
         { tournamentSponsorFrag ? (
             <div>
-              <div><ButtonJlc func={ entryUserPermit } class="py-4">エントリー管理</ButtonJlc></div>
-              <div><ButtonJlc func={ editTournament } class="py-4">大会情報編集</ButtonJlc></div>
-              <div><ButtonJlc func={ entryUserShuffle } class="py-4">席順シャッフル</ButtonJlc></div>
-              <div><ButtonJlc func={ entryResultSend } class="py-4">結果送信</ButtonJlc></div>
+              <div><ButtonJlc func={ entryUserPermit } className="py-4">エントリー管理</ButtonJlc></div>
+              <div><ButtonJlc func={ editTournament } className="py-4">大会情報編集</ButtonJlc></div>
+              <div><ButtonJlc func={ entryUserShuffle } className="py-4">席順シャッフル</ButtonJlc></div>
+              <div><ButtonJlc func={ entryResultSend } className="py-4">結果送信</ButtonJlc></div>
             </div>
           ) : (
             <div></div>
           )}
         <div>
-          <div class="mx-auto mb-6 md:w-1/2 w-2/3"><ButtonDelete func={ deleteTournament } class="py-4 bg-red text-black">大会削除</ButtonDelete></div>
+          <div className="mx-auto mb-6 md:w-1/2 w-2/3"><ButtonDelete func={ deleteTournament } className="py-4 bg-red text-black">大会削除</ButtonDelete></div>
         </div>
-        <div class="pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜一覧に戻る</a></div>
+        <div className="pb-6"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜一覧に戻る</a></div>
       </div>
     </Index>
   )
