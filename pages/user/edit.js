@@ -8,6 +8,9 @@ import Link from 'next/link';
 
 export default function UserEdit() {
 
+  const boardgameId = 1;
+  const otherId = 7;
+
   const router = useRouter();
   const userId = router.query.userId;
 
@@ -18,6 +21,8 @@ export default function UserEdit() {
   const [areas, setAreas] = useState([]);
   const [occupations, setOccupations] = useState([]);
   const [acquisitionSources, setAcquisitionSources] = useState([]);
+  const [histories, setHistories] = useState([]);
+  const [otherDispFlag, setOtherDispFlag] = useState(false);
 
   const [userFamilyName, setUserFamilyName] = useState("");
   const [userFamilyNameKana, setUserFamilyNameKana] = useState("");
@@ -28,8 +33,10 @@ export default function UserEdit() {
   const [userBirthday, setBirthday] = useState("");
   const [userSex, setUserSex] = useState("");
   const [userArea, setUserArea] = useState("");
-  const [userOccupationId, setUserOccupationId] = useState("");
-  const [userAcquisitionSourceId, setUserAcquisitionSourceId] = useState("");
+  const [userOccupationId, setUserOccupationId] = useState(0);
+  const [userAcquisitionSourceId, setUserAcquisitionSourceId] = useState(0);
+  const [userAcquisitionSourceOther, setUserAcquisitionSourceOther] = useState("");
+  const [userHistoryId, setUserHistoryId] = useState(0);
   const [userTel, setUserTel] = useState("");
 
   // クエリなしでこの画面に来たら前の画面に戻る
@@ -39,6 +46,7 @@ export default function UserEdit() {
     getAreas();
     getOccupations();
     getAcquisitionSources();
+    getHistories();
   }, []);
 
   async function getUserDetail() {
@@ -49,6 +57,7 @@ export default function UserEdit() {
     }
 
     await API.post('admin/get_detail_user', {
+      "boadgame_id": boardgameId,
       "user_id": userId
     }).then(res => {
       if ('OK' == res.data.result) {
@@ -62,8 +71,13 @@ export default function UserEdit() {
         setBirthday(res.data.user.birthday);
         setUserSex(res.data.user.sex.id);
         setUserArea(res.data.user.area.id);
-        setUserOccupationId(res.data.user.occupation.id);
-        setUserAcquisitionSourceId(res.data.user.acquisition_source.id);
+        (0 != res.data.user.occupation_id) ? setUserOccupationId(res.data.user.occupation.id) : setUserOccupationId(0);
+        (0 != res.data.user.user_boardgame.acquisition_source_id) ? setUserAcquisitionSourceId(res.data.user.user_boardgame.acquisition_source.id) : setUserAcquisitionSourceId(0);
+        if (0 != res.data.user.user_boardgame.acquisition_source_id && otherId == res.data.user.user_boardgame.acquisition_source.id) {
+          setOtherDispFlag(true);
+        }
+        setUserAcquisitionSourceOther(res.data.user.user_boardgame.acquisition_source_other);
+        (0 != res.data.user.user_boardgame.history_id) ? setUserHistoryId(res.data.user.user_boardgame.history.id) : setUserHistoryId(0);
         setUserTel(res.data.user.tel);
       }
       else {
@@ -131,6 +145,20 @@ export default function UserEdit() {
     });
   }
 
+  async function getHistories() {
+    await API.get('menu/history').then(res => {
+      if ('OK' == res.data.result) {
+        setHistories(res.data.menu);
+      }
+      else {
+        router.push({ pathname: "/"});
+      }
+    }).catch(err => {
+      // console.log(err);
+      router.push({ pathname: "/login"});
+    });
+  }
+
   async function edit() {
 
     setAlertText("");
@@ -147,6 +175,8 @@ export default function UserEdit() {
     let areaId = document.getElementById('areaId');
     let occupationId = document.getElementById('occupationId');
     let acquisitionSourceId = document.getElementById('acquisitionSourceId');
+    let acquisitionSourceOther = document.getElementById('acquisitionSourceOther');
+    let historyId = document.getElementById('historyId');
     let tel = document.getElementById('tel');
 
     if (!familyName.value || !givenName.value) {
@@ -193,12 +223,8 @@ export default function UserEdit() {
       setAlertText("選択してください。");
       return;
     }
-    if (!occupationId.value) {
-      setAlertText("選択してください。");
-      return;
-    }
-    if (!acquisitionSourceId.value) {
-      setAlertText("選択してください。");
+    if (otherId == acquisitionSourceId.value && !acquisitionSourceOther.value) {
+      setAlertText("LEXIOを何で知ったか？を入力してください。");
       return;
     }
     if (!tel.value.match(/^[0-9]*$/)) {
@@ -225,8 +251,15 @@ export default function UserEdit() {
       "sex_id": SexId.value,
       "area_id": areaId.value,
       "occupation_id": occupationId.value,
-      "acquisition_source_id": acquisitionSourceId.value,
-      "tel": tel.value
+      "tel": tel.value,
+      "boardgames": [
+        {
+            "boardgame_id": boardgameId,
+            "acquisition_source_id": (acquisitionSourceId.value) ? acquisitionSourceId.value : 0,
+            "acquisition_source_other": (otherId == acquisitionSourceId.value) ? acquisitionSourceOther.value : '',
+            "history_id": (historyId.value) ? historyId.value : 0
+        }
+      ]
     }).then(res => {
       if ('OK' === res.data.result) {
         router.push({ pathname: "/user/edit_complete"});
@@ -238,6 +271,16 @@ export default function UserEdit() {
       // console.log(err);
       setAlertText("サーバエラーが起きました。しばらく時間をおいてもう一度お試しください。");
     });
+  }
+
+  async function acquisitionSourceChange() {
+    let groupTypeId = document.getElementById('acquisitionSourceId');
+    if (otherId == groupTypeId.value) {
+      setOtherDispFlag(true);
+    }
+    else {
+      setOtherDispFlag(false)
+    }
   }
 
   async function returnPage() {
@@ -303,7 +346,7 @@ export default function UserEdit() {
           <div class ="w-2/3 my-auto">
             <select id="occupationId"
               className="w-2/3 pl-2 h-10 rounded-md border-2 transition-all duration-300">
-                <option value='' selected={(!userOccupationId)? true: false}>選択してください</option>
+                <option value='0' selected={(0 == userOccupationId)? true: false}>選択してください</option>
               {occupations.map(occupation => (
                 <option value={`${occupation.id}`} selected={(occupation.id == userOccupationId)? true: false}>{ occupation.name }</option>
               ))}
@@ -313,11 +356,29 @@ export default function UserEdit() {
         <div className="flex justify-between pt-6 mb-6">
           <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>LEXIOを何で知ったか</div>
           <div class ="w-2/3 my-auto">
-            <select id="acquisitionSourceId"
+            <select id="acquisitionSourceId" onChange={ () => acquisitionSourceChange() }
               className="w-2/3 pl-2 h-10 rounded-md border-2 transition-all duration-300">
-                <option value='' selected={(!userAcquisitionSourceId)? true: false}>選択してください</option>
+                <option value='0' selected={(0 == userAcquisitionSourceId)? true: false}>選択してください</option>
               {acquisitionSources.map(acquisitionSource => (
                 <option value={`${acquisitionSource.id}`} selected={(acquisitionSource.id == userAcquisitionSourceId)? true: false}>{ acquisitionSource.name }</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        {(otherDispFlag) &&
+          <div className="flex justify-between pt-6 mb-6">
+            <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>LEXIOを何で知りましたか？</div>
+            <div className="w-2/3 my-auto"><input type="text" id="acquisitionSourceOther" className="w-2/3 py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${userAcquisitionSourceOther}`} placeholder="" /></div>
+          </div>
+        }
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>プレイ頻度</div>
+          <div class ="w-2/3 my-auto">
+            <select id="historyId"
+              className="w-2/3 pl-2 h-10 rounded-md border-2 transition-all duration-300">
+                <option value='0' selected={(0 == userHistoryId)? true: false}>選択してください</option>
+              {histories.map(history => (
+                <option value={`${history.id}`} selected={(history.id == userHistoryId)? true: false}>{ history.name }</option>
               ))}
             </select>
           </div>
