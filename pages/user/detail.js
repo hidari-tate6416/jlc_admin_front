@@ -11,6 +11,8 @@ import Link from 'next/link';
 export default function UserDetail() {
 
   const boardgameId = 1;
+  const otherId = 7;
+
   const router = useRouter();
   const userId = (router.query.UserId) ? router.query.UserId : '';
 
@@ -27,6 +29,8 @@ export default function UserDetail() {
   const [userArea, setUserArea] = useState("");
   const [userOccupation, setUserOccupation] = useState("");
   const [userAcquisitionSource, setUserAcquisitionSource] = useState("");
+  const [userAcquisitionSourceOther, setUserAcquisitionSourceOther] = useState("");
+  const [userHistory, setUserHistory] = useState("");
   const [userEmail, setEmail] = useState("");
   const [userTel, setUserTel] = useState("");
   const [userGradeId, setUserGradeId] = useState(0);
@@ -45,6 +49,7 @@ export default function UserDetail() {
     }
 
     await API.post('admin/get_detail_user', {
+      "boadgame_id": boardgameId,
       "user_id": userId
     }).then(res => {
       if ('OK' == res.data.result) {
@@ -59,8 +64,10 @@ export default function UserDetail() {
         setBirthday(res.data.user.birthday);
         setUserSex(res.data.user.sex.name);
         setUserArea(res.data.user.area.name);
-        setUserOccupation(res.data.user.occupation.name);
-        setUserAcquisitionSource(res.data.user.acquisition_source.name);
+        (0 != res.data.user.occupation_id) ? setUserOccupation(res.data.user.occupation.name) : setUserOccupation('');
+        (0 != res.data.user.user_boardgame.acquisition_source_id) ? setUserAcquisitionSource(res.data.user.user_boardgame.acquisition_source.name): setUserAcquisitionSource('');
+        setUserAcquisitionSourceOther(res.data.user.user_boardgame.acquisition_source_other);
+        (0 != res.data.user.user_boardgame.history_id) ? setUserHistory(res.data.user.user_boardgame.history.name) : setUserHistory('');
         setEmail(res.data.user.email);
         setUserTel(res.data.user.tel);
         setUserGradeId(res.data.user.user_grade.grade_id);
@@ -176,6 +183,14 @@ export default function UserDetail() {
           </div>
           <div className="text-xl my-2">
             流入経路：{ userAcquisitionSource }
+          </div>
+          {(userAcquisitionSourceOther) &&
+            <div className="text-xl my-2">
+              流入経路その他：{ userAcquisitionSourceOther }
+            </div>
+          }
+          <div className="text-xl my-2">
+            プレイ頻度：{ userHistory }
           </div>
           <div className="text-xl my-2">
             Email：{ userEmail }
