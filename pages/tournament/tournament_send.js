@@ -149,7 +149,7 @@ export default function TournamentSend() {
       return;
     }
     if (!grade.value) {
-      setAlertText("指定外の値が選択されています。");
+      setAlertText("予選・本戦で指定外の値が選択されています。");
       return;
     }
     if (0 == groupTypeId.value) {
@@ -277,14 +277,12 @@ export default function TournamentSend() {
           <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="number" id="fee" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="3000" /><span className="my-auto">円</span></div></div>
         </div>
         <div className="flex justify-between pt-6 mb-6">
-          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>参加最低段数</div>
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>予選・全国大会</div>
           <div className="w-2/3 my-auto">
             <div className="w-2/3 mx-auto flex">
               <select id="grade" className="w-32 h-10 rounded-md border-2 border-black">
-                <option value="0">段なし</option>
-                <option value="1">１段</option>
-                <option value="2">２段</option>
-                <option value="3">３段</option>
+                <option value="0">予選</option>
+                <option value="1">全国大会</option>
               </select>
             </div>
           </div>
