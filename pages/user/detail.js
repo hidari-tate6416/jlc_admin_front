@@ -11,6 +11,8 @@ import Link from 'next/link';
 export default function UserDetail() {
 
   const boardgameId = 1;
+  const otherId = 7;
+
   const router = useRouter();
   const userId = (router.query.UserId) ? router.query.UserId : '';
 
@@ -25,6 +27,10 @@ export default function UserDetail() {
   const [userBirthday, setBirthday] = useState("");
   const [userSex, setUserSex] = useState("");
   const [userArea, setUserArea] = useState("");
+  const [userOccupation, setUserOccupation] = useState("");
+  const [userAcquisitionSource, setUserAcquisitionSource] = useState("");
+  const [userAcquisitionSourceOther, setUserAcquisitionSourceOther] = useState("");
+  const [userHistory, setUserHistory] = useState("");
   const [userEmail, setEmail] = useState("");
   const [userTel, setUserTel] = useState("");
   const [userGradeId, setUserGradeId] = useState(0);
@@ -43,6 +49,7 @@ export default function UserDetail() {
     }
 
     await API.post('admin/get_detail_user', {
+      "boadgame_id": boardgameId,
       "user_id": userId
     }).then(res => {
       if ('OK' == res.data.result) {
@@ -57,6 +64,10 @@ export default function UserDetail() {
         setBirthday(res.data.user.birthday);
         setUserSex(res.data.user.sex.name);
         setUserArea(res.data.user.area.name);
+        (0 != res.data.user.occupation_id) ? setUserOccupation(res.data.user.occupation.name) : setUserOccupation('');
+        (0 != res.data.user.user_boardgame.acquisition_source_id) ? setUserAcquisitionSource(res.data.user.user_boardgame.acquisition_source.name): setUserAcquisitionSource('');
+        setUserAcquisitionSourceOther(res.data.user.user_boardgame.acquisition_source_other);
+        (0 != res.data.user.user_boardgame.history_id) ? setUserHistory(res.data.user.user_boardgame.history.name) : setUserHistory('');
         setEmail(res.data.user.email);
         setUserTel(res.data.user.tel);
         setUserGradeId(res.data.user.user_grade.grade_id);
@@ -140,48 +151,62 @@ export default function UserDetail() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           会員詳細
         </div>
 
-        <div class="mx-8 py-5 border-y text-left">
-        <div class="text-xl my-2">
+        <div className="mx-8 py-5 border-y text-left">
+        <div className="text-xl my-2">
             氏名：{ userFamilyName } {userGivenName}
           </div>
-          <div class="text-xl my-2">
+          <div className="text-xl my-2">
             氏名カナ：{ userFamilyNameKana } {userGivenNameKana}
           </div>
-          <div class="text-xl my-2">
+          <div className="text-xl my-2">
             大会名：{ userName }
           </div>
-          <div class="text-xl my-2">
+          <div className="text-xl my-2">
             大会名カナ：{ userNameKana }
           </div>
-          <div class="text-xl my-2">
+          <div className="text-xl my-2">
             生年月日：{ userBirthday }
           </div>
-          <div class="text-xl my-2">
+          <div className="text-xl my-2">
             性別：{ userSex }
           </div>
-          <div class="text-xl my-2">
+          <div className="text-xl my-2">
             居住地域：{ userArea }
           </div>
-          <div class="text-xl my-2">
+           <div className="text-xl my-2">
+            職業：{ userOccupation }
+          </div>
+          <div className="text-xl my-2">
+            流入経路：{ userAcquisitionSource }
+          </div>
+          {(userAcquisitionSourceOther) &&
+            <div className="text-xl my-2">
+              流入経路その他：{ userAcquisitionSourceOther }
+            </div>
+          }
+          <div className="text-xl my-2">
+            プレイ頻度：{ userHistory }
+          </div>
+          <div className="text-xl my-2">
             Email：{ userEmail }
           </div>
-          <div class="text-xl my-2">
+          <div className="text-xl my-2">
             電話番号：{ userTel }
           </div>
-          <div class="text-xl my-2">
+          <div className="text-xl my-2">
             登録日：{ userCreatedAt }
           </div>
-          {/* <div class="text-xl my-2">
+          {/* <div className="text-xl my-2">
             最終ログイン日時：{ userLastLogin }
           </div> */}
         </div>
-        <div class="my-2 justify-between">
-          <select id="gradeId" class="w-32 h-10 rounded-md border-2 border-black">
+        <div className="my-2 justify-between">
+          <select id="gradeId" className="w-32 h-10 rounded-md border-2 border-black">
             <option value="1" selected={1 == `${userGradeId}`}>段なし</option>
             <option value="2" selected={2 == `${userGradeId}`}>１段</option>
             <option value="3" selected={3 == `${userGradeId}`}>２段</option>
@@ -189,28 +214,28 @@ export default function UserDetail() {
           </select>
         </div>
         <div>
-          {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
+          {(alertText) && <div className="text-s text-red pb-6">{ alertText }</div>}
           { buttonActive ? (
             <div>
-              <ButtonJlc func={ saveUser } class="py-4">段位登録</ButtonJlc>
+              <ButtonJlc func={ saveUser } className="py-4">段位登録</ButtonJlc>
             </div>
           ) : (
             <div>
-              <ButtonJlcInactive class="py-4">段位登録</ButtonJlcInactive>
+              <ButtonJlcInactive className="py-4">段位登録</ButtonJlcInactive>
             </div>
           )}
           <div>
-            <ButtonJlc func={ editUser } class="py-4">会員情報編集</ButtonJlc>
+            <ButtonJlc func={ editUser } className="py-4">会員情報編集</ButtonJlc>
           </div>
           <div>
-            <ButtonJlc func={ moveEntryTournament } class="py-4">参加大会一覧</ButtonJlc>
+            <ButtonJlc func={ moveEntryTournament } className="py-4">参加大会一覧</ButtonJlc>
           </div>
-          <div class="mx-auto mb-6 md:w-1/2 w-2/3">
-            <ButtonDelete func={ deleteUser } class="py-4 bg-red text-black">会員削除</ButtonDelete>
+          <div className="mx-auto mb-6 md:w-1/2 w-2/3">
+            <ButtonDelete func={ deleteUser } className="py-4 bg-red text-black">会員削除</ButtonDelete>
           </div>
         </div>
 
-        <div class="pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜会員一覧に戻る</a></div>
+        <div className="pb-6"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜会員一覧に戻る</a></div>
       </div>
     </Index>
   )

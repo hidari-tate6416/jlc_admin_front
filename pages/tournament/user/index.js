@@ -88,12 +88,12 @@ export default function TournamentUser() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           予選結果確認
         </div>
-        <div class="py-3 mx-8 border-y border-gray-500">
-          <table class="table-auto w-full mx-auto text-center">
+        <div className="py-3 mx-8 border-y border-gray-500">
+          <table className="table-auto w-full mx-auto text-center">
             <thead>
               <tr>
                 <th>ユーザ名</th>
@@ -104,15 +104,15 @@ export default function TournamentUser() {
             <tbody>
               {users.length ? users.map(user => (
                 <tr>
-                  <td class="h-12 text-s md:text-s mr-4">
+                  <td className="h-12 text-s md:text-s mr-4">
                     <p>{ user.user.name }</p>
                   </td>
-                  <td class="">
-                    <p class="">{ user.score }</p>
+                  <td className="">
+                    <p className="">{ user.score }</p>
                   </td>
-                  <td class="w-1/3">
-                    <p class="">
-                      <select id={`${user.user.id}`} class="w-32 h-10 rounded-md border-2 border-black">
+                  <td className="w-1/3">
+                    <p className="">
+                      <select id={`${user.user.id}`} className="w-32 h-10 rounded-md border-2 border-black">
                         <option value="1" selected={1 == `${user.user.user_grade.grade_id}`}>段なし</option>
                         <option value="2" selected={2 == `${user.user.user_grade.grade_id}`}>１段</option>
                         <option value="3" selected={3 == `${user.user.user_grade.grade_id}`}>２段</option>
@@ -122,34 +122,34 @@ export default function TournamentUser() {
                   </td>
                 </tr>
               )) : (
-                <tr class="">
-                  <td class="h-10 text-s md:text-s mr-4">
+                <tr className="">
+                  <td className="h-10 text-s md:text-s mr-4">
                     <p></p>
                   </td>
-                  <td class="">
-                    <p class=""></p>
+                  <td className="">
+                    <p className=""></p>
                   </td>
-                  <td class="">
-                    <p class=""></p>
+                  <td className="">
+                    <p className=""></p>
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
-        <div class="mt-4">
-            {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
+        <div className="mt-4">
+            {(alertText) && <div className="text-s text-red pb-6">{ alertText }</div>}
             { buttonActive ? (
               <div>
-                <ButtonJlc func={ saveUser } class="py-4">登録</ButtonJlc>
+                <ButtonJlc func={ saveUser } className="py-4">登録</ButtonJlc>
               </div>
             ) : (
               <div>
-                <ButtonJlcInactive class="py-4">登録</ButtonJlcInactive>
+                <ButtonJlcInactive className="py-4">登録</ButtonJlcInactive>
               </div>
             )}
           </div>
-        <div class="pb-6"><a onClick={() =>returnPage()} class="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
+        <div className="pb-6"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
       </div>
     </Index>
   )

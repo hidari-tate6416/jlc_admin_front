@@ -67,22 +67,22 @@ export default function Password() {
 
   return (
     <Index title="">
-      <div class="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           パスワード再設定
         </div>
-        <span class="text-xs pt-6">新たなパスワードを入力して<br/>登録ボタンを押下してください。
+        <span className="text-xs pt-6">新たなパスワードを入力して<br/>登録ボタンを押下してください。
         </span>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">パスワード<br/>(半角英と半角数字を含め8桁以上16桁以下)</div>
-          <div class="w-2/3 my-auto"><input type="password" id="password" class="w-2/3 py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s">パスワード<br/>(半角英と半角数字を含め8桁以上16桁以下)</div>
+          <div className="w-2/3 my-auto"><input type="password" id="password" className="w-2/3 py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div>
         </div>
-        <div class="flex justify-between pt-6 mb-6">
-          <div class="w-1/3 my-auto md:mr-4 text-s">パスワード<br/>再確認</div>
-          <div class="w-2/3 my-auto"><input type="password" id="passwordRemind" class="w-2/3 py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s">パスワード<br/>再確認</div>
+          <div className="w-2/3 my-auto"><input type="password" id="passwordRemind" className="w-2/3 py-2 pl-2 rounded-md border-2 border-black" placeholder="" /></div>
         </div>
 
-        {(alertText) && <div class="text-s text-red pb-6">{ alertText }</div>}
+        {(alertText) && <div className="text-s text-red pb-6">{ alertText }</div>}
         { buttonActive ? (
           <div>
             <Button func={ passwordReset }>リセット</Button>

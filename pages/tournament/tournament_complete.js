@@ -12,13 +12,13 @@ export default function TournamentComplete() {
 
   return (
     <Index title="">
-      <div class="my-20 pb-6 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
-        <div class="font-semibold text-2xl py-5">
+      <div className="my-20 pb-6 mx-auto max-w-md w-3/4 rounded-md bg-jlc-sub text-center">
+        <div className="font-semibold text-2xl py-5">
           本戦・予選登録完了
         </div>
-        <span class="text-s pt-6 px-4">
+        <span className="text-s pt-6 px-4">
           本戦・予選登録が完了しました。<br/>
-          管理者メニューは<Link href="/" class="text-s text-blue">こちら</Link>
+          管理者メニューは<Link href="/" className="text-s text-blue">こちら</Link>
         </span>
       </div>
     </Index>
