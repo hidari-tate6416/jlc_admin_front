@@ -108,8 +108,8 @@ export default function User() {
             <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="email" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="tanaka@test.com" /></div></div>
           </div>
           <p className="w-1/3 mx-auto my-4"><SmallButton func={ () => getUsers() }>検索</SmallButton></p>
-          <p className="w-2/3 mx-auto my-4"><ButtonDelete func={ () => downloadUser() }>表示中会員をダウンロード</ButtonDelete></p>
         </div>
+        <p className="w-2/3 mx-auto my-4"><SmallButton func={ () => downloadUser() }>表示中会員をダウンロード</SmallButton></p>
         <div className="py-3 mx-8">
           <table className="table-auto w-full mx-auto text-center">
             <thead>
