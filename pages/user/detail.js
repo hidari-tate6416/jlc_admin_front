@@ -34,6 +34,8 @@ export default function UserDetail() {
   const [userEmail, setEmail] = useState("");
   const [userTel, setUserTel] = useState("");
   const [userGradeId, setUserGradeId] = useState(0);
+  const [userGradeName, setUserGradeName] = useState('');
+  const [userGradeDate, setUserGradeDate] = useState('');
   const [alertText, setAlertText] = useState("");
   const [buttonActive, setButtonActive] = useState(true);
 
@@ -60,7 +62,7 @@ export default function UserDetail() {
         setUserName(res.data.user.name);
         setUserNameKana(res.data.user.name_kana);
         // setUserLastLogin(res.data.user.last_login_at);
-        setCreatedAt(res.data.user.created_at);
+        setCreatedAt(res.data.user.created_at.match(/^\d{4}-\d{2}-\d{2}/));
         setBirthday(res.data.user.birthday);
         setUserSex(res.data.user.sex.name);
         setUserArea(res.data.user.area.name);
@@ -70,7 +72,11 @@ export default function UserDetail() {
         (0 != res.data.user.user_boardgame.history_id) ? setUserHistory(res.data.user.user_boardgame.history.name) : setUserHistory('');
         setEmail(res.data.user.email);
         setUserTel(res.data.user.tel);
+        setUserGradeName(res.data.user.user_grade.grade.name);
         setUserGradeId(res.data.user.user_grade.grade_id);
+        if (1 != userGradeId) {
+          setUserGradeDate(res.data.user.user_grade.created_at.match(/^\d{4}-\d{2}-\d{2}/));
+        }
       }
       else {
         router.push({ pathname: "/login"});
@@ -197,6 +203,12 @@ export default function UserDetail() {
           </div>
           <div className="text-xl my-2">
             電話番号：{ userTel }
+          </div>
+          <div className="text-xl my-2">
+            段位：{ userGradeName }
+          </div>
+          <div className="text-xl my-2">
+            段位取得日：{ userGradeDate }
           </div>
           <div className="text-xl my-2">
             登録日：{ userCreatedAt }
