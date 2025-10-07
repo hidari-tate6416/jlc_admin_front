@@ -109,7 +109,7 @@ export default function TournamentUser() {
                     <p>{ user.user.name }</p>
                   </td>
                   <td className="w-1/3">
-                    <p className="">{ user.user.user_grade.grade.name }<br />{ user.user.user_grade.created_at.match(/^\d{4}-\d{2}-\d{2}/) }</p>
+                    <p className="">{ user.user.user_grade.grade.name }<br />{ (1 != user.user.user_grade.grade.id) ? user.user.user_grade.created_at.match(/^\d{4}-\d{2}-\d{2}/) : '' }</p>
                   </td>
                   <td className="">
                     <p className="">{ user.score }</p>
