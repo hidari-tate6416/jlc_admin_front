@@ -53,6 +53,10 @@ export default function History() {
           <div>ユーザ情報に職業とLEXIOをどこで知ったか、プレイ頻度の項目を追加</div>
           <div>大会登録時の最低必要段位数を予選・本戦に修正</div>
         </div>
+        <div className="mt-5 mb-3 mx-full">
+          <div>version 1.8.0（2025/10/07）</div>
+          <div>会員詳細に段位・段位取得日を表示、予選結果に段位・段位取得日を表示</div>
+        </div>
       </div>
     </Index>
   )
