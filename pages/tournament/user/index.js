@@ -97,6 +97,7 @@ export default function TournamentUser() {
             <thead>
               <tr>
                 <th>ユーザ名</th>
+                <th>段位<br />取得日</th>
                 <th>スコア</th>
                 <th></th>
               </tr>
@@ -104,15 +105,18 @@ export default function TournamentUser() {
             <tbody>
               {users.length ? users.map(user => (
                 <tr>
-                  <td className="h-12 text-s md:text-s mr-4">
+                  <td className="w-1/4 h-12 text-s md:text-s mr-4">
                     <p>{ user.user.name }</p>
+                  </td>
+                  <td className="w-1/3">
+                    <p className="">{ user.user.user_grade.grade.name }<br />{ user.user.user_grade.created_at.match(/^\d{4}-\d{2}-\d{2}/) }</p>
                   </td>
                   <td className="">
                     <p className="">{ user.score }</p>
                   </td>
-                  <td className="w-1/3">
+                  <td className="w-1/6">
                     <p className="">
-                      <select id={`${user.user.id}`} className="w-32 h-10 rounded-md border-2 border-black">
+                      <select id={`${user.user.id}`} className="h-10 rounded-md border-2 border-black">
                         <option value="1" selected={1 == `${user.user.user_grade.grade_id}`}>段なし</option>
                         <option value="2" selected={2 == `${user.user.user_grade.grade_id}`}>１段</option>
                         <option value="3" selected={3 == `${user.user.user_grade.grade_id}`}>２段</option>
@@ -125,6 +129,9 @@ export default function TournamentUser() {
                 <tr className="">
                   <td className="h-10 text-s md:text-s mr-4">
                     <p></p>
+                  </td>
+                  <td className="">
+                    <p className=""></p>
                   </td>
                   <td className="">
                     <p className=""></p>
