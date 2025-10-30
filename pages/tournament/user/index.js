@@ -156,7 +156,8 @@ export default function TournamentUser() {
               </div>
             )}
           </div>
-        <div className="pb-6"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
+        <div className="pb-3"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜予選詳細に戻る</a></div>
+        <div className="pb-6"><a href="/" className="cursor-pointer text-s text-blue">＜管理者メニューに戻る</a></div>
       </div>
     </Index>
   )

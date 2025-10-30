@@ -57,6 +57,11 @@ export default function History() {
           <div>version 1.8.0（2025/10/07）</div>
           <div>会員詳細に段位・段位取得日を表示、予選結果に段位・段位取得日を表示</div>
         </div>
+        <div className="mt-5 mb-3 mx-full">
+          <div>version 1.9.0（2025/10/30）</div>
+          <div>各階層のページにTOPページへのリンクを配置、会員のデータにアワードを追加
+          </div>
+        </div>
       </div>
     </Index>
   )
