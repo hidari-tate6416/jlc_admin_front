@@ -88,7 +88,7 @@ export default function User() {
   }
 
   async function detailUser(userId) {
-    router.push({ pathname: "/user/detail", query: {UserId: userId}}, "/user/detail");
+    router.push({ pathname: "/user/detail", query: {userId: userId}}, "/user/detail");
   }
 
   return (

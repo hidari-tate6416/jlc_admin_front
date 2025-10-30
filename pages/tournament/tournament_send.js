@@ -224,7 +224,7 @@ export default function TournamentSend() {
         <div className="font-semibold text-2xl py-5">
           予選・本戦開催
         </div>
-        <div><span className="text-xs pt-6">以下情報を入力して<br/>申請ボタンを押下してください。</span></div>
+        <div><span className="text-xs pt-6">以下情報を入力して<br/>登録ボタンを押下してください。</span></div>
         <div><span className="text-xs"><span className="text-red">*</span>は入力必須項目</span></div>
         <div className="flex justify-between pt-6 mb-6">
           <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>大会名</div>

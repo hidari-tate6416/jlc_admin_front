@@ -45,7 +45,7 @@ export default function UserEntryTournament() {
   }
 
   async function returnPage() {
-    router.push({ pathname: "/user/detail", query: {UserId: userId}}, "/user/detail");
+    router.push({ pathname: "/user/detail", query: {userId: userId}}, "/user/detail");
   }
 
   return (
@@ -85,7 +85,8 @@ export default function UserEntryTournament() {
             </tbody>
           </table>
         </div>
-        <div className="mt-4 pb-6"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜会員詳細に戻る</a></div>
+        <div className="mt-4 pb-3"><a onClick={() =>returnPage()} className="cursor-pointer text-s text-blue">＜会員詳細に戻る</a></div>
+        <div className="pb-6"><a href="/" className="cursor-pointer text-s text-blue">＜管理者メニューに戻る</a></div>
       </div>
     </Index>
   )
