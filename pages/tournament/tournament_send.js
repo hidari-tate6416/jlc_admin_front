@@ -243,15 +243,7 @@ export default function TournamentSend() {
           <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="number" id="endTime" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="18" /><span className="my-auto">時</span></div></div>
         </div>
         <div className="flex justify-between pt-6 mb-6">
-          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>会場名</div>
-          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="place" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="東京ビックサイト" /></div></div>
-        </div>
-        <div className="flex justify-between pt-6 mb-6">
-          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>会場住所</div>
-          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="adress" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="新宿区1-1-1" /></div></div>
-        </div>
-        <div className="flex justify-between pt-6 mb-6">
-          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>居住地域</div>
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>開催地</div>
           <div class ="w-2/3 my-auto">
             <select id="areaId" className="w-2/3 pl-2 h-10 rounded-md border-2 border-black">
               {areas.map(area => (
@@ -259,6 +251,14 @@ export default function TournamentSend() {
               ))}
             </select>
           </div>
+        </div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>会場住所</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="adress" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="新宿区1-1-1" /></div></div>
+        </div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>会場名</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="place" className="w-full py-2 pl-2 rounded-md border-2 border-black" placeholder="東京ビックサイト" /></div></div>
         </div>
         <div className="flex justify-between pt-6 mb-6">
           <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>定員</div>

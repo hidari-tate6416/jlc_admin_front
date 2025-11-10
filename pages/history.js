@@ -59,8 +59,11 @@ export default function History() {
         </div>
         <div className="mt-5 mb-3 mx-full">
           <div>version 1.9.0（2025/10/30）</div>
-          <div>各階層のページにTOPページへのリンクを配置、会員のデータにアワードを追加
-          </div>
+          <div>各階層のページにTOPページへのリンクを配置、会員のデータにアワードを追加</div>
+        </div>
+        <div className="mt-5 mb-3 mx-full">
+          <div>version 1.10.0（2025/11/10）</div>
+          <div>予選申請の開催県、予選一覧の表記変更</div>
         </div>
       </div>
     </Index>

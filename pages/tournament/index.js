@@ -82,7 +82,7 @@ export default function Tournament() {
                     <p>{ tournament.start_day }<br/>{ tournament.start_time }〜{ tournament.end_time }時</p>
                   </td>
                   <td className="w-1/2 h-20 text-s md:text-s mr-4">
-                    <p>{ tournament.area.name }<br/>{ tournament.place }</p>
+                    <p>{ tournament.area.name }<br/>{ tournament.name }</p>
                   </td>
                   <td className="w-1/4 max-h-2 justify-items-center relative">
                     { tournament.end_flag ? (
