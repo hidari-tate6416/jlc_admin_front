@@ -15,12 +15,14 @@ export default function TournamentEdit() {
   const [alertText, setAlertText] = useState("");
   const [otherDispFlag, setOtherDispFlag] = useState(false);
   const [buttonActive, setButtonActive] = useState(true);
+  const [areas, setAreas] = useState([]);
 
   const [tournamentName, setTournamentName] = useState("");
   const [tournamentDate, setTournamentDate] = useState("");
   const [tournamentHour, setTournamentHour] = useState("");
   const [tournamentEndHour, setTournamentEndHour] = useState("");
   const [tournamentPlace, setTournamentPlace] = useState("");
+  const [tournamentAreaId, setTournamentAreaId] = useState("");
   const [tournamentAdress, setTournamentAdress] = useState("");
   const [tournamentMax, setTournamentMax] = useState("");
   const [tournamentEmail, setTournamentEmail] = useState("");
@@ -35,6 +37,7 @@ export default function TournamentEdit() {
 
   useEffect(() => {
     getTournamentDetail();
+    getAreas();
   }, []);
 
   async function getTournamentDetail() {
@@ -47,6 +50,7 @@ export default function TournamentEdit() {
         setTournamentHour(res.data.tournament.start_time);
         setTournamentEndHour(res.data.tournament.end_time);
         setTournamentPlace(res.data.tournament.place);
+        setTournamentAreaId(res.data.tournament.area_id);
         setTournamentAdress(res.data.tournament.adress);
         setTournamentMax(res.data.tournament.max_member);
         setTournamentEmail(res.data.tournament.email);
@@ -72,6 +76,20 @@ export default function TournamentEdit() {
     });
   }
 
+  async function getAreas() {
+    await API.get('menu/area').then(res => {
+      if ('OK' == res.data.result) {
+        setAreas(res.data.menu);
+      }
+      else {
+        router.push({ pathname: "/"});
+      }
+    }).catch(err => {
+      // console.log(err);
+      router.push({ pathname: "/login"});
+    });
+  }
+
   async function sendInput() {
     setAlertText("");
 
@@ -80,6 +98,7 @@ export default function TournamentEdit() {
     let startTime = document.getElementById('startTime');
     let endTime = document.getElementById('endTime');
     let place = document.getElementById('place');
+    let areaId = document.getElementById('areaId');
     let adress = document.getElementById('adress');
     let maxMember = document.getElementById('maxMember');
     let email = document.getElementById('email');
@@ -134,6 +153,10 @@ export default function TournamentEdit() {
     }
     if (!place.value) {
       setAlertText("会場名を入力してください。");
+      return;
+    }
+    if (!areaId.value) {
+      setAlertText("選択してください。");
       return;
     }
     if (!adress.value) {
@@ -212,6 +235,7 @@ export default function TournamentEdit() {
       "start_time": startTime.value,
       "end_time": endTime.value,
       "place": place.value,
+      "area_id": areaId.value,
       "adress": adress.value,
       "max_member": maxMember.value,
       "email": email.value,
@@ -259,7 +283,7 @@ export default function TournamentEdit() {
         <div><span className="text-xs pt-6">以下情報を編集して<br/>再申請ボタンを押下してください。</span></div>
         <div><span className="text-xs"><span className="text-red">*</span>は入力必須項目</span></div>
         <div className="flex justify-between pt-6 mb-6">
-          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>予選名</div>
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>大会名</div>
           <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="name" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentName}`} placeholder="東京新宿予選1" /></div></div>
         </div>
         <div className="flex justify-between pt-6 mb-6">
@@ -275,12 +299,22 @@ export default function TournamentEdit() {
           <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="number" id="endTime" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentEndHour}`} placeholder="18" /><span className="my-auto">時</span></div></div>
         </div>
         <div className="flex justify-between pt-6 mb-6">
-          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>会場名</div>
-          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="place" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentPlace}`} placeholder="東京ビックサイト" /></div></div>
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>開催地</div>
+          <div class ="w-2/3 my-auto">
+            <select id="areaId" className="w-2/3 pl-2 h-10 rounded-md border-2 border-black">
+              {areas.map(area => (
+                <option value={`${area.id}`} selected={(area.id == tournamentAreaId)? true: false}>{ area.name }</option>
+              ))}
+            </select>
+          </div>
         </div>
         <div className="flex justify-between pt-6 mb-6">
           <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>会場住所</div>
           <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="adress" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentAdress}`} placeholder="新宿区1-1-1" /></div></div>
+        </div>
+        <div className="flex justify-between pt-6 mb-6">
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>会場名</div>
+          <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="place" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentPlace}`} placeholder="東京ビックサイト" /></div></div>
         </div>
         <div className="flex justify-between pt-6 mb-6">
           <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>定員</div>
@@ -291,25 +325,20 @@ export default function TournamentEdit() {
           <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="text" id="email" className="w-full py-2 pl-2 rounded-md border-2 border-black"defaultValue={`${tournamentEmail}`} placeholder="test@gmail.com" /></div></div>
         </div>
         <div className="flex justify-between pt-6 mb-6">
-          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>主催者連絡先電話</div>
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>主催者電話番号</div>
           <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto"><input type="number" id="tel" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentTel}`} placeholder="09012345678" /></div></div>
-        </div>
-        <div>
-          <span className="text-xs pt-6">主催者連絡先Emailと主催者連絡先電話はエントリー承認したユーザにのみ公開されます。</span>
         </div>
         <div className="flex justify-between pt-6 mb-6">
           <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>参加料</div>
           <div className="w-2/3 my-auto"><div className="w-2/3 mx-auto flex"><input type="number" id="fee" className="w-full py-2 pl-2 rounded-md border-2 border-black" defaultValue={`${tournamentFee}`} placeholder="3000" /><span className="my-auto">円</span></div></div>
         </div>
         <div className="flex justify-between pt-6 mb-6">
-          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>参加最低段数</div>
+          <div className="w-1/3 my-auto md:mr-4 text-s"><span className="text-red">*</span>予選・全国大会</div>
           <div className="w-2/3 my-auto">
             <div className="w-2/3 mx-auto flex">
               <select id="grade" className="w-32 h-10 rounded-md border-2 border-black">
-                <option value="0" selected={(0 == tournamentMinGrade)? true: false}>段なし</option>
-                <option value="1" selected={(1 == tournamentMinGrade)? true: false}>１段</option>
-                <option value="2" selected={(2 == tournamentMinGrade)? true: false}>２段</option>
-                <option value="3" selected={(3 == tournamentMinGrade)? true: false}>３段</option>
+                <option value="0" selected={(0 == tournamentMinGrade)? true: false}>予選</option>
+                <option value="1" selected={(1 == tournamentMinGrade)? true: false}>全国大会</option>
               </select>
             </div>
           </div>
