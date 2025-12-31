@@ -188,7 +188,7 @@ export default function TournamentEdit() {
       setAlertText("団体区分を選択してください。");
       return;
     }
-    if (!groupTypeId.value.match(/^[1-5]*$/)) {
+    if (!groupTypeId.value.match(/^[1-6]*$/)) {
       setAlertText("団体区分を選択してください。");
       return;
     }
